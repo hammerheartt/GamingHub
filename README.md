@@ -13,7 +13,6 @@ Computer gaming club reservation system.
 
 | Tool | Version | Download |
 |---|---|---|
-| Git | any | https://git-scm.com |
 | .NET SDK | 8.0 | https://dotnet.microsoft.com/download/dotnet/8.0 |
 | Docker Desktop | latest | https://www.docker.com/products/docker-desktop |
 | Visual Studio 2022 *(optional)* | 17.8+ | https://visualstudio.microsoft.com |
