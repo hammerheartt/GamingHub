@@ -21,6 +21,11 @@ builder.Services.AddScoped<IRoomsRepository, RoomsRepository>();
 
 var app = builder.Build();
 
+using (var scope = app.Services.CreateScope())
+{
+    scope.ServiceProvider.GetRequiredService<GamingHubDbContext>().Database.Migrate();
+}
+
 app.MapControllers();
 
 app.Run();
