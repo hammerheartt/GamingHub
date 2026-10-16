@@ -1,4 +1,6 @@
 using GamingHub.Api.Repositories;
+using GamingHub.Api.Data;
+using Microsoft.EntityFrameworkCore;
 using System.Text.Json.Serialization;
 
 
@@ -11,7 +13,11 @@ builder.Services.AddControllers(o => o.SuppressImplicitRequiredAttributeForNonNu
         o.AllowInputFormatterExceptionMessages = false;
     });
 builder.Services.AddAutoMapper(typeof(Program));
-builder.Services.AddTransient<IRoomsRepository, RoomsRepository>();
+
+var connectionString = builder.Configuration.GetConnectionString("GamingHub");
+builder.Services.AddDbContext<GamingHubDbContext>(o => o.UseMySql(connectionString, new MySqlServerVersion(new Version(8, 0, 0))));
+
+builder.Services.AddScoped<IRoomsRepository, RoomsRepository>();
 
 var app = builder.Build();
 

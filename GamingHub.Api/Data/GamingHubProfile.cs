@@ -4,9 +4,9 @@ using GamingHub.Api.Data.Entities;
 
 namespace GamingHub.Api.Data
 {
-    public class RestProfile : Profile
+    public class GamingHubProfile : Profile
     {
-        public RestProfile()
+        public GamingHubProfile()
         {
             CreateMap<Room, RoomDto>();
             CreateMap<CreateRoomDto, Room>();
