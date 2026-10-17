@@ -28,5 +28,6 @@
         public Room Room { get; set; } = null!;
 
         public List<Reservation> Reservations { get; set; } = new();
+        public List<Game> Games { get; set; }
     }
 }

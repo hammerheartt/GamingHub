@@ -31,7 +31,7 @@ namespace GamingHub.Api.Controllers
             _mapper = mapper;
         }
 
-        // List across all stations.
+        // List across all stations
         [HttpGet("/api/reservations")]
         public async Task<ActionResult<IEnumerable<ReservationDto>>> GetFiltered(
                          [FromQuery] DateOnly? date, [FromQuery] ReservationStatus? status,

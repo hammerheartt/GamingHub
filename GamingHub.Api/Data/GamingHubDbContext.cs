@@ -10,6 +10,7 @@ namespace GamingHub.Api.Data
         public DbSet<Room> Rooms { get; set; }
         public DbSet<Station> Stations { get; set; }
         public DbSet<Reservation> Reservations { get; set; }
+        public DbSet<Game> Games {  get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -30,6 +31,11 @@ namespace GamingHub.Api.Data
                 .WithMany(o => o.Reservations)
                 .HasForeignKey(o => o.StationId)
                 .OnDelete(DeleteBehavior.Cascade);
+
+            modelBuilder.Entity<Station>()
+                .HasMany(o => o.Games)
+                .WithMany(o => o.Stations)
+                .UsingEntity(o => o.ToTable("StationGames"));
         }
     }
 }

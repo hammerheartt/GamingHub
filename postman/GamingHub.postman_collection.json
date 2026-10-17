@@ -2561,6 +2561,1094 @@
           "response": []
         }
       ]
+    },
+    {
+      "name": "Games",
+      "item": [
+        {
+          "name": "Create Room For Games",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Status is 201\", () => pm.response.to.have.status(201));\r\npm.environment.set(\"gamesRoomId\", pm.response.json().id);"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"name\":\"Games hall\",\r\n    \"type\":\"PC\",\r\n    \"hourlyRate\":3\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/rooms",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "rooms"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Create Station For Games",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Status is 201\", () => pm.response.to.have.status(201));\r\npm.environment.set(\"gamesStationId\", pm.response.json().id);"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"name\":\"G-PC-01\",\r\n    \"cpu\":\"Ryzen 5 7600\",\r\n    \"gpu\":\"RTX 4060\",\r\n    \"ramGb\":16\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/rooms/{{gamesRoomId}}/stations",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "rooms",
+                "{{gamesRoomId}}",
+                "stations"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Create Game",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Status is 201\", () => pm.response.to.have.status(201));\r\npm.environment.set(\"gameId\", pm.response.json().id);"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"title\":\"Counter-Strike 2\",\r\n    \"genre\":\"FPS\",\r\n    \"publisher\":\"Valve\",\r\n    \"releaseDate\":\"2023-09-27\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/games",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "games"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Create Second Game",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Status is 201\", () => pm.response.to.have.status(201));\r\npm.environment.set(\"secondGameId\", pm.response.json().id);"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"title\":\"Dota 2\",\r\n    \"genre\":\"MOBA\",\r\n    \"publisher\":\"Valve\",\r\n    \"releaseDate\":\"2013-07-09\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/games",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "games"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Create Game (Duplicate Title)",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Status is 409\", () => pm.response.to.have.status(409));"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"title\":\"Counter-Strike 2\",\r\n    \"genre\":\"FPS\",\r\n    \"publisher\":\"Valve\",\r\n    \"releaseDate\":\"2023-09-27\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/games",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "games"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Create Game (No Title)",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Status is 400\", () => pm.response.to.have.status(400));"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"genre\":\"FPS\",\r\n    \"publisher\":\"Valve\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/games",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "games"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Create Game (Too Short Genre)",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Status is 400\", () => pm.response.to.have.status(400));"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"title\":\"Some Game\",\r\n    \"genre\":\"X\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/games",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "games"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Create Game (Bad Release Date)",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Status is 400\", () => pm.response.to.have.status(400));"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"title\":\"Some Game\",\r\n    \"genre\":\"FPS\",\r\n    \"releaseDate\":\"not-a-date\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/games",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "games"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Get All Games",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Status is 200\", () => pm.response.to.have.status(200));"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/games",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "games"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Get Games By Genre",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Status is 200\", () => pm.response.to.have.status(200));"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/games?genre=FPS",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "games"
+              ],
+              "query": [
+                {
+                  "key": "genre",
+                  "value": "FPS"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Get Games By Search",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Status is 200\", () => pm.response.to.have.status(200));"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/games?search=counter",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "games"
+              ],
+              "query": [
+                {
+                  "key": "search",
+                  "value": "counter"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Get Existing Game",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Status is 200\", () => pm.response.to.have.status(200));"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/games/{{gameId}}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "games",
+                "{{gameId}}"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Get Non-Existing Game",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Status is 404\", () => pm.response.to.have.status(404));"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/games/999",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "games",
+                "999"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Update Existing Game",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Status is 200\", () => pm.response.to.have.status(200));"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "PUT",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"title\":\"Counter-Strike 2\",\r\n    \"genre\":\"FPS\",\r\n    \"publisher\":\"Valve Corporation\",\r\n    \"releaseDate\":\"2023-09-27\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/games/{{gameId}}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "games",
+                "{{gameId}}"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Update Game (Duplicate Title)",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Status is 409\", () => pm.response.to.have.status(409));"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "PUT",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"title\":\"Counter-Strike 2\",\r\n    \"genre\":\"MOBA\",\r\n    \"publisher\":\"Valve\",\r\n    \"releaseDate\":\"2013-07-09\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/games/{{secondGameId}}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "games",
+                "{{secondGameId}}"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Update Non-Existing Game",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Status is 404\", () => pm.response.to.have.status(404));"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "PUT",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"title\":\"Dota 2\",\r\n    \"genre\":\"MOBA\",\r\n    \"publisher\":\"Valve\",\r\n    \"releaseDate\":\"2013-07-09\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/games/999",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "games",
+                "999"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Station Games",
+      "item": [
+        {
+          "name": "Install Game On Station",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Status is 204\", () => pm.response.to.have.status(204));"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "method": "PUT",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/rooms/{{gamesRoomId}}/stations/{{gamesStationId}}/games/{{gameId}}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "rooms",
+                "{{gamesRoomId}}",
+                "stations",
+                "{{gamesStationId}}",
+                "games",
+                "{{gameId}}"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Install Same Game Again",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Status is 204\", () => pm.response.to.have.status(204));"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "PUT",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/rooms/{{gamesRoomId}}/stations/{{gamesStationId}}/games/{{gameId}}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "rooms",
+                "{{gamesRoomId}}",
+                "stations",
+                "{{gamesStationId}}",
+                "games",
+                "{{gameId}}"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Install Second Game On Station",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Status is 204\", () => pm.response.to.have.status(204));"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "PUT",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/rooms/{{gamesRoomId}}/stations/{{gamesStationId}}/games/{{secondGameId}}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "rooms",
+                "{{gamesRoomId}}",
+                "stations",
+                "{{gamesStationId}}",
+                "games",
+                "{{secondGameId}}"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Get All Games From Station",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Status is 200\", () => pm.response.to.have.status(200));"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/rooms/{{gamesRoomId}}/stations/{{gamesStationId}}/games",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "rooms",
+                "{{gamesRoomId}}",
+                "stations",
+                "{{gamesStationId}}",
+                "games"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Install Non-Existing Game",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Status is 404\", () => pm.response.to.have.status(404));"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "PUT",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/rooms/{{gamesRoomId}}/stations/{{gamesStationId}}/games/999",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "rooms",
+                "{{gamesRoomId}}",
+                "stations",
+                "{{gamesStationId}}",
+                "games",
+                "999"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Install Game On Non-Existing Station",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Status is 404\", () => pm.response.to.have.status(404));"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "PUT",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/rooms/{{gamesRoomId}}/stations/999/games/{{gameId}}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "rooms",
+                "{{gamesRoomId}}",
+                "stations",
+                "999",
+                "games",
+                "{{gameId}}"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Get All Games From Non-Existing Station",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Status is 404\", () => pm.response.to.have.status(404));"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/rooms/{{gamesRoomId}}/stations/999/games",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "rooms",
+                "{{gamesRoomId}}",
+                "stations",
+                "999",
+                "games"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Uninstall Game From Station",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Status is 204\", () => pm.response.to.have.status(204));"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/rooms/{{gamesRoomId}}/stations/{{gamesStationId}}/games/{{gameId}}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "rooms",
+                "{{gamesRoomId}}",
+                "stations",
+                "{{gamesStationId}}",
+                "games",
+                "{{gameId}}"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Uninstall Same Game Again",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Status is 404\", () => pm.response.to.have.status(404));"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/rooms/{{gamesRoomId}}/stations/{{gamesStationId}}/games/{{gameId}}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "rooms",
+                "{{gamesRoomId}}",
+                "stations",
+                "{{gamesStationId}}",
+                "games",
+                "{{gameId}}"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Cleanup (Games)",
+      "item": [
+        {
+          "name": "Delete Game Installed On Station",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Status is 204\", () => pm.response.to.have.status(204));"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/games/{{secondGameId}}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "games",
+                "{{secondGameId}}"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Get All Games From Station (Deleted Game Gone)",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Status is 200\", () => pm.response.to.have.status(200));"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/rooms/{{gamesRoomId}}/stations/{{gamesStationId}}/games",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "rooms",
+                "{{gamesRoomId}}",
+                "stations",
+                "{{gamesStationId}}",
+                "games"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Delete Existing Game",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Status is 204\", () => pm.response.to.have.status(204));"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/games/{{gameId}}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "games",
+                "{{gameId}}"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Delete Non-Existing Game",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Status is 404\", () => pm.response.to.have.status(404));"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/games/{{gameId}}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "games",
+                "{{gameId}}"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Delete Station For Games",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Status is 204\", () => pm.response.to.have.status(204));"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/rooms/{{gamesRoomId}}/stations/{{gamesStationId}}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "rooms",
+                "{{gamesRoomId}}",
+                "stations",
+                "{{gamesStationId}}"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Delete Room For Games",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Status is 204\", () => pm.response.to.have.status(204));"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/rooms/{{gamesRoomId}}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "rooms",
+                "{{gamesRoomId}}"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
     }
   ]
 }

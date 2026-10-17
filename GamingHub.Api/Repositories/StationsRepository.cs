@@ -12,6 +12,8 @@ namespace GamingHub.Api.Repositories
         Task<Station> Update(Station station);
         Task Delete(Station station);
         Task<bool> HasActiveReservations(int stationId);
+        Task<Station?> GetWithGames(int roomId, int stationId);
+        Task Save();
     }
 
     public class StationsRepository : IStationsRepository
@@ -48,5 +50,12 @@ namespace GamingHub.Api.Repositories
             return await _db.Reservations.AnyAsync(o => o.StationId == stationId &&
                 (o.Status == ReservationStatus.Upcoming || o.Status == ReservationStatus.Started));
         }
+
+        public async Task<Station?> GetWithGames(int roomId, int stationId)
+        {
+            return await _db.Stations.Include(o => o.Games).FirstOrDefaultAsync(o => o.RoomId == roomId && o.Id == stationId);
+        }
+
+        public async Task Save() { await _db.SaveChangesAsync(); }
     }
 }

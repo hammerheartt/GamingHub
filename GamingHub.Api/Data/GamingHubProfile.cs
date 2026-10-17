@@ -1,7 +1,8 @@
 ﻿using AutoMapper;
 using GamingHub.Api.Data.Dtos.Rooms;
 using GamingHub.Api.Data.Dtos.Stations;
-using GamingHub.Api.Data.Dtos.Reservations; 
+using GamingHub.Api.Data.Dtos.Reservations;
+using GamingHub.Api.Data.Dtos.Games;
 using GamingHub.Api.Data.Entities;
 
 namespace GamingHub.Api.Data
@@ -19,6 +20,10 @@ namespace GamingHub.Api.Data
             CreateMap<UpdateStationDto, Station>().ForMember(d => d.IsActive, o => o.MapFrom(s => s.IsActive ?? true));
 
             CreateMap<Reservation, ReservationDto>();
+
+            CreateMap<Game, GameDto>();
+            CreateMap<CreateGameDto, Game>();
+            CreateMap<UpdateGameDto, Game>();
         }
     }
 }

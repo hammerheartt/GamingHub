@@ -20,6 +20,7 @@ builder.Services.AddDbContext<GamingHubDbContext>(o => o.UseMySql(connectionStri
 builder.Services.AddScoped<IRoomsRepository, RoomsRepository>();
 builder.Services.AddScoped<IStationsRepository, StationsRepository>();
 builder.Services.AddScoped<IReservationsRepository, ReservationsRepository>();
+builder.Services.AddScoped<IGamesRepository, GamesRepository>();
 
 var app = builder.Build();
 

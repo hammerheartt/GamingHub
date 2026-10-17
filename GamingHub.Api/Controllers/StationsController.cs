@@ -26,6 +26,7 @@ namespace GamingHub.Api.Controllers
             _stationsRepository = stationsRepository;
             _mapper = mapper;
         }
+
         [HttpGet]
         public async Task<ActionResult<IEnumerable<StationDto>>> GetAll(int roomId)
         {
