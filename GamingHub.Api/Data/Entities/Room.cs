@@ -13,5 +13,6 @@
         public RoomType Type { get; set; }
         public string? Description { get; set; }
         public decimal HourlyRate { get; set; }
+        public List<Station> Stations { get; set; } = new();
     }
 }

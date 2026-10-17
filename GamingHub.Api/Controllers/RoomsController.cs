@@ -53,6 +53,7 @@ namespace GamingHub.Api.Controllers
         {
             var room = await _roomsRepository.Get(roomId);
             if (room == null) { return NotFound(); }
+            if (room.Type != updateRoomDto.Type && await _roomsRepository.HasStations(roomId)) return Conflict();
 
             _mapper.Map(updateRoomDto, room);
             await _roomsRepository.Update(room);
@@ -66,6 +67,7 @@ namespace GamingHub.Api.Controllers
         {
             var room = await _roomsRepository.Get(roomId);
             if (room == null) { return NotFound(); }
+            if (await _roomsRepository.HasStations(roomId)) return Conflict();
 
             await _roomsRepository.Delete(room);
 

@@ -11,6 +11,7 @@ namespace GamingHub.Api.Repositories
         Task<Room> Create(Room room);
         Task<Room> Update(Room room);
         Task Delete(Room room);
+        Task<bool> HasStations(int roomId);
     }
 
     public class RoomsRepository : IRoomsRepository
@@ -42,5 +43,6 @@ namespace GamingHub.Api.Repositories
             await _db.SaveChangesAsync();
         }
 
+        public async Task<bool> HasStations(int roomId) { return await _db.Stations.AnyAsync(s => s.RoomId == roomId); }
     }
 }
