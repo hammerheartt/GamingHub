@@ -22,6 +22,49 @@ namespace GamingHub.Api.Migrations
 
             MySqlModelBuilderExtensions.AutoIncrementColumns(modelBuilder);
 
+            modelBuilder.Entity("GamingHub.Api.Data.Entities.Reservation", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    MySqlPropertyBuilderExtensions.UseMySqlIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<DateTimeOffset>("CreatedAt")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<string>("CustomerEmail")
+                        .IsRequired()
+                        .HasColumnType("longtext");
+
+                    b.Property<string>("CustomerName")
+                        .IsRequired()
+                        .HasColumnType("longtext");
+
+                    b.Property<DateTimeOffset>("EndTime")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<DateTimeOffset>("StartTime")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<int>("StationId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Status")
+                        .IsRequired()
+                        .HasColumnType("longtext");
+
+                    b.Property<decimal>("TotalPrice")
+                        .HasPrecision(10, 2)
+                        .HasColumnType("decimal(10,2)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("StationId");
+
+                    b.ToTable("Reservations");
+                });
+
             modelBuilder.Entity("GamingHub.Api.Data.Entities.Room", b =>
                 {
                     b.Property<int>("Id")
@@ -93,6 +136,17 @@ namespace GamingHub.Api.Migrations
                     b.ToTable("Stations");
                 });
 
+            modelBuilder.Entity("GamingHub.Api.Data.Entities.Reservation", b =>
+                {
+                    b.HasOne("GamingHub.Api.Data.Entities.Station", "Station")
+                        .WithMany("Reservations")
+                        .HasForeignKey("StationId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Station");
+                });
+
             modelBuilder.Entity("GamingHub.Api.Data.Entities.Station", b =>
                 {
                     b.HasOne("GamingHub.Api.Data.Entities.Room", "Room")
@@ -107,6 +161,11 @@ namespace GamingHub.Api.Migrations
             modelBuilder.Entity("GamingHub.Api.Data.Entities.Room", b =>
                 {
                     b.Navigation("Stations");
+                });
+
+            modelBuilder.Entity("GamingHub.Api.Data.Entities.Station", b =>
+                {
+                    b.Navigation("Reservations");
                 });
 #pragma warning restore 612, 618
         }

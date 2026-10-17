@@ -2,7 +2,6 @@ using GamingHub.Api.Data;
 using GamingHub.Api.Repositories;
 using Microsoft.EntityFrameworkCore;
 using System.Text.Json.Serialization;
-using static GamingHub.Api.Repositories.StationsRepository;
 
 
 var builder = WebApplication.CreateBuilder(args);
@@ -20,6 +19,7 @@ builder.Services.AddDbContext<GamingHubDbContext>(o => o.UseMySql(connectionStri
 
 builder.Services.AddScoped<IRoomsRepository, RoomsRepository>();
 builder.Services.AddScoped<IStationsRepository, StationsRepository>();
+builder.Services.AddScoped<IReservationsRepository, ReservationsRepository>();
 
 var app = builder.Build();
 

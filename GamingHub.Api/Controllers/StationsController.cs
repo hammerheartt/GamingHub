@@ -85,6 +85,9 @@ namespace GamingHub.Api.Controllers
             var station = await _stationsRepository.Get(roomId, stationId);
             if (station == null) return NotFound();
 
+            if (await _stationsRepository.HasActiveReservations(stationId))
+                return Problem(detail: "Station has upcoming or ongoing reservations.", statusCode: 409);
+
             await _stationsRepository.Delete(station);
             return NoContent();
         }

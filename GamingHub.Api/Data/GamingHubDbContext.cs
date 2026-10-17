@@ -9,6 +9,7 @@ namespace GamingHub.Api.Data
 
         public DbSet<Room> Rooms { get; set; }
         public DbSet<Station> Stations { get; set; }
+        public DbSet<Reservation> Reservations { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -21,6 +22,14 @@ namespace GamingHub.Api.Data
                 .WithMany(o => o.Stations)
                 .HasForeignKey(o => o.RoomId)
                 .OnDelete(DeleteBehavior.Restrict);
+
+            modelBuilder.Entity<Reservation>().Property(o => o.Status).HasConversion<string>();
+            modelBuilder.Entity<Reservation>().Property(o => o.TotalPrice).HasPrecision(10, 2);
+            modelBuilder.Entity<Reservation>()
+                .HasOne(o => o.Station)
+                .WithMany(o => o.Reservations)
+                .HasForeignKey(o => o.StationId)
+                .OnDelete(DeleteBehavior.Cascade);
         }
     }
 }
