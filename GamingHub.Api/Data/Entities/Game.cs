@@ -1,6 +1,4 @@
-﻿using GamingHub.Api.Controllers;
-
-namespace GamingHub.Api.Data.Entities
+﻿namespace GamingHub.Api.Data.Entities
 {
     public class Game
     {
@@ -10,6 +8,6 @@ namespace GamingHub.Api.Data.Entities
         public string? Publisher { get; set; }
         public DateOnly? ReleaseDate {  get; set; }
 
-        public List<Station> Stations { get; set; }
+        public List<Station> Stations { get; set; } = new();
     }
 }

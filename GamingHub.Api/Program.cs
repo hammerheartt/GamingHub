@@ -15,7 +15,7 @@ builder.Services.AddControllers(o => o.SuppressImplicitRequiredAttributeForNonNu
 builder.Services.AddAutoMapper(typeof(Program));
 
 var connectionString = builder.Configuration.GetConnectionString("GamingHub");
-builder.Services.AddDbContext<GamingHubDbContext>(o => o.UseMySql(connectionString, new MySqlServerVersion(new Version(8, 0, 0))));
+builder.Services.AddDbContext<GamingHubDbContext>(o => o.UseMySql(connectionString, new MySqlServerVersion(new Version(8, 4, 0))));
 
 builder.Services.AddScoped<IRoomsRepository, RoomsRepository>();
 builder.Services.AddScoped<IStationsRepository, StationsRepository>();
