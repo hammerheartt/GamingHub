@@ -2,6 +2,7 @@
 using GamingHub.Api.Data.Dtos.Stations;
 using GamingHub.Api.Data.Entities;
 using GamingHub.Api.Repositories;
+using GamingHub.Api.Data.Paging;
 using Microsoft.AspNetCore.Mvc;
 
 namespace GamingHub.Api.Controllers
@@ -19,21 +20,25 @@ namespace GamingHub.Api.Controllers
         private readonly IRoomsRepository _roomsRepository;
         private readonly IStationsRepository _stationsRepository;
         private readonly IMapper _mapper;
+        private readonly LinkGenerator _linkGenerator;
 
-        public StationsController(IRoomsRepository roomsRepository, IStationsRepository stationsRepository, IMapper mapper)
+        public StationsController(IRoomsRepository roomsRepository, IStationsRepository stationsRepository, IMapper mapper, LinkGenerator linkGenerator)
         {
             _roomsRepository = roomsRepository;
             _stationsRepository = stationsRepository;
             _mapper = mapper;
+            _linkGenerator = linkGenerator;
         }
 
-        [HttpGet]
-        public async Task<ActionResult<IEnumerable<StationDto>>> GetAll(int roomId)
+        [HttpGet(Name = "GetStations")]
+        public async Task<ActionResult<IEnumerable<StationDto>>> GetAll(int roomId, [FromQuery] SearchParameters searchParameters)
         {
             var room = await _roomsRepository.Get(roomId);
             if (room == null) { return NotFound(); }
 
-            var stations = await _stationsRepository.GetAll(roomId);
+            var stations = await _stationsRepository.GetAll(roomId, searchParameters);
+            Response.AddPaginationHeader(stations.CreatePaginationMetadata(_linkGenerator, HttpContext, "GetStations", new { roomId }));
+
             return Ok(stations.Select(o => _mapper.Map<StationDto>(o)));
         }
 

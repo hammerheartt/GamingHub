@@ -1,14 +1,15 @@
 ﻿using GamingHub.Api.Data;
 using GamingHub.Api.Data.Entities;
+using GamingHub.Api.Data.Paging;
 using Microsoft.EntityFrameworkCore;
 
 namespace GamingHub.Api.Repositories
 {
     public interface IGamesRepository
     {
-        Task<IEnumerable<Game>> GetAll();
-        Task<IEnumerable<Game>> GetFiltered(string? genre, string? search);
-        Task<IEnumerable<Game>> GetByStation(int stationId);
+        Task<PagedList<Game>> GetAll(SearchParameters searchParameters);
+        Task<PagedList<Game>> GetFiltered(string? genre, string? search, SearchParameters searchParameters);
+        Task<PagedList<Game>> GetByStation(int stationId, SearchParameters searchParameters);
         Task<Game?> Get(int gameId);
         Task<bool> TitleExists(string title, int? excludeGameId = null);
         Task<Game> Create(Game game);
@@ -20,25 +21,30 @@ namespace GamingHub.Api.Repositories
     {
         private readonly GamingHubDbContext _db;
         public GamesRepository(GamingHubDbContext db) { _db = db; }
-        public async Task<IEnumerable<Game>> GetAll()
+
+        public async Task<PagedList<Game>> GetAll(SearchParameters searchParameters)
         {
-            return await _db.Games.OrderBy(o => o.Title).ToListAsync();
+            var query = _db.Games.OrderBy(o => o.Title);
+            return await PagedList<Game>.CreateAsync(query, searchParameters.PageNumber!.Value, searchParameters.PageSize!.Value);
         }
 
-        public async Task<IEnumerable<Game>> GetFiltered(string? genre, string? search)
+        public async Task<PagedList<Game>> GetFiltered(string? genre, string? search, SearchParameters searchParameters)
         {
             var query = _db.Games.AsQueryable();
             if (!string.IsNullOrWhiteSpace(genre)) query = query.Where(g => g.Genre == genre);
             if (!string.IsNullOrWhiteSpace(search)) query = query.Where(g => g.Title.Contains(search));
-            return await query.OrderBy(g => g.Title).ToListAsync();
+
+            query = query.OrderBy(o => o.Title);
+            return await PagedList<Game>.CreateAsync(query, searchParameters.PageNumber!.Value, searchParameters.PageSize!.Value);
         }
 
-        public async Task<IEnumerable<Game>> GetByStation(int stationId)
+        public async Task<PagedList<Game>> GetByStation(int stationId, SearchParameters searchParameters)
         {
-            return await _db.Games
-                .Where(o => o.Stations.Any(o => o.Id == stationId))
-                .OrderBy(o => o.Title)
-                .ToListAsync();
+            var query = _db.Games
+                            .Where(o => o.Stations.Any(s => s.Id == stationId))
+                            .OrderBy(o => o.Title);
+
+            return await PagedList<Game>.CreateAsync(query, searchParameters.PageNumber!.Value, searchParameters.PageSize!.Value);
         }
         public async Task<Game?> Get(int gameId) 
         { 

@@ -2,6 +2,7 @@
 using GamingHub.Api.Data.Dtos.Rooms;
 using GamingHub.Api.Data.Entities;
 using GamingHub.Api.Repositories;
+using GamingHub.Api.Data.Paging;
 using Microsoft.AspNetCore.Mvc;
 
 namespace GamingHub.Api.Controllers
@@ -18,16 +19,22 @@ namespace GamingHub.Api.Controllers
     {
         private readonly IRoomsRepository _roomsRepository;
         private readonly IMapper _mapper;
-        public RoomsController(IRoomsRepository roomsRepository, IMapper mapper) 
+        private readonly LinkGenerator _linkGenerator;
+
+        public RoomsController(IRoomsRepository roomsRepository, IMapper mapper, LinkGenerator linkGenerator) 
         { 
             _roomsRepository = roomsRepository;
             _mapper = mapper;
+            _linkGenerator = linkGenerator;
         }
 
-        [HttpGet]
-        public async Task<IEnumerable<RoomDto>> GetAll()
+        [HttpGet(Name = "GetRooms")]
+        public async Task<ActionResult<IEnumerable<RoomDto>>> GetAll([FromQuery] SearchParameters searchParameters)
         {
-            return (await _roomsRepository.GetAll()).Select(o => _mapper.Map<RoomDto>(o));
+            var rooms = await _roomsRepository.GetAll(searchParameters);
+            Response.AddPaginationHeader(rooms.CreatePaginationMetadata(_linkGenerator, HttpContext, "GetRooms"));
+
+            return Ok(rooms.Select(o => _mapper.Map<RoomDto>(o)));
         }
 
         [HttpGet("{roomId}")]
@@ -53,7 +60,8 @@ namespace GamingHub.Api.Controllers
         {
             var room = await _roomsRepository.Get(roomId);
             if (room == null) { return NotFound(); }
-            if (room.Type != updateRoomDto.Type && await _roomsRepository.HasStations(roomId)) return Conflict();
+            if (room.Type != updateRoomDto.Type && await _roomsRepository.HasStations(roomId))
+                return Problem(detail: "Room type cannot be changed while the room has stations.", statusCode: 409);
 
             _mapper.Map(updateRoomDto, room);
             await _roomsRepository.Update(room);
@@ -67,7 +75,8 @@ namespace GamingHub.Api.Controllers
         {
             var room = await _roomsRepository.Get(roomId);
             if (room == null) { return NotFound(); }
-            if (await _roomsRepository.HasStations(roomId)) return Conflict();
+            if (await _roomsRepository.HasStations(roomId))
+                return Problem(detail: "Room cannot be deleted while it has stations.", statusCode: 409);
 
             await _roomsRepository.Delete(room);
 

@@ -1,13 +1,15 @@
 ﻿using GamingHub.Api.Data;
 using GamingHub.Api.Data.Entities;
+using GamingHub.Api.Data.Paging;
 using Microsoft.EntityFrameworkCore;
 
 namespace GamingHub.Api.Repositories
 {
     public interface IReservationsRepository
     {
-        Task<IEnumerable<Reservation>> GetAll(int stationId);
-        Task<IEnumerable<Reservation>> GetFiltered(DateOnly? date, ReservationStatus? status, int? roomId, string? customerEmail);
+        Task<PagedList<Reservation>> GetAll(int stationId, SearchParameters searchParameters);
+        Task<PagedList<Reservation>> GetFiltered(DateOnly? date, ReservationStatus? status, int? roomId, 
+                                                 string? customerEmail, SearchParameters searchParameters);
         Task<Reservation?> Get(int stationId, int reservationId);
         Task<bool> HasOverlap(int stationId, DateTimeOffset start, DateTimeOffset end, int? excludeReservationId = null);
         Task<Reservation> Create(Reservation reservation);
@@ -20,15 +22,17 @@ namespace GamingHub.Api.Repositories
         private readonly GamingHubDbContext _db;
         public ReservationsRepository(GamingHubDbContext db) => _db = db;
 
-        public async Task<IEnumerable<Reservation>> GetAll(int stationId)
+        public async Task<PagedList<Reservation>> GetAll(int stationId, SearchParameters searchParameters)
         {
-            return await _db.Reservations
-                    .Where(o => o.StationId == stationId)
-                    .OrderBy(o => o.StartTime)
-                    .ToListAsync();
+            var query = _db.Reservations
+                            .Where(o => o.StationId == stationId)
+                            .OrderBy(o => o.StartTime);
+
+            return await PagedList<Reservation>.CreateAsync(query, searchParameters.PageNumber!.Value, searchParameters.PageSize!.Value);
         }
 
-        public async Task<IEnumerable<Reservation>> GetFiltered(DateOnly? date, ReservationStatus? status, int? roomId, string? customerEmail)
+        public async Task<PagedList<Reservation>> GetFiltered(DateOnly? date, ReservationStatus? status, int? roomId, 
+                                                              string? customerEmail, SearchParameters searchParameters)
         {
             var query = _db.Reservations.AsQueryable();
 
@@ -36,15 +40,15 @@ namespace GamingHub.Api.Repositories
             {
                 var vilnius = TimeZoneInfo.FindSystemTimeZoneById("Europe/Vilnius");
                 var localMidnight = date.Value.ToDateTime(TimeOnly.MinValue);
-                var from = new DateTimeOffset(localMidnight, vilnius.GetUtcOffset(localMidnight));
+                var from = new DateTimeOffset(localMidnight, vilnius.GetUtcOffset(localMidnight)).ToUniversalTime();
                 var to = from.AddDays(1);
                 query = query.Where(o => o.StartTime < to && o.EndTime > from);
             }
             if (status != null) { query = query.Where(o => o.Status == status); }
             if (roomId != null) { query = query.Where(o => o.Station.RoomId == roomId); }
             if (!string.IsNullOrEmpty(customerEmail)) { query = query.Where(o => o.CustomerEmail == customerEmail); }
-
-            return await query.OrderBy(o => o.StartTime).ToListAsync();
+            query = query.OrderBy(o => o.StartTime);
+            return await PagedList<Reservation>.CreateAsync(query, searchParameters.PageNumber!.Value, searchParameters.PageSize!.Value);
         }
 
         public async Task<Reservation?> Get(int stationId, int reservationId)

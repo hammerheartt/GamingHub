@@ -1,7 +1,7 @@
 {
   "info": {
     "_postman_id": "409ca1cf-57ca-4630-9a13-55feea295534",
-    "name": "GamingHub Rest",
+    "name": "GamingHub",
     "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
     "_exporter_id": "58123272",
     "_collection_link": "https://go.postman.co/collection/58123272-409ca1cf-57ca-4630-9a13-55feea295534?source=collection_link"
@@ -3643,6 +3643,1190 @@
                 "api",
                 "rooms",
                 "{{gamesRoomId}}"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Pagination",
+      "item": [
+        {
+          "name": "Create Room For Paging",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Status is 201\", () => pm.response.to.have.status(201));\r\npm.environment.set(\"pagingRoomId\", pm.response.json().id);"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"name\":\"Paging hall\",\r\n    \"type\":\"PC\",\r\n    \"hourlyRate\":3\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/rooms",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "rooms"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Create Paging Station 1",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Status is 201\", () => pm.response.to.have.status(201));\r\npm.environment.set(\"pagingStation1Id\", pm.response.json().id);"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"name\":\"P-PC-01\",\r\n    \"cpu\":\"Ryzen 5 7600\",\r\n    \"gpu\":\"RTX 4060\",\r\n    \"ramGb\":16\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/rooms/{{pagingRoomId}}/stations",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "rooms",
+                "{{pagingRoomId}}",
+                "stations"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Create Paging Station 2",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Status is 201\", () => pm.response.to.have.status(201));\r\npm.environment.set(\"pagingStation2Id\", pm.response.json().id);"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"name\":\"P-PC-02\",\r\n    \"cpu\":\"Ryzen 5 7600\",\r\n    \"gpu\":\"RTX 4060\",\r\n    \"ramGb\":16\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/rooms/{{pagingRoomId}}/stations",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "rooms",
+                "{{pagingRoomId}}",
+                "stations"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Create Paging Station 3",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Status is 201\", () => pm.response.to.have.status(201));\r\npm.environment.set(\"pagingStation3Id\", pm.response.json().id);"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"name\":\"P-PC-03\",\r\n    \"cpu\":\"Ryzen 5 7600\",\r\n    \"gpu\":\"RTX 4060\",\r\n    \"ramGb\":16\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/rooms/{{pagingRoomId}}/stations",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "rooms",
+                "{{pagingRoomId}}",
+                "stations"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Create Paging Game A",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Status is 201\", () => pm.response.to.have.status(201));\r\npm.environment.set(\"pagingGameAId\", pm.response.json().id);"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"title\":\"Paging Game A\",\r\n    \"genre\":\"Paging\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/games",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "games"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Create Paging Game B",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Status is 201\", () => pm.response.to.have.status(201));\r\npm.environment.set(\"pagingGameBId\", pm.response.json().id);"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"title\":\"Paging Game B\",\r\n    \"genre\":\"Paging\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/games",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "games"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Create Paging Game C",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Status is 201\", () => pm.response.to.have.status(201));\r\npm.environment.set(\"pagingGameCId\", pm.response.json().id);"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"title\":\"Paging Game C\",\r\n    \"genre\":\"Paging\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/games",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "games"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Create Paging Reservation 1",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Status is 201\", () => pm.response.to.have.status(201));\r\npm.environment.set(\"pagingRes1Id\", pm.response.json().id);"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"customerName\":\"Paging Tester\",\r\n    \"customerEmail\":\"paging@example.com\",\r\n    \"startTime\":\"{{resDate}}T09:00:00+02:00\",\r\n    \"endTime\":\"{{resDate}}T10:00:00+02:00\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/rooms/{{pagingRoomId}}/stations/{{pagingStation1Id}}/reservations",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "rooms",
+                "{{pagingRoomId}}",
+                "stations",
+                "{{pagingStation1Id}}",
+                "reservations"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Create Paging Reservation 2",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Status is 201\", () => pm.response.to.have.status(201));\r\npm.environment.set(\"pagingRes2Id\", pm.response.json().id);"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"customerName\":\"Paging Tester\",\r\n    \"customerEmail\":\"paging@example.com\",\r\n    \"startTime\":\"{{resDate}}T10:00:00+02:00\",\r\n    \"endTime\":\"{{resDate}}T11:00:00+02:00\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/rooms/{{pagingRoomId}}/stations/{{pagingStation1Id}}/reservations",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "rooms",
+                "{{pagingRoomId}}",
+                "stations",
+                "{{pagingStation1Id}}",
+                "reservations"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Create Paging Reservation 3",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Status is 201\", () => pm.response.to.have.status(201));\r\npm.environment.set(\"pagingRes3Id\", pm.response.json().id);"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"customerName\":\"Paging Tester\",\r\n    \"customerEmail\":\"paging@example.com\",\r\n    \"startTime\":\"{{resDate}}T11:00:00+02:00\",\r\n    \"endTime\":\"{{resDate}}T12:00:00+02:00\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/rooms/{{pagingRoomId}}/stations/{{pagingStation1Id}}/reservations",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "rooms",
+                "{{pagingRoomId}}",
+                "stations",
+                "{{pagingStation1Id}}",
+                "reservations"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Get Stations Page 1",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Status is 200\", () => pm.response.to.have.status(200));\r\nconst meta = JSON.parse(pm.response.headers.get(\"Pagination\") || \"{}\");\r\npm.test(\"Returns 2 items\", () => pm.expect(pm.response.json().length === 2).to.be.true);\r\npm.test(\"totalCount is 3\", () => pm.expect(meta.totalCount === 3).to.be.true);\r\npm.test(\"totalPages is 2\", () => pm.expect(meta.totalPages === 2).to.be.true);\r\npm.test(\"currentPage is 1\", () => pm.expect(meta.currentPage === 1).to.be.true);\r\npm.test(\"previousPageLink is null\", () => pm.expect(meta.previousPageLink === null).to.be.true);\r\npm.test(\"nextPageLink contains pageNumber=2\", () => pm.expect((meta.nextPageLink || \"\").includes(\"pageNumber=2\")).to.be.true);\r\npm.test(\"nextPageLink keeps room id in path\", () => pm.expect((meta.nextPageLink || \"\").includes(\"/api/rooms/\" + pm.environment.get(\"pagingRoomId\") + \"/stations\")).to.be.true);"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/rooms/{{pagingRoomId}}/stations?pageNumber=1&pageSize=2",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "rooms",
+                "{{pagingRoomId}}",
+                "stations"
+              ],
+              "query": [
+                {
+                  "key": "pageNumber",
+                  "value": "1"
+                },
+                {
+                  "key": "pageSize",
+                  "value": "2"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Get Stations Page 2",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Status is 200\", () => pm.response.to.have.status(200));\r\nconst meta = JSON.parse(pm.response.headers.get(\"Pagination\") || \"{}\");\r\npm.test(\"Returns 1 items\", () => pm.expect(pm.response.json().length === 1).to.be.true);\r\npm.test(\"currentPage is 2\", () => pm.expect(meta.currentPage === 2).to.be.true);\r\npm.test(\"previousPageLink contains pageNumber=1\", () => pm.expect((meta.previousPageLink || \"\").includes(\"pageNumber=1\")).to.be.true);\r\npm.test(\"nextPageLink is null\", () => pm.expect(meta.nextPageLink === null).to.be.true);"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/rooms/{{pagingRoomId}}/stations?pageNumber=2&pageSize=2",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "rooms",
+                "{{pagingRoomId}}",
+                "stations"
+              ],
+              "query": [
+                {
+                  "key": "pageNumber",
+                  "value": "2"
+                },
+                {
+                  "key": "pageSize",
+                  "value": "2"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Get Stations Page Beyond Last",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Status is 200\", () => pm.response.to.have.status(200));\r\nconst meta = JSON.parse(pm.response.headers.get(\"Pagination\") || \"{}\");\r\npm.test(\"Returns 0 items\", () => pm.expect(pm.response.json().length === 0).to.be.true);\r\npm.test(\"totalCount is 3\", () => pm.expect(meta.totalCount === 3).to.be.true);"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/rooms/{{pagingRoomId}}/stations?pageNumber=5&pageSize=2",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "rooms",
+                "{{pagingRoomId}}",
+                "stations"
+              ],
+              "query": [
+                {
+                  "key": "pageNumber",
+                  "value": "5"
+                },
+                {
+                  "key": "pageSize",
+                  "value": "2"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Get Stations (Default Paging)",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Status is 200\", () => pm.response.to.have.status(200));\r\nconst meta = JSON.parse(pm.response.headers.get(\"Pagination\") || \"{}\");\r\npm.test(\"Returns 3 items\", () => pm.expect(pm.response.json().length === 3).to.be.true);\r\npm.test(\"currentPage is 1\", () => pm.expect(meta.currentPage === 1).to.be.true);\r\npm.test(\"pageSize is 10\", () => pm.expect(meta.pageSize === 10).to.be.true);"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/rooms/{{pagingRoomId}}/stations",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "rooms",
+                "{{pagingRoomId}}",
+                "stations"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Get Stations (Invalid Page Number)",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Status is 200\", () => pm.response.to.have.status(200));\r\nconst meta = JSON.parse(pm.response.headers.get(\"Pagination\") || \"{}\");\r\npm.test(\"currentPage is 1\", () => pm.expect(meta.currentPage === 1).to.be.true);"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/rooms/{{pagingRoomId}}/stations?pageNumber=0&pageSize=2",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "rooms",
+                "{{pagingRoomId}}",
+                "stations"
+              ],
+              "query": [
+                {
+                  "key": "pageNumber",
+                  "value": "0"
+                },
+                {
+                  "key": "pageSize",
+                  "value": "2"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Get Stations (Too Big Page Size)",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Status is 200\", () => pm.response.to.have.status(200));\r\nconst meta = JSON.parse(pm.response.headers.get(\"Pagination\") || \"{}\");\r\npm.test(\"pageSize is 50\", () => pm.expect(meta.pageSize === 50).to.be.true);"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/rooms/{{pagingRoomId}}/stations?pageSize=500",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "rooms",
+                "{{pagingRoomId}}",
+                "stations"
+              ],
+              "query": [
+                {
+                  "key": "pageSize",
+                  "value": "500"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Get Games By Genre Page 1",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Status is 200\", () => pm.response.to.have.status(200));\r\nconst meta = JSON.parse(pm.response.headers.get(\"Pagination\") || \"{}\");\r\npm.test(\"Returns 2 items\", () => pm.expect(pm.response.json().length === 2).to.be.true);\r\npm.test(\"totalCount is 3\", () => pm.expect(meta.totalCount === 3).to.be.true);\r\npm.test(\"totalPages is 2\", () => pm.expect(meta.totalPages === 2).to.be.true);\r\npm.test(\"nextPageLink contains genre=Paging\", () => pm.expect((meta.nextPageLink || \"\").includes(\"genre=Paging\")).to.be.true);\r\npm.environment.set(\"pagingNextLink\", meta.nextPageLink);"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/games?genre=Paging&pageNumber=1&pageSize=2",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "games"
+              ],
+              "query": [
+                {
+                  "key": "genre",
+                  "value": "Paging"
+                },
+                {
+                  "key": "pageNumber",
+                  "value": "1"
+                },
+                {
+                  "key": "pageSize",
+                  "value": "2"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Follow Next Page Link",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Status is 200\", () => pm.response.to.have.status(200));\r\nconst meta = JSON.parse(pm.response.headers.get(\"Pagination\") || \"{}\");\r\npm.test(\"Returns 1 items\", () => pm.expect(pm.response.json().length === 1).to.be.true);\r\npm.test(\"currentPage is 2\", () => pm.expect(meta.currentPage === 2).to.be.true);\r\npm.test(\"previousPageLink contains genre=Paging\", () => pm.expect((meta.previousPageLink || \"\").includes(\"genre=Paging\")).to.be.true);"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{pagingNextLink}}",
+              "host": [
+                "{{pagingNextLink}}"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Get Reservations By Email Page 1",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Status is 200\", () => pm.response.to.have.status(200));\r\nconst meta = JSON.parse(pm.response.headers.get(\"Pagination\") || \"{}\");\r\npm.test(\"Returns 2 items\", () => pm.expect(pm.response.json().length === 2).to.be.true);\r\npm.test(\"totalCount is 3\", () => pm.expect(meta.totalCount === 3).to.be.true);\r\npm.test(\"nextPageLink contains customerEmail=\", () => pm.expect((meta.nextPageLink || \"\").includes(\"customerEmail=\")).to.be.true);"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/reservations?customerEmail=paging@example.com&pageNumber=1&pageSize=2",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "reservations"
+              ],
+              "query": [
+                {
+                  "key": "customerEmail",
+                  "value": "paging@example.com"
+                },
+                {
+                  "key": "pageNumber",
+                  "value": "1"
+                },
+                {
+                  "key": "pageSize",
+                  "value": "2"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Get Station Reservations Page 2",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Status is 200\", () => pm.response.to.have.status(200));\r\nconst meta = JSON.parse(pm.response.headers.get(\"Pagination\") || \"{}\");\r\npm.test(\"Returns 1 items\", () => pm.expect(pm.response.json().length === 1).to.be.true);\r\npm.test(\"currentPage is 2\", () => pm.expect(meta.currentPage === 2).to.be.true);\r\npm.test(\"previousPageLink contains /reservations\", () => pm.expect((meta.previousPageLink || \"\").includes(\"/reservations\")).to.be.true);"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/rooms/{{pagingRoomId}}/stations/{{pagingStation1Id}}/reservations?pageNumber=2&pageSize=2",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "rooms",
+                "{{pagingRoomId}}",
+                "stations",
+                "{{pagingStation1Id}}",
+                "reservations"
+              ],
+              "query": [
+                {
+                  "key": "pageNumber",
+                  "value": "2"
+                },
+                {
+                  "key": "pageSize",
+                  "value": "2"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Get Station Games (Empty)",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Status is 200\", () => pm.response.to.have.status(200));\r\nconst meta = JSON.parse(pm.response.headers.get(\"Pagination\") || \"{}\");\r\npm.test(\"Returns 0 items\", () => pm.expect(pm.response.json().length === 0).to.be.true);\r\npm.test(\"totalCount is 0\", () => pm.expect(meta.totalCount === 0).to.be.true);\r\npm.test(\"nextPageLink is null\", () => pm.expect(meta.nextPageLink === null).to.be.true);"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/rooms/{{pagingRoomId}}/stations/{{pagingStation1Id}}/games",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "rooms",
+                "{{pagingRoomId}}",
+                "stations",
+                "{{pagingStation1Id}}",
+                "games"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Get Rooms Page 1",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Status is 200\", () => pm.response.to.have.status(200));\r\nconst meta = JSON.parse(pm.response.headers.get(\"Pagination\") || \"{}\");\r\npm.test(\"Returns 1 items\", () => pm.expect(pm.response.json().length === 1).to.be.true);\r\npm.test(\"pageSize is 1\", () => pm.expect(meta.pageSize === 1).to.be.true);\r\npm.test(\"Pagination header exists\", () => pm.expect(pm.response.headers.has(\"Pagination\")).to.be.true);"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/rooms?pageNumber=1&pageSize=1",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "rooms"
+              ],
+              "query": [
+                {
+                  "key": "pageNumber",
+                  "value": "1"
+                },
+                {
+                  "key": "pageSize",
+                  "value": "1"
+                }
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Cleanup (Pagination)",
+      "item": [
+        {
+          "name": "Delete Paging Reservation 1",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Status is 204\", () => pm.response.to.have.status(204));"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/rooms/{{pagingRoomId}}/stations/{{pagingStation1Id}}/reservations/{{pagingRes1Id}}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "rooms",
+                "{{pagingRoomId}}",
+                "stations",
+                "{{pagingStation1Id}}",
+                "reservations",
+                "{{pagingRes1Id}}"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Delete Paging Reservation 2",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Status is 204\", () => pm.response.to.have.status(204));"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/rooms/{{pagingRoomId}}/stations/{{pagingStation1Id}}/reservations/{{pagingRes2Id}}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "rooms",
+                "{{pagingRoomId}}",
+                "stations",
+                "{{pagingStation1Id}}",
+                "reservations",
+                "{{pagingRes2Id}}"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Delete Paging Reservation 3",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Status is 204\", () => pm.response.to.have.status(204));"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/rooms/{{pagingRoomId}}/stations/{{pagingStation1Id}}/reservations/{{pagingRes3Id}}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "rooms",
+                "{{pagingRoomId}}",
+                "stations",
+                "{{pagingStation1Id}}",
+                "reservations",
+                "{{pagingRes3Id}}"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Delete Paging Game A",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Status is 204\", () => pm.response.to.have.status(204));"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/games/{{pagingGameAId}}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "games",
+                "{{pagingGameAId}}"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Delete Paging Game B",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Status is 204\", () => pm.response.to.have.status(204));"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/games/{{pagingGameBId}}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "games",
+                "{{pagingGameBId}}"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Delete Paging Game C",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Status is 204\", () => pm.response.to.have.status(204));"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/games/{{pagingGameCId}}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "games",
+                "{{pagingGameCId}}"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Delete Paging Station 1",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Status is 204\", () => pm.response.to.have.status(204));"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/rooms/{{pagingRoomId}}/stations/{{pagingStation1Id}}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "rooms",
+                "{{pagingRoomId}}",
+                "stations",
+                "{{pagingStation1Id}}"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Delete Paging Station 2",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Status is 204\", () => pm.response.to.have.status(204));"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/rooms/{{pagingRoomId}}/stations/{{pagingStation2Id}}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "rooms",
+                "{{pagingRoomId}}",
+                "stations",
+                "{{pagingStation2Id}}"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Delete Paging Station 3",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Status is 204\", () => pm.response.to.have.status(204));"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/rooms/{{pagingRoomId}}/stations/{{pagingStation3Id}}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "rooms",
+                "{{pagingRoomId}}",
+                "stations",
+                "{{pagingStation3Id}}"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Delete Room For Paging",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Status is 204\", () => pm.response.to.have.status(204));"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/rooms/{{pagingRoomId}}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "rooms",
+                "{{pagingRoomId}}"
               ]
             }
           },

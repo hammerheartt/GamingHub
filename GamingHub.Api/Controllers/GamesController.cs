@@ -2,6 +2,7 @@
 using GamingHub.Api.Data.Dtos.Games;
 using GamingHub.Api.Data.Entities;
 using GamingHub.Api.Repositories;
+using GamingHub.Api.Data.Paging;
 using Microsoft.AspNetCore.Mvc;
 
 namespace GamingHub.Api.Controllers
@@ -22,30 +23,40 @@ namespace GamingHub.Api.Controllers
         private readonly IGamesRepository _gamesRepository;
         private readonly IStationsRepository _stationsRepository;
         private readonly IMapper _mapper;
-        public GamesController(IGamesRepository gamesRepository, IStationsRepository stationsRepository, IMapper mapper)
+        private readonly LinkGenerator _linkGenerator;
+        public GamesController(IGamesRepository gamesRepository, IStationsRepository stationsRepository, 
+                               IMapper mapper, LinkGenerator linkGenerator)
         {
             _gamesRepository = gamesRepository;
             _stationsRepository = stationsRepository;
             _mapper = mapper;
+            _linkGenerator = linkGenerator;
         }
 
-        [HttpGet]
-        public async Task<ActionResult<IEnumerable<GameDto>>> GetAll(string? genre, string? search)
+        [HttpGet(Name = "GetGames")]
+        public async Task<ActionResult<IEnumerable<GameDto>>> GetAll(string? genre, string? search, 
+                                                                    [FromQuery] SearchParameters searchParameters)
         {
             var noFilters = string.IsNullOrWhiteSpace(genre) && string.IsNullOrWhiteSpace(search);
-
-            var games = noFilters ? await _gamesRepository.GetAll() : await _gamesRepository.GetFiltered(genre, search);
+            var games = noFilters
+                ? await _gamesRepository.GetAll(searchParameters)
+                : await _gamesRepository.GetFiltered(genre, search, searchParameters);
+            Response.AddPaginationHeader(games.CreatePaginationMetadata(_linkGenerator, HttpContext, "GetGames", new { genre, search }));
 
             return Ok(games.Select(o => _mapper.Map<GameDto>(o)));
         }
 
-        [HttpGet("/api/rooms/{roomId}/stations/{stationId}/games")]
-        public async Task<ActionResult<IEnumerable<GameDto>>> GetByStation(int roomId, int stationId)
+        [HttpGet("/api/rooms/{roomId}/stations/{stationId}/games", Name = "GetStationGames")]
+        public async Task<ActionResult<IEnumerable<GameDto>>> GetByStation(int roomId, int stationId, 
+                                                                           [FromQuery] SearchParameters searchParameters)
         {
             var station = await _stationsRepository.Get(roomId, stationId);
             if (station == null) { return NotFound(); }
 
-            var games = await _gamesRepository.GetByStation(stationId);
+            var games = await _gamesRepository.GetByStation(stationId, searchParameters);
+            Response.AddPaginationHeader(games.CreatePaginationMetadata(
+                                                            _linkGenerator, HttpContext, "GetStationGames", new { roomId, stationId }));
+
             return Ok(games.Select(o => _mapper.Map<GameDto>(o)));
         }
 

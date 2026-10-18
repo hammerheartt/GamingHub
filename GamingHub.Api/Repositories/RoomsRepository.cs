@@ -1,12 +1,13 @@
 ﻿using GamingHub.Api.Data;
 using GamingHub.Api.Data.Entities;
+using GamingHub.Api.Data.Paging;
 using Microsoft.EntityFrameworkCore;
 
 namespace GamingHub.Api.Repositories
 {
     public interface IRoomsRepository
     {
-        Task<IEnumerable<Room>> GetAll();
+        Task<PagedList<Room>> GetAll(SearchParameters searchParameters);
         Task<Room?> Get(int roomId);
         Task<Room> Create(Room room);
         Task<Room> Update(Room room);
@@ -19,7 +20,11 @@ namespace GamingHub.Api.Repositories
         private readonly GamingHubDbContext _db;
         public RoomsRepository(GamingHubDbContext db) { _db = db; }
 
-        public async Task<IEnumerable<Room>> GetAll() { return await _db.Rooms.ToListAsync(); }
+        public async Task<PagedList<Room>> GetAll(SearchParameters searchParameters) 
+        { 
+            var query = _db.Rooms.OrderBy(o => o.Id);
+            return await PagedList<Room>.CreateAsync(query, searchParameters.PageNumber!.Value, searchParameters.PageSize!.Value);
+        }
 
         public async Task<Room?> Get(int roomId) { return await _db.Rooms.FirstOrDefaultAsync(o => o.Id == roomId); }
 

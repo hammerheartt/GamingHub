@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using GamingHub.Api.Data.Dtos.Reservations;
 using GamingHub.Api.Data.Entities;
+using GamingHub.Api.Data.Paging;
 using GamingHub.Api.Repositories;
 using Microsoft.AspNetCore.Mvc;
 
@@ -22,33 +23,45 @@ namespace GamingHub.Api.Controllers
         private readonly IStationsRepository _stationsRepository;
         private readonly IReservationsRepository _reservationsRepository;
         private readonly IMapper _mapper;
+        private readonly LinkGenerator _linkGenerator;
 
-        public ReservationsController(IRoomsRepository roomsRepository, IStationsRepository stationsRepository, IReservationsRepository reservationsRepository, IMapper mapper)
+        public ReservationsController(IRoomsRepository roomsRepository, IStationsRepository stationsRepository, 
+                                      IReservationsRepository reservationsRepository, IMapper mapper, LinkGenerator linkGenerator)
         {
             _roomsRepository = roomsRepository;
             _stationsRepository = stationsRepository;
             _reservationsRepository = reservationsRepository;
             _mapper = mapper;
+            _linkGenerator = linkGenerator;
         }
 
         // List across all stations
-        [HttpGet("/api/reservations")]
+        [HttpGet("/api/reservations", Name = "GetAllReservations")]
         public async Task<ActionResult<IEnumerable<ReservationDto>>> GetFiltered(
                          [FromQuery] DateOnly? date, [FromQuery] ReservationStatus? status,
-                         [FromQuery] int? roomId, [FromQuery] string? customerEmail)
+                         [FromQuery] int? roomId, [FromQuery] string? customerEmail, 
+                         [FromQuery] SearchParameters searchParameters)
         {
-            var reservations = await _reservationsRepository.GetFiltered(date, status, roomId, customerEmail);
-            return Ok(reservations.Select(r => _mapper.Map<ReservationDto>(r)));
+            var reservations = await _reservationsRepository.GetFiltered(date, status, roomId, customerEmail, searchParameters);
+            Response.AddPaginationHeader(reservations.CreatePaginationMetadata(_linkGenerator, HttpContext, "GetAllReservations",
+                new { date = date?.ToString("yyyy-MM-dd"), status, roomId, customerEmail }));
+
+            return Ok(reservations.Select(o => _mapper.Map<ReservationDto>(o)));
         }
 
-        [HttpGet]
-        public async Task<ActionResult<IEnumerable<ReservationDto>>> GetAll(int roomId, int stationId)
+        [HttpGet(Name = "GetReservations")]
+        public async Task<ActionResult<IEnumerable<ReservationDto>>> GetAll(int roomId, int stationId, 
+                                                                            [FromQuery] SearchParameters searchParameters)
         {
             var station = await _stationsRepository.Get(roomId, stationId);
             if (station == null) { return NotFound(); }
 
-            var reservations = await _reservationsRepository.GetAll(stationId);
-            return Ok(reservations.Select(r => _mapper.Map<ReservationDto>(r)));
+            var reservations = await _reservationsRepository.GetAll(stationId, searchParameters);
+
+            Response.AddPaginationHeader(
+                    reservations.CreatePaginationMetadata(_linkGenerator, HttpContext, "GetReservations", new { roomId, stationId }));
+
+            return Ok(reservations.Select(o => _mapper.Map<ReservationDto>(o)));
         }
 
         [HttpGet("{reservationId}")]
