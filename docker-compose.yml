@@ -9,6 +9,25 @@ services:
       - "3306:3306"
     volumes:
       - mysql-data:/var/lib/mysql
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "127.0.0.1", "-uroot", "-proot"]
+      interval: 5s
+      timeout: 5s
+      retries: 20
+
+  api:
+    build:
+      context: .
+      dockerfile: GamingHub.Api/Dockerfile
+    container_name: gaminghub-api
+    environment:
+      ASPNETCORE_ENVIRONMENT: Development
+      ConnectionStrings__GamingHub: "Server=mysql;Port=3306;Database=gaminghub;User=root;Password=root;"
+    ports:
+      - "5177:8080"
+    depends_on:
+      mysql:
+        condition: service_healthy
 
 volumes:
   mysql-data:
