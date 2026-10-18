@@ -112,54 +112,60 @@ Rules:
 |---|---|---|
 | .NET SDK | 8.0 | https://dotnet.microsoft.com/download/dotnet/8.0 |
 | Docker Desktop | latest | https://www.docker.com/products/docker-desktop |
+| .NET SDK *(only for running without Docker)* | 8.0 | https://dotnet.microsoft.com/download/dotnet/8.0 |
 | Visual Studio 2022 *(optional)* | 17.8+ | https://visualstudio.microsoft.com |
 | Postman *(for testing)* | any | https://www.postman.com/downloads |
 
-## Setup
+### Setup
 
-### 1. Clone the repository
+#### 1. Clone the repository
 ```
 git clone https://github.com/hammerheartt/GamingHub.git
 cd GamingHub
 ```
 
-### 2. Start the database
-Make sure Docker Desktop is running, then:
+#### 2a. Quick start — everything in Docker
 ```
-docker compose up -d
+docker compose up --build
 ```
-This starts MySQL on `localhost:3306` with database `gaminghub` (user `root`, password `root`).
-Check it is running: `docker ps` → `gaminghub-mysql` should be **Up**.
+Starts MySQL and the API in containers. Database tables are created automatically.
+API runs at `http://localhost:5177` → open `http://localhost:5177/api/rooms` → `[]`.
 
-### 3. Run the API
+#### 2b. Development — database in Docker, API from Visual Studio
+Start only the database:
 ```
-cd GamingHub.Api
-dotnet run
+docker compose up -d mysql
 ```
-or open `GamingHub.sln` in Visual Studio and press **F5**.
+Then open `GamingHub.sln` in Visual Studio and press **F5** (or run `dotnet run` in `GamingHub.Api/`).
+API runs at `http://localhost:5177`.
 
-On startup the API automatically creates all database tables (EF Core migrations).
-The console shows the address, e.g. `Now listening on: http://localhost:5123`.
-Test it: open `http://localhost:5123/api/rooms` in a browser → `[]`.
+> Use either 2a or 2b — both use port 5177, so they can't run at the same time.
 
-### 4. Test with Postman
-Import `postman/GamingHub.postman_collection.json` and set the `baseUrl` variable to the address from step 3.
+#### 3. Test with Postman
+Import `postman/GamingHub.postman_collection.json` and `postman/GamingHub.postman_environment.json`,
+select the **GamingHub Local** environment, set `baseUrl` to `http://localhost:5177` and run the collection.
 
-## Configuration
+### Configuration
 
-The local connection string is in `GamingHub.Api/appsettings.Development.json` and matches `docker-compose.yml`.
-In production it is provided via the environment variable `ConnectionStrings__GamingHub`.
+The local connection string is in `GamingHub.Api/appsettings.Development.json` (`Server=localhost`).
+When running in Docker it is overridden by the environment variable `ConnectionStrings__GamingHub` in `docker-compose.yml` (`Server=mysql`).
+In production it is provided the same way, via `ConnectionStrings__GamingHub`.
 
-## Useful commands
+### Useful commands
 
 | Action | Command |
 |---|---|
-| Start database | `docker compose up -d` |
-| Stop database | `docker compose down` |
-| Reset database (delete all data) | `docker compose down -v`, then `docker compose up -d` and restart the API |
+| Start everything (MySQL + API) | `docker compose up --build` |
+| Start only the database | `docker compose up -d mysql` |
+| Stop everything | `docker compose down` |
+| Reset database (delete all data) | `docker compose down -v` |
+| Show API logs (Docker) | `docker logs gaminghub-api` |
 
-## Troubleshooting
+### Troubleshooting
 
-- **`Unable to connect to any of the specified MySQL hosts`**: the database isn't running. Start Docker Desktop and run `docker compose up -d`. Right after starting, MySQL needs ~10–20 seconds before it accepts connections.
-- **Port 3306 already in use**: a local MySQL is already running. Stop it (Windows Services → MySQL80 → Stop), or change the port in `docker-compose.yml` to `"3307:3306"` and in the connection string to `Port=3307`.
+- **`Unable to connect to any of the specified MySQL hosts`**: the database isn't running. Start Docker Desktop and run `docker compose up -d mysql`.
+- **Port 5177 already in use**: the API is already running — either in Docker (`docker compose down`) or in Visual Studio.
+- **Port 3306 already in use**: a local MySQL is running. Stop it (Windows Services → MySQL80 → Stop), or change the port in `docker-compose.yml` to `"3307:3306"` and in the connection string to `Port=3307`.
+- **`docker` not recognized**: restart the terminal or Visual Studio after installing Docker.
+
 - **`docker` not recognized**: restart the terminal or Visual Studio after installing Docker.
