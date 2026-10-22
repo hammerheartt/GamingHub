@@ -1,8 +1,10 @@
 ﻿using AutoMapper;
+using GamingHub.Api.Data.Dtos.Games;
+using GamingHub.Api.Data.Dtos.Rooms;
 using GamingHub.Api.Data.Dtos.Stations;
 using GamingHub.Api.Data.Entities;
-using GamingHub.Api.Repositories;
 using GamingHub.Api.Data.Paging;
+using GamingHub.Api.Repositories;
 using Microsoft.AspNetCore.Mvc;
 
 namespace GamingHub.Api.Controllers
@@ -12,6 +14,7 @@ namespace GamingHub.Api.Controllers
     ///api/rooms/{roomId}/ stations POST 201
     ///api/rooms/{roomId}/ stations /{stationId} PUT 200
     ///api/rooms/{roomId}/ stations /{stationId} DELETE 204
+    ///api/rooms/{roomId}/stations/{stationId}/details GET 200
 
     [Route("api/rooms/{roomId}/stations")]
     [ApiController]
@@ -49,6 +52,24 @@ namespace GamingHub.Api.Controllers
             if (station == null) { return NotFound(); }
 
             return Ok(_mapper.Map<StationDto>(station));
+        }
+
+        [HttpGet("{stationId}/details")]
+        public async Task<ActionResult<StationDetailsDto>> GetDetails(int roomId, int stationId)
+        {
+            var station = await _stationsRepository.GetDetails(roomId, stationId);
+            if (station == null) { return NotFound(); }
+
+            var details = new StationDetailsDto(
+                station.Id, station.Name,
+                station.Cpu, station.Gpu, station.RamGb,
+                station.Platform, station.Seats,
+                station.Screen, station.IsActive,
+                _mapper.Map<RoomDto>(station.Room),
+                station.Games.Select(o => _mapper.Map<GameDto>(o)),
+                station.Reservations.Select(o => new ReservationSlotDto(o.StartTime, o.EndTime)));
+
+            return Ok(details);
         }
 
         [HttpPost]

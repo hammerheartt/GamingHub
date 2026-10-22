@@ -3457,12 +3457,198 @@
             }
           },
           "response": []
+        },
+        {
+          "name": "Add Reservation for Station Details",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Status 201\", () => pm.response.to.have.status(201));\r",
+                  "pm.environment.set(\"detailsReservationId\", pm.response.json().id);"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"customerName\": \"Jonas Jonaitis\",\r\n    \"customerEmail\": \"jonas@example.com\",\r\n    \"startTime\": \"2026-11-20T14:00:00Z\",\r\n    \"endTime\": \"2026-11-20T16:00:00Z\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/rooms/{{gamesRoomId}}/stations/{{gamesStationId}}/reservations",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "rooms",
+                "{{gamesRoomId}}",
+                "stations",
+                "{{gamesStationId}}",
+                "reservations"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Get Station Details",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "  pm.test(\"Status 200\", () => pm.response.to.have.status(200));"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/rooms/{{gamesRoomId}}/stations/{{gamesStationId}}/details",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "rooms",
+                "{{gamesRoomId}}",
+                "stations",
+                "{{gamesStationId}}",
+                "details"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Get Station Details Wrong Room Id",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "  pm.test(\"Status 404\", () => pm.response.to.have.status(404));"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/rooms/999/stations/{{gamesStationId}}/details",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "rooms",
+                "999",
+                "stations",
+                "{{gamesStationId}}",
+                "details"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Get Non-Existing Station Details",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "  pm.test(\"Status 404\", () => pm.response.to.have.status(404));"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/rooms/{{gamesRoomId}}/stations/999/details",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "rooms",
+                "{{gamesRoomId}}",
+                "stations",
+                "999",
+                "details"
+              ]
+            }
+          },
+          "response": []
         }
       ]
     },
     {
       "name": "Cleanup (Games)",
       "item": [
+        {
+          "name": "Delete Reservation For Station Details",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "  pm.test(\"Status 204\", () => pm.response.to.have.status(204));"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/rooms/{{gamesRoomId}}/stations/{{gamesStationId}}/reservations/{{detailsReservationId}}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "rooms",
+                "{{gamesRoomId}}",
+                "stations",
+                "{{gamesStationId}}",
+                "reservations",
+                "{{detailsReservationId}}"
+              ]
+            }
+          },
+          "response": []
+        },
         {
           "name": "Delete Game Installed On Station",
           "event": [
@@ -4827,6 +5013,278 @@
                 "api",
                 "rooms",
                 "{{pagingRoomId}}"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "test",
+      "item": [
+        {
+          "name": "New Request",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"name\":\"Arena\",\r\n    \"type\":\"PC\",\r\n    \"description\": \"Not Bad\",\r\n    \"hourlyRate\": 4.5\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/rooms",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "rooms"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "New Request2",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"name\":\"Arena2\",\r\n    \"type\":\"Console\",\r\n    \"description\": \"Not Bad\",\r\n    \"hourlyRate\": 4\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/rooms",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "rooms"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "New Request3",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/rooms",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "rooms"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "New Request4",
+          "request": {
+            "method": "PUT",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"name\": \"A-02\",\r\n    \"cpu\": \"Ryzen 5 7600\",\r\n    \"gpu\": \"RTX 4060\",\r\n    \"ramGb\": 16,\r\n    \"screen\": \"24\\\" 165 Hz\",\r\n    \"isActive\": true\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/rooms/7/stations/9",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "rooms",
+                "7",
+                "stations",
+                "9"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "New Request5",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/rooms/7/stations/",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "rooms",
+                "7",
+                "stations",
+                ""
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "New Request6",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"customerName\": \"Jonas Jonaitis\",\r\n    \"customerEmail\": \"jonas@example.com\",\r\n    \"startTime\": \"2026-11-20T14:00:00Z\",\r\n    \"endTime\": \"2026-11-20T16:00:00Z\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/rooms/7/stations/9/reservations",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "rooms",
+                "7",
+                "stations",
+                "9",
+                "reservations"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "New Request7",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"title\": \"Counter-Strike 7\",\r\n    \"genre\": \"Rofls\",\r\n    \"publisher\": \"Valve\",\r\n    \"releaseDate\": \"2023-09-27\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/games",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "games"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "New Request8",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/games?genre=FPS&pageNumber=2&pageSize=2",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "games"
+              ],
+              "query": [
+                {
+                  "key": "genre",
+                  "value": "FPS"
+                },
+                {
+                  "key": "pageNumber",
+                  "value": "2"
+                },
+                {
+                  "key": "pageSize",
+                  "value": "2"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "New Request9",
+          "request": {
+            "method": "PUT",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/rooms/7/stations/9/games/7",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "rooms",
+                "7",
+                "stations",
+                "9",
+                "games",
+                "7"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "New Request10",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/rooms/7/stations/9/games",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "rooms",
+                "7",
+                "stations",
+                "9",
+                "games"
               ]
             }
           },

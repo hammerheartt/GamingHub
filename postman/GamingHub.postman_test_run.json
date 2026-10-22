@@ -1,0 +1,4451 @@
+{
+	"id": "1f648a14-0ada-4ed6-9f4c-7720931cb6c5",
+	"name": "GamingHub",
+	"timestamp": "2026-10-22T08:58:25.796Z",
+	"collection_id": "58123272-409ca1cf-57ca-4630-9a13-55feea295534",
+	"folder_id": 0,
+	"environment_id": "58123272-8a886ee4-2a3b-4319-be11-9207f9ea2ee1",
+	"totalPass": 172,
+	"delay": 0,
+	"persist": true,
+	"status": "finished",
+	"startedAt": "2026-10-22T08:58:13.661Z",
+	"totalFail": 0,
+	"results": [
+		{
+			"id": "fd91047f-5de2-4346-8c48-c616b7d5b297",
+			"name": "Create PC Room",
+			"url": "http://localhost:5177/api/rooms",
+			"time": 530,
+			"responseCode": {
+				"code": 201,
+				"name": "Created"
+			},
+			"tests": {
+				"Status is 201": true
+			},
+			"testPassFailCounts": {
+				"Status is 201": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				530
+			],
+			"allTests": [
+				{
+					"Status is 201": true
+				}
+			]
+		},
+		{
+			"id": "f02e3a4d-1c3a-4073-8ea4-fc926ae88990",
+			"name": "Create Console Room",
+			"url": "http://localhost:5177/api/rooms",
+			"time": 173,
+			"responseCode": {
+				"code": 201,
+				"name": "Created"
+			},
+			"tests": {
+				"Status is 201": true
+			},
+			"testPassFailCounts": {
+				"Status is 201": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				173
+			],
+			"allTests": [
+				{
+					"Status is 201": true
+				}
+			]
+		},
+		{
+			"id": "b0557a74-45e8-49b9-b5ae-c4a02d488d38",
+			"name": "Get All Rooms",
+			"url": "http://localhost:5177/api/rooms",
+			"time": 280,
+			"responseCode": {
+				"code": 200,
+				"name": "OK"
+			},
+			"tests": {
+				"Status is 200": true
+			},
+			"testPassFailCounts": {
+				"Status is 200": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				280
+			],
+			"allTests": [
+				{
+					"Status is 200": true
+				}
+			]
+		},
+		{
+			"id": "5d06b033-d89d-4fff-a5bc-5d638c97b213",
+			"name": "Get Existing Room",
+			"url": "http://localhost:5177/api/rooms/1",
+			"time": 32,
+			"responseCode": {
+				"code": 200,
+				"name": "OK"
+			},
+			"tests": {
+				"Status is 200": true
+			},
+			"testPassFailCounts": {
+				"Status is 200": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				32
+			],
+			"allTests": [
+				{
+					"Status is 200": true
+				}
+			]
+		},
+		{
+			"id": "e55615a5-fd4f-4c56-9ee4-d1119cab3ea5",
+			"name": "Get Non-Existing Room",
+			"url": "http://localhost:5177/api/rooms/999",
+			"time": 23,
+			"responseCode": {
+				"code": 404,
+				"name": "Not Found"
+			},
+			"tests": {
+				"Status is 404": true
+			},
+			"testPassFailCounts": {
+				"Status is 404": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				23
+			],
+			"allTests": [
+				{
+					"Status is 404": true
+				}
+			]
+		},
+		{
+			"id": "292ccb97-42d7-4176-a256-33179881c387",
+			"name": "Update Existing Room",
+			"url": "http://localhost:5177/api/rooms/1",
+			"time": 34,
+			"responseCode": {
+				"code": 200,
+				"name": "OK"
+			},
+			"tests": {
+				"Status is 200": true
+			},
+			"testPassFailCounts": {
+				"Status is 200": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				34
+			],
+			"allTests": [
+				{
+					"Status is 200": true
+				}
+			]
+		},
+		{
+			"id": "a842f061-471b-47a1-a687-801eb63a1c8f",
+			"name": "Update Non-Existing Room",
+			"url": "http://localhost:5177/api/rooms/999",
+			"time": 7,
+			"responseCode": {
+				"code": 404,
+				"name": "Not Found"
+			},
+			"tests": {
+				"Status is 404": true
+			},
+			"testPassFailCounts": {
+				"Status is 404": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				7
+			],
+			"allTests": [
+				{
+					"Status is 404": true
+				}
+			]
+		},
+		{
+			"id": "a5a4b6c2-19a0-4e88-ade9-0e8260d0dc82",
+			"name": "Create PC Room (No Name)",
+			"url": "http://localhost:5177/api/rooms",
+			"time": 9,
+			"responseCode": {
+				"code": 400,
+				"name": "Bad Request"
+			},
+			"tests": {
+				"Status is 400": true
+			},
+			"testPassFailCounts": {
+				"Status is 400": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				9
+			],
+			"allTests": [
+				{
+					"Status is 400": true
+				}
+			]
+		},
+		{
+			"id": "aa773f13-ae02-4714-9585-136f86c1ce01",
+			"name": "Create PC Room (Invalid Type)",
+			"url": "http://localhost:5177/api/rooms",
+			"time": 7,
+			"responseCode": {
+				"code": 400,
+				"name": "Bad Request"
+			},
+			"tests": {
+				"Status is 400": true
+			},
+			"testPassFailCounts": {
+				"Status is 400": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				7
+			],
+			"allTests": [
+				{
+					"Status is 400": true
+				}
+			]
+		},
+		{
+			"id": "3b76cf85-295f-41a5-a0d0-5c4b383f346d",
+			"name": "Create PC Room (Bad Hourly Rate)",
+			"url": "http://localhost:5177/api/rooms",
+			"time": 4,
+			"responseCode": {
+				"code": 400,
+				"name": "Bad Request"
+			},
+			"tests": {
+				"Status is 400": true
+			},
+			"testPassFailCounts": {
+				"Status is 400": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				4
+			],
+			"allTests": [
+				{
+					"Status is 400": true
+				}
+			]
+		},
+		{
+			"id": "bdbb8fc6-2276-444b-9f0e-133e08e7a8c1",
+			"name": "Create PC Room (Bad JSON)",
+			"url": "http://localhost:5177/api/rooms",
+			"time": 5,
+			"responseCode": {
+				"code": 400,
+				"name": "Bad Request"
+			},
+			"tests": {
+				"Status is 400": true
+			},
+			"testPassFailCounts": {
+				"Status is 400": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				5
+			],
+			"allTests": [
+				{
+					"Status is 400": true
+				}
+			]
+		},
+		{
+			"id": "a04a1ed2-1585-40c3-8e14-08189d558425",
+			"name": "Create PC",
+			"url": "http://localhost:5177/api/rooms/1/stations",
+			"time": 113,
+			"responseCode": {
+				"code": 201,
+				"name": "Created"
+			},
+			"tests": {
+				"Status is 201": true
+			},
+			"testPassFailCounts": {
+				"Status is 201": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				113
+			],
+			"allTests": [
+				{
+					"Status is 201": true
+				}
+			]
+		},
+		{
+			"id": "91b9353f-9e47-4262-804b-2d3145552cfc",
+			"name": "Create Console",
+			"url": "http://localhost:5177/api/rooms/2/stations",
+			"time": 24,
+			"responseCode": {
+				"code": 201,
+				"name": "Created"
+			},
+			"tests": {
+				"Status is 201": true
+			},
+			"testPassFailCounts": {
+				"Status is 201": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				24
+			],
+			"allTests": [
+				{
+					"Status is 201": true
+				}
+			]
+		},
+		{
+			"id": "9e02c617-49cf-4aa0-9d07-e406225d70ce",
+			"name": "Get All PC From PC Room",
+			"url": "http://localhost:5177/api/rooms/1/stations",
+			"time": 46,
+			"responseCode": {
+				"code": 200,
+				"name": "OK"
+			},
+			"tests": {
+				"Status is 200": true
+			},
+			"testPassFailCounts": {
+				"Status is 200": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				46
+			],
+			"allTests": [
+				{
+					"Status is 200": true
+				}
+			]
+		},
+		{
+			"id": "e9f30538-73e3-4878-afef-0a6583a9505b",
+			"name": "Get PC From PC Room",
+			"url": "http://localhost:5177/api/rooms/1/stations/1",
+			"time": 22,
+			"responseCode": {
+				"code": 200,
+				"name": "OK"
+			},
+			"tests": {
+				"Status is 200": true
+			},
+			"testPassFailCounts": {
+				"Status is 200": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				22
+			],
+			"allTests": [
+				{
+					"Status is 200": true
+				}
+			]
+		},
+		{
+			"id": "79e22dd7-0b9d-4826-b572-b139e5032c9d",
+			"name": "Get PC From Console Room",
+			"url": "http://localhost:5177/api/rooms/2/stations/1",
+			"time": 7,
+			"responseCode": {
+				"code": 404,
+				"name": "Not Found"
+			},
+			"tests": {
+				"Status is 404": true
+			},
+			"testPassFailCounts": {
+				"Status is 404": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				7
+			],
+			"allTests": [
+				{
+					"Status is 404": true
+				}
+			]
+		},
+		{
+			"id": "39b7070b-586b-47e3-8e12-dde24700c2b6",
+			"name": "Get All Stations From Non-Existing Room",
+			"url": "http://localhost:5177/api/rooms/999/stations",
+			"time": 8,
+			"responseCode": {
+				"code": 404,
+				"name": "Not Found"
+			},
+			"tests": {
+				"Status is 404": true
+			},
+			"testPassFailCounts": {
+				"Status is 404": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				8
+			],
+			"allTests": [
+				{
+					"Status is 404": true
+				}
+			]
+		},
+		{
+			"id": "253df2e4-4fa6-48c7-8d1f-1922827b839e",
+			"name": "Create PC (No CPU)",
+			"url": "http://localhost:5177/api/rooms/1/stations",
+			"time": 7,
+			"responseCode": {
+				"code": 400,
+				"name": "Bad Request"
+			},
+			"tests": {
+				"Status is 400": true
+			},
+			"testPassFailCounts": {
+				"Status is 400": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				7
+			],
+			"allTests": [
+				{
+					"Status is 400": true
+				}
+			]
+		},
+		{
+			"id": "1068491b-3c17-4d6e-ad0d-d212d2ce5b1d",
+			"name": "Create PC (+Console Only Field)",
+			"url": "http://localhost:5177/api/rooms/1/stations",
+			"time": 6,
+			"responseCode": {
+				"code": 400,
+				"name": "Bad Request"
+			},
+			"tests": {
+				"Status is 400": true
+			},
+			"testPassFailCounts": {
+				"Status is 400": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				6
+			],
+			"allTests": [
+				{
+					"Status is 400": true
+				}
+			]
+		},
+		{
+			"id": "16c21fa5-feec-4f1d-992e-630167eb5ce4",
+			"name": "Create Console (No Seats)",
+			"url": "http://localhost:5177/api/rooms/2/stations",
+			"time": 6,
+			"responseCode": {
+				"code": 400,
+				"name": "Bad Request"
+			},
+			"tests": {
+				"Status is 400": true
+			},
+			"testPassFailCounts": {
+				"Status is 400": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				6
+			],
+			"allTests": [
+				{
+					"Status is 400": true
+				}
+			]
+		},
+		{
+			"id": "6ac27073-b1af-427d-8b56-3accfe719072",
+			"name": "Create Console (Invalid Platform)",
+			"url": "http://localhost:5177/api/rooms/2/stations",
+			"time": 5,
+			"responseCode": {
+				"code": 400,
+				"name": "Bad Request"
+			},
+			"tests": {
+				"Status is 400": true
+			},
+			"testPassFailCounts": {
+				"Status is 400": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				5
+			],
+			"allTests": [
+				{
+					"Status is 400": true
+				}
+			]
+		},
+		{
+			"id": "6d1dbbf7-7c61-42a2-837b-3f91a520a19d",
+			"name": "Create Console (Invalid Platform) in Non-Existing Room",
+			"url": "http://localhost:5177/api/rooms/999/stations",
+			"time": 4,
+			"responseCode": {
+				"code": 400,
+				"name": "Bad Request"
+			},
+			"tests": {
+				"Status is 400": true
+			},
+			"testPassFailCounts": {
+				"Status is 400": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				4
+			],
+			"allTests": [
+				{
+					"Status is 400": true
+				}
+			]
+		},
+		{
+			"id": "a5c1d932-8947-49c2-8ae2-b67b18e95ee9",
+			"name": "Update Existing PC",
+			"url": "http://localhost:5177/api/rooms/1/stations/1",
+			"time": 27,
+			"responseCode": {
+				"code": 200,
+				"name": "OK"
+			},
+			"tests": {
+				"Status is 200": true
+			},
+			"testPassFailCounts": {
+				"Status is 200": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				27
+			],
+			"allTests": [
+				{
+					"Status is 200": true
+				}
+			]
+		},
+		{
+			"id": "de64c24b-faa4-45dc-bb8b-2570e198d4c4",
+			"name": "Update Non-Existing PC",
+			"url": "http://localhost:5177/api/rooms/1/stations/999",
+			"time": 6,
+			"responseCode": {
+				"code": 404,
+				"name": "Not Found"
+			},
+			"tests": {
+				"Status is 404": true
+			},
+			"testPassFailCounts": {
+				"Status is 404": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				6
+			],
+			"allTests": [
+				{
+					"Status is 404": true
+				}
+			]
+		},
+		{
+			"id": "78f61dff-e71b-4bbf-922d-96605875bf53",
+			"name": "Delete Room with Existing Stations",
+			"url": "http://localhost:5177/api/rooms/1",
+			"time": 24,
+			"responseCode": {
+				"code": 409,
+				"name": "Conflict"
+			},
+			"tests": {
+				"Status is 409": true
+			},
+			"testPassFailCounts": {
+				"Status is 409": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				24
+			],
+			"allTests": [
+				{
+					"Status is 409": true
+				}
+			]
+		},
+		{
+			"id": "5bfa898b-ae2b-44d2-9eab-5b94bf72d5fb",
+			"name": "Change Type For Room With Existing Stations",
+			"url": "http://localhost:5177/api/rooms/1",
+			"time": 9,
+			"responseCode": {
+				"code": 409,
+				"name": "Conflict"
+			},
+			"tests": {
+				"Status is 409": true
+			},
+			"testPassFailCounts": {
+				"Status is 409": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				9
+			],
+			"allTests": [
+				{
+					"Status is 409": true
+				}
+			]
+		},
+		{
+			"id": "8e10e84a-4d30-4a21-9700-4527a95716b8",
+			"name": "Delete Existing PC",
+			"url": "http://localhost:5177/api/rooms/1/stations/1",
+			"time": 48,
+			"responseCode": {
+				"code": 204,
+				"name": "No Content"
+			},
+			"tests": {
+				"Status is 204": true
+			},
+			"testPassFailCounts": {
+				"Status is 204": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				48
+			],
+			"allTests": [
+				{
+					"Status is 204": true
+				}
+			]
+		},
+		{
+			"id": "54546c29-14fc-4bbc-b1db-222b9c70d5ef",
+			"name": "Delete Non-Existing PC",
+			"url": "http://localhost:5177/api/rooms/1/stations/1",
+			"time": 7,
+			"responseCode": {
+				"code": 404,
+				"name": "Not Found"
+			},
+			"tests": {
+				"Status is 404": true
+			},
+			"testPassFailCounts": {
+				"Status is 404": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				7
+			],
+			"allTests": [
+				{
+					"Status is 404": true
+				}
+			]
+		},
+		{
+			"id": "bcd9ed51-99ac-4732-a22c-9dae638c26ce",
+			"name": "Delete Empty Room",
+			"url": "http://localhost:5177/api/rooms/1",
+			"time": 18,
+			"responseCode": {
+				"code": 204,
+				"name": "No Content"
+			},
+			"tests": {
+				"Status is 204": true
+			},
+			"testPassFailCounts": {
+				"Status is 204": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				18
+			],
+			"allTests": [
+				{
+					"Status is 204": true
+				}
+			]
+		},
+		{
+			"id": "b79039cf-a6ad-4bfb-aff1-393ad534764b",
+			"name": "Get Non-Existing Room",
+			"url": "http://localhost:5177/api/rooms/1",
+			"time": 6,
+			"responseCode": {
+				"code": 404,
+				"name": "Not Found"
+			},
+			"tests": {
+				"Status is 404": true
+			},
+			"testPassFailCounts": {
+				"Status is 404": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				6
+			],
+			"allTests": [
+				{
+					"Status is 404": true
+				}
+			]
+		},
+		{
+			"id": "e2e7488a-3177-408d-a21f-a74d8e651dba",
+			"name": "Create Room For Reservations",
+			"url": "http://localhost:5177/api/rooms",
+			"time": 12,
+			"responseCode": {
+				"code": 201,
+				"name": "Created"
+			},
+			"tests": {
+				"Status is 201": true
+			},
+			"testPassFailCounts": {
+				"Status is 201": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				12
+			],
+			"allTests": [
+				{
+					"Status is 201": true
+				}
+			]
+		},
+		{
+			"id": "506050c4-7ad3-4d1f-8c83-9f0991ecef71",
+			"name": "Create Station For Reservations",
+			"url": "http://localhost:5177/api/rooms/3/stations",
+			"time": 15,
+			"responseCode": {
+				"code": 201,
+				"name": "Created"
+			},
+			"tests": {
+				"Status is 201": true
+			},
+			"testPassFailCounts": {
+				"Status is 201": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				15
+			],
+			"allTests": [
+				{
+					"Status is 201": true
+				}
+			]
+		},
+		{
+			"id": "96d87821-c448-495f-862a-15b4770e9274",
+			"name": "Create Inactive Station",
+			"url": "http://localhost:5177/api/rooms/3/stations",
+			"time": 17,
+			"responseCode": {
+				"code": 201,
+				"name": "Created"
+			},
+			"tests": {
+				"Status is 201": true
+			},
+			"testPassFailCounts": {
+				"Status is 201": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				17
+			],
+			"allTests": [
+				{
+					"Status is 201": true
+				}
+			]
+		},
+		{
+			"id": "6d08e23c-25ff-4f3e-a75c-5f0ff8e14e5b",
+			"name": "Create Reservation",
+			"url": "http://localhost:5177/api/rooms/3/stations/3/reservations",
+			"time": 92,
+			"responseCode": {
+				"code": 201,
+				"name": "Created"
+			},
+			"tests": {
+				"Status is 201": true
+			},
+			"testPassFailCounts": {
+				"Status is 201": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				92
+			],
+			"allTests": [
+				{
+					"Status is 201": true
+				}
+			]
+		},
+		{
+			"id": "abc73c16-efdc-4fa2-9014-23f5d510b958",
+			"name": "Create Overlapping Reservation",
+			"url": "http://localhost:5177/api/rooms/3/stations/3/reservations",
+			"time": 12,
+			"responseCode": {
+				"code": 409,
+				"name": "Conflict"
+			},
+			"tests": {
+				"Status is 409": true
+			},
+			"testPassFailCounts": {
+				"Status is 409": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				12
+			],
+			"allTests": [
+				{
+					"Status is 409": true
+				}
+			]
+		},
+		{
+			"id": "51cb4d10-024f-46f0-bbc1-0cb14c615215",
+			"name": "Create Back-To-Back Reservation",
+			"url": "http://localhost:5177/api/rooms/3/stations/3/reservations",
+			"time": 20,
+			"responseCode": {
+				"code": 201,
+				"name": "Created"
+			},
+			"tests": {
+				"Status is 201": true
+			},
+			"testPassFailCounts": {
+				"Status is 201": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				20
+			],
+			"allTests": [
+				{
+					"Status is 201": true
+				}
+			]
+		},
+		{
+			"id": "577be3d6-7cdc-4a7e-8f86-ab33b7361c6e",
+			"name": "Create Reservation (Past Start)",
+			"url": "http://localhost:5177/api/rooms/3/stations/3/reservations",
+			"time": 9,
+			"responseCode": {
+				"code": 400,
+				"name": "Bad Request"
+			},
+			"tests": {
+				"Status is 400": true
+			},
+			"testPassFailCounts": {
+				"Status is 400": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				9
+			],
+			"allTests": [
+				{
+					"Status is 400": true
+				}
+			]
+		},
+		{
+			"id": "18689573-c1f9-4198-8184-863757df75f5",
+			"name": "Create Reservation (End Before Start)",
+			"url": "http://localhost:5177/api/rooms/3/stations/3/reservations",
+			"time": 9,
+			"responseCode": {
+				"code": 400,
+				"name": "Bad Request"
+			},
+			"tests": {
+				"Status is 400": true
+			},
+			"testPassFailCounts": {
+				"Status is 400": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				9
+			],
+			"allTests": [
+				{
+					"Status is 400": true
+				}
+			]
+		},
+		{
+			"id": "a61c6c2d-f6b0-4ad6-b710-f7cf748befdd",
+			"name": "Create Reservation (Too Short)",
+			"url": "http://localhost:5177/api/rooms/3/stations/3/reservations",
+			"time": 9,
+			"responseCode": {
+				"code": 400,
+				"name": "Bad Request"
+			},
+			"tests": {
+				"Status is 400": true
+			},
+			"testPassFailCounts": {
+				"Status is 400": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				9
+			],
+			"allTests": [
+				{
+					"Status is 400": true
+				}
+			]
+		},
+		{
+			"id": "f3305fbb-33ef-4249-95ec-19e1eabc0ede",
+			"name": "Create Reservation (Invalid Email)",
+			"url": "http://localhost:5177/api/rooms/3/stations/3/reservations",
+			"time": 4,
+			"responseCode": {
+				"code": 400,
+				"name": "Bad Request"
+			},
+			"tests": {
+				"Status is 400": true
+			},
+			"testPassFailCounts": {
+				"Status is 400": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				4
+			],
+			"allTests": [
+				{
+					"Status is 400": true
+				}
+			]
+		},
+		{
+			"id": "512a5efb-b71d-4e8c-a978-e24af029ab64",
+			"name": "Create Reservation (No Start Time)",
+			"url": "http://localhost:5177/api/rooms/3/stations/3/reservations",
+			"time": 3,
+			"responseCode": {
+				"code": 400,
+				"name": "Bad Request"
+			},
+			"tests": {
+				"Status is 400": true
+			},
+			"testPassFailCounts": {
+				"Status is 400": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				3
+			],
+			"allTests": [
+				{
+					"Status is 400": true
+				}
+			]
+		},
+		{
+			"id": "02f18d9a-2cde-427e-9cf9-da7ce28b2768",
+			"name": "Create Reservation On Inactive Station",
+			"url": "http://localhost:5177/api/rooms/3/stations/4/reservations",
+			"time": 9,
+			"responseCode": {
+				"code": 409,
+				"name": "Conflict"
+			},
+			"tests": {
+				"Status is 409": true
+			},
+			"testPassFailCounts": {
+				"Status is 409": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				9
+			],
+			"allTests": [
+				{
+					"Status is 409": true
+				}
+			]
+		},
+		{
+			"id": "bf133351-2c4b-4a51-a9ac-1124399d5436",
+			"name": "Create Reservation On Non-Existing Station",
+			"url": "http://localhost:5177/api/rooms/3/stations/999/reservations",
+			"time": 8,
+			"responseCode": {
+				"code": 404,
+				"name": "Not Found"
+			},
+			"tests": {
+				"Status is 404": true
+			},
+			"testPassFailCounts": {
+				"Status is 404": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				8
+			],
+			"allTests": [
+				{
+					"Status is 404": true
+				}
+			]
+		},
+		{
+			"id": "b8fcdcaa-afb3-48ac-aab0-28f6c4f44979",
+			"name": "Get All Reservations From Station",
+			"url": "http://localhost:5177/api/rooms/3/stations/3/reservations",
+			"time": 29,
+			"responseCode": {
+				"code": 200,
+				"name": "OK"
+			},
+			"tests": {
+				"Status is 200": true
+			},
+			"testPassFailCounts": {
+				"Status is 200": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				29
+			],
+			"allTests": [
+				{
+					"Status is 200": true
+				}
+			]
+		},
+		{
+			"id": "1ffb56d1-4418-4ffe-9159-a128a553f0d7",
+			"name": "Get Existing Reservation",
+			"url": "http://localhost:5177/api/rooms/3/stations/3/reservations/1",
+			"time": 19,
+			"responseCode": {
+				"code": 200,
+				"name": "OK"
+			},
+			"tests": {
+				"Status is 200": true
+			},
+			"testPassFailCounts": {
+				"Status is 200": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				19
+			],
+			"allTests": [
+				{
+					"Status is 200": true
+				}
+			]
+		},
+		{
+			"id": "2ac326b8-c3d2-4382-a9e1-31faa478c76b",
+			"name": "Get Reservation From Wrong Station",
+			"url": "http://localhost:5177/api/rooms/3/stations/4/reservations/1",
+			"time": 7,
+			"responseCode": {
+				"code": 404,
+				"name": "Not Found"
+			},
+			"tests": {
+				"Status is 404": true
+			},
+			"testPassFailCounts": {
+				"Status is 404": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				7
+			],
+			"allTests": [
+				{
+					"Status is 404": true
+				}
+			]
+		},
+		{
+			"id": "a6aa37af-2b95-4b82-b5f3-a763c3c4b4da",
+			"name": "Get Non-Existing Reservation",
+			"url": "http://localhost:5177/api/rooms/3/stations/3/reservations/999",
+			"time": 8,
+			"responseCode": {
+				"code": 404,
+				"name": "Not Found"
+			},
+			"tests": {
+				"Status is 404": true
+			},
+			"testPassFailCounts": {
+				"Status is 404": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				8
+			],
+			"allTests": [
+				{
+					"Status is 404": true
+				}
+			]
+		},
+		{
+			"id": "d601a89d-4997-4c83-92c5-05719854c67a",
+			"name": "Update Existing Reservation",
+			"url": "http://localhost:5177/api/rooms/3/stations/3/reservations/1",
+			"time": 34,
+			"responseCode": {
+				"code": 200,
+				"name": "OK"
+			},
+			"tests": {
+				"Status is 200": true
+			},
+			"testPassFailCounts": {
+				"Status is 200": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				34
+			],
+			"allTests": [
+				{
+					"Status is 200": true
+				}
+			]
+		},
+		{
+			"id": "0c21a893-bbfe-4e8c-a71b-cf4ad6a9002f",
+			"name": "Update Reservation (Overlapping)",
+			"url": "http://localhost:5177/api/rooms/3/stations/3/reservations/1",
+			"time": 12,
+			"responseCode": {
+				"code": 409,
+				"name": "Conflict"
+			},
+			"tests": {
+				"Status is 409": true
+			},
+			"testPassFailCounts": {
+				"Status is 409": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				12
+			],
+			"allTests": [
+				{
+					"Status is 409": true
+				}
+			]
+		},
+		{
+			"id": "0a5a2907-a86d-465a-9f02-76b414ad71ff",
+			"name": "Update Non-Existing Reservation",
+			"url": "http://localhost:5177/api/rooms/3/stations/3/reservations/999",
+			"time": 9,
+			"responseCode": {
+				"code": 404,
+				"name": "Not Found"
+			},
+			"tests": {
+				"Status is 404": true
+			},
+			"testPassFailCounts": {
+				"Status is 404": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				9
+			],
+			"allTests": [
+				{
+					"Status is 404": true
+				}
+			]
+		},
+		{
+			"id": "05d4f8a1-50d1-4f03-8a0d-75805f0056a2",
+			"name": "Start Reservation",
+			"url": "http://localhost:5177/api/rooms/3/stations/3/reservations/1",
+			"time": 35,
+			"responseCode": {
+				"code": 200,
+				"name": "OK"
+			},
+			"tests": {
+				"Status is 200": true
+			},
+			"testPassFailCounts": {
+				"Status is 200": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				35
+			],
+			"allTests": [
+				{
+					"Status is 200": true
+				}
+			]
+		},
+		{
+			"id": "027e2de1-af3d-4c8b-a89b-28415dd24b1f",
+			"name": "Change Started Reservation To Upcoming",
+			"url": "http://localhost:5177/api/rooms/3/stations/3/reservations/1",
+			"time": 9,
+			"responseCode": {
+				"code": 409,
+				"name": "Conflict"
+			},
+			"tests": {
+				"Status is 409": true
+			},
+			"testPassFailCounts": {
+				"Status is 409": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				9
+			],
+			"allTests": [
+				{
+					"Status is 409": true
+				}
+			]
+		},
+		{
+			"id": "43685eaa-98ba-4143-8ea3-4ad4c60b2788",
+			"name": "Update Started Reservation",
+			"url": "http://localhost:5177/api/rooms/3/stations/3/reservations/1",
+			"time": 9,
+			"responseCode": {
+				"code": 409,
+				"name": "Conflict"
+			},
+			"tests": {
+				"Status is 409": true
+			},
+			"testPassFailCounts": {
+				"Status is 409": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				9
+			],
+			"allTests": [
+				{
+					"Status is 409": true
+				}
+			]
+		},
+		{
+			"id": "2a8ef4d1-97f4-4e12-8c01-d015af29966b",
+			"name": "Change Reservation Status (Invalid Status)",
+			"url": "http://localhost:5177/api/rooms/3/stations/3/reservations/1",
+			"time": 4,
+			"responseCode": {
+				"code": 400,
+				"name": "Bad Request"
+			},
+			"tests": {
+				"Status is 400": true
+			},
+			"testPassFailCounts": {
+				"Status is 400": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				4
+			],
+			"allTests": [
+				{
+					"Status is 400": true
+				}
+			]
+		},
+		{
+			"id": "8d9d6f3b-1f4a-4dc5-99a2-9529c5d5a6c4",
+			"name": "Cancel Reservation",
+			"url": "http://localhost:5177/api/rooms/3/stations/3/reservations/2",
+			"time": 24,
+			"responseCode": {
+				"code": 200,
+				"name": "OK"
+			},
+			"tests": {
+				"Status is 200": true
+			},
+			"testPassFailCounts": {
+				"Status is 200": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				24
+			],
+			"allTests": [
+				{
+					"Status is 200": true
+				}
+			]
+		},
+		{
+			"id": "238a0f9f-d6c3-4dfa-a73f-62807f2472ab",
+			"name": "Create Reservation In Cancelled Slot",
+			"url": "http://localhost:5177/api/rooms/3/stations/3/reservations",
+			"time": 18,
+			"responseCode": {
+				"code": 201,
+				"name": "Created"
+			},
+			"tests": {
+				"Status is 201": true
+			},
+			"testPassFailCounts": {
+				"Status is 201": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				18
+			],
+			"allTests": [
+				{
+					"Status is 201": true
+				}
+			]
+		},
+		{
+			"id": "4c497b5f-a29e-4f45-8b6a-98be1f2324a6",
+			"name": "Get Reservations By Date",
+			"url": "http://localhost:5177/api/reservations?date=2026-11-20&roomId=3",
+			"time": 71,
+			"responseCode": {
+				"code": 200,
+				"name": "OK"
+			},
+			"tests": {
+				"Status is 200": true
+			},
+			"testPassFailCounts": {
+				"Status is 200": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				71
+			],
+			"allTests": [
+				{
+					"Status is 200": true
+				}
+			]
+		},
+		{
+			"id": "45b151b3-d3f7-4073-b388-f47e6425e9f8",
+			"name": "Get Upcoming Reservations In Room",
+			"url": "http://localhost:5177/api/reservations?status=Upcoming&roomId=3",
+			"time": 15,
+			"responseCode": {
+				"code": 200,
+				"name": "OK"
+			},
+			"tests": {
+				"Status is 200": true
+			},
+			"testPassFailCounts": {
+				"Status is 200": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				15
+			],
+			"allTests": [
+				{
+					"Status is 200": true
+				}
+			]
+		},
+		{
+			"id": "e13f6d95-38e9-45b7-a0bb-e6d1402731fa",
+			"name": "Get Reservations By Customer Email",
+			"url": "http://localhost:5177/api/reservations?customerEmail=jonas@example.com",
+			"time": 16,
+			"responseCode": {
+				"code": 200,
+				"name": "OK"
+			},
+			"tests": {
+				"Status is 200": true
+			},
+			"testPassFailCounts": {
+				"Status is 200": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				16
+			],
+			"allTests": [
+				{
+					"Status is 200": true
+				}
+			]
+		},
+		{
+			"id": "88fce436-3de2-4e80-8edf-fec7b5f32441",
+			"name": "Get Reservations (Invalid Status Filter)",
+			"url": "http://localhost:5177/api/reservations?status=Roflanchik",
+			"time": 5,
+			"responseCode": {
+				"code": 400,
+				"name": "Bad Request"
+			},
+			"tests": {
+				"Status is 400": true
+			},
+			"testPassFailCounts": {
+				"Status is 400": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				5
+			],
+			"allTests": [
+				{
+					"Status is 400": true
+				}
+			]
+		},
+		{
+			"id": "6eea2370-628b-4de4-bb09-77b98eae1265",
+			"name": "Delete Station With Active Reservations",
+			"url": "http://localhost:5177/api/rooms/3/stations/3",
+			"time": 9,
+			"responseCode": {
+				"code": 409,
+				"name": "Conflict"
+			},
+			"tests": {
+				"Status is 409": true
+			},
+			"testPassFailCounts": {
+				"Status is 409": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				9
+			],
+			"allTests": [
+				{
+					"Status is 409": true
+				}
+			]
+		},
+		{
+			"id": "dc275ee7-0266-474c-bb56-be202b3099c8",
+			"name": "Delete Existing Reservation",
+			"url": "http://localhost:5177/api/rooms/3/stations/3/reservations/3",
+			"time": 55,
+			"responseCode": {
+				"code": 204,
+				"name": "No Content"
+			},
+			"tests": {
+				"Status is 204": true
+			},
+			"testPassFailCounts": {
+				"Status is 204": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				55
+			],
+			"allTests": [
+				{
+					"Status is 204": true
+				}
+			]
+		},
+		{
+			"id": "50091c2d-8085-419f-9c6b-e7358e65b846",
+			"name": "Delete Non-Existing Reservation",
+			"url": "http://localhost:5177/api/rooms/3/stations/3/reservations/3",
+			"time": 8,
+			"responseCode": {
+				"code": 404,
+				"name": "Not Found"
+			},
+			"tests": {
+				"Status is 404": true
+			},
+			"testPassFailCounts": {
+				"Status is 404": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				8
+			],
+			"allTests": [
+				{
+					"Status is 404": true
+				}
+			]
+		},
+		{
+			"id": "372d3f97-70b9-4561-9a3b-36436a298b15",
+			"name": "Finish Reservation",
+			"url": "http://localhost:5177/api/rooms/3/stations/3/reservations/1",
+			"time": 14,
+			"responseCode": {
+				"code": 200,
+				"name": "OK"
+			},
+			"tests": {
+				"Status is 200": true
+			},
+			"testPassFailCounts": {
+				"Status is 200": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				14
+			],
+			"allTests": [
+				{
+					"Status is 200": true
+				}
+			]
+		},
+		{
+			"id": "ef0b6375-3e09-40e7-948a-a23c76121386",
+			"name": "Delete Station Without Active Reservations",
+			"url": "http://localhost:5177/api/rooms/3/stations/3",
+			"time": 14,
+			"responseCode": {
+				"code": 204,
+				"name": "No Content"
+			},
+			"tests": {
+				"Status is 204": true
+			},
+			"testPassFailCounts": {
+				"Status is 204": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				14
+			],
+			"allTests": [
+				{
+					"Status is 204": true
+				}
+			]
+		},
+		{
+			"id": "cf0910c7-ce42-4598-b1af-73dcc0b8bd90",
+			"name": "Delete Inactive Station",
+			"url": "http://localhost:5177/api/rooms/3/stations/4",
+			"time": 16,
+			"responseCode": {
+				"code": 204,
+				"name": "No Content"
+			},
+			"tests": {
+				"Status is 204": true
+			},
+			"testPassFailCounts": {
+				"Status is 204": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				16
+			],
+			"allTests": [
+				{
+					"Status is 204": true
+				}
+			]
+		},
+		{
+			"id": "42347318-d732-4cf9-ab2f-0e51df90cfa2",
+			"name": "Delete Reservation Room",
+			"url": "http://localhost:5177/api/rooms/3",
+			"time": 17,
+			"responseCode": {
+				"code": 204,
+				"name": "No Content"
+			},
+			"tests": {
+				"Status is 204": true
+			},
+			"testPassFailCounts": {
+				"Status is 204": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				17
+			],
+			"allTests": [
+				{
+					"Status is 204": true
+				}
+			]
+		},
+		{
+			"id": "8b5a1a34-ca77-4aae-8072-4a7a7f765ac6",
+			"name": "Create Room For Games",
+			"url": "http://localhost:5177/api/rooms",
+			"time": 12,
+			"responseCode": {
+				"code": 201,
+				"name": "Created"
+			},
+			"tests": {
+				"Status is 201": true
+			},
+			"testPassFailCounts": {
+				"Status is 201": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				12
+			],
+			"allTests": [
+				{
+					"Status is 201": true
+				}
+			]
+		},
+		{
+			"id": "b1f71fd1-0ce6-459c-ad82-c906c541f9f7",
+			"name": "Create Station For Games",
+			"url": "http://localhost:5177/api/rooms/4/stations",
+			"time": 13,
+			"responseCode": {
+				"code": 201,
+				"name": "Created"
+			},
+			"tests": {
+				"Status is 201": true
+			},
+			"testPassFailCounts": {
+				"Status is 201": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				13
+			],
+			"allTests": [
+				{
+					"Status is 201": true
+				}
+			]
+		},
+		{
+			"id": "2634f4c1-2835-4033-abbd-826d1a7cea3d",
+			"name": "Create Game",
+			"url": "http://localhost:5177/api/games",
+			"time": 64,
+			"responseCode": {
+				"code": 201,
+				"name": "Created"
+			},
+			"tests": {
+				"Status is 201": true
+			},
+			"testPassFailCounts": {
+				"Status is 201": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				64
+			],
+			"allTests": [
+				{
+					"Status is 201": true
+				}
+			]
+		},
+		{
+			"id": "8b5b3bb1-5d67-4f00-933a-33b4878d5991",
+			"name": "Create Second Game",
+			"url": "http://localhost:5177/api/games",
+			"time": 14,
+			"responseCode": {
+				"code": 201,
+				"name": "Created"
+			},
+			"tests": {
+				"Status is 201": true
+			},
+			"testPassFailCounts": {
+				"Status is 201": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				14
+			],
+			"allTests": [
+				{
+					"Status is 201": true
+				}
+			]
+		},
+		{
+			"id": "14f655cd-a1df-45c4-83db-f95c80f4931f",
+			"name": "Create Game (Duplicate Title)",
+			"url": "http://localhost:5177/api/games",
+			"time": 7,
+			"responseCode": {
+				"code": 409,
+				"name": "Conflict"
+			},
+			"tests": {
+				"Status is 409": true
+			},
+			"testPassFailCounts": {
+				"Status is 409": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				7
+			],
+			"allTests": [
+				{
+					"Status is 409": true
+				}
+			]
+		},
+		{
+			"id": "3b161af5-2198-47e8-b93b-58b88fba4265",
+			"name": "Create Game (No Title)",
+			"url": "http://localhost:5177/api/games",
+			"time": 4,
+			"responseCode": {
+				"code": 400,
+				"name": "Bad Request"
+			},
+			"tests": {
+				"Status is 400": true
+			},
+			"testPassFailCounts": {
+				"Status is 400": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				4
+			],
+			"allTests": [
+				{
+					"Status is 400": true
+				}
+			]
+		},
+		{
+			"id": "020a7142-f092-41c7-97b8-a4a21586d4fd",
+			"name": "Create Game (Too Short Genre)",
+			"url": "http://localhost:5177/api/games",
+			"time": 4,
+			"responseCode": {
+				"code": 400,
+				"name": "Bad Request"
+			},
+			"tests": {
+				"Status is 400": true
+			},
+			"testPassFailCounts": {
+				"Status is 400": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				4
+			],
+			"allTests": [
+				{
+					"Status is 400": true
+				}
+			]
+		},
+		{
+			"id": "e1ca3443-362a-41c2-80e5-9499343d025f",
+			"name": "Create Game (Bad Release Date)",
+			"url": "http://localhost:5177/api/games",
+			"time": 4,
+			"responseCode": {
+				"code": 400,
+				"name": "Bad Request"
+			},
+			"tests": {
+				"Status is 400": true
+			},
+			"testPassFailCounts": {
+				"Status is 400": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				4
+			],
+			"allTests": [
+				{
+					"Status is 400": true
+				}
+			]
+		},
+		{
+			"id": "970c70ae-25c1-49ff-99d9-38a755931372",
+			"name": "Get All Games",
+			"url": "http://localhost:5177/api/games",
+			"time": 25,
+			"responseCode": {
+				"code": 200,
+				"name": "OK"
+			},
+			"tests": {
+				"Status is 200": true
+			},
+			"testPassFailCounts": {
+				"Status is 200": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				25
+			],
+			"allTests": [
+				{
+					"Status is 200": true
+				}
+			]
+		},
+		{
+			"id": "41cb83fb-62ab-4340-874e-8905b084ff6e",
+			"name": "Get Games By Genre",
+			"url": "http://localhost:5177/api/games?genre=FPS",
+			"time": 14,
+			"responseCode": {
+				"code": 200,
+				"name": "OK"
+			},
+			"tests": {
+				"Status is 200": true
+			},
+			"testPassFailCounts": {
+				"Status is 200": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				14
+			],
+			"allTests": [
+				{
+					"Status is 200": true
+				}
+			]
+		},
+		{
+			"id": "79c0e692-9472-4ac5-8291-9bfc13a6125c",
+			"name": "Get Games By Search",
+			"url": "http://localhost:5177/api/games?search=counter",
+			"time": 23,
+			"responseCode": {
+				"code": 200,
+				"name": "OK"
+			},
+			"tests": {
+				"Status is 200": true
+			},
+			"testPassFailCounts": {
+				"Status is 200": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				23
+			],
+			"allTests": [
+				{
+					"Status is 200": true
+				}
+			]
+		},
+		{
+			"id": "ec99b0db-01b3-42a9-967c-6253bb08277b",
+			"name": "Get Existing Game",
+			"url": "http://localhost:5177/api/games/1",
+			"time": 14,
+			"responseCode": {
+				"code": 200,
+				"name": "OK"
+			},
+			"tests": {
+				"Status is 200": true
+			},
+			"testPassFailCounts": {
+				"Status is 200": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				14
+			],
+			"allTests": [
+				{
+					"Status is 200": true
+				}
+			]
+		},
+		{
+			"id": "5dd3e02f-ba76-4e98-bde8-5f66109f605d",
+			"name": "Get Non-Existing Game",
+			"url": "http://localhost:5177/api/games/999",
+			"time": 6,
+			"responseCode": {
+				"code": 404,
+				"name": "Not Found"
+			},
+			"tests": {
+				"Status is 404": true
+			},
+			"testPassFailCounts": {
+				"Status is 404": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				6
+			],
+			"allTests": [
+				{
+					"Status is 404": true
+				}
+			]
+		},
+		{
+			"id": "8f2bfd6b-af27-4c47-ae47-94f395d7e962",
+			"name": "Update Existing Game",
+			"url": "http://localhost:5177/api/games/1",
+			"time": 27,
+			"responseCode": {
+				"code": 200,
+				"name": "OK"
+			},
+			"tests": {
+				"Status is 200": true
+			},
+			"testPassFailCounts": {
+				"Status is 200": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				27
+			],
+			"allTests": [
+				{
+					"Status is 200": true
+				}
+			]
+		},
+		{
+			"id": "15028c52-4da0-4c7f-a250-7ee09f23f727",
+			"name": "Update Game (Duplicate Title)",
+			"url": "http://localhost:5177/api/games/2",
+			"time": 8,
+			"responseCode": {
+				"code": 409,
+				"name": "Conflict"
+			},
+			"tests": {
+				"Status is 409": true
+			},
+			"testPassFailCounts": {
+				"Status is 409": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				8
+			],
+			"allTests": [
+				{
+					"Status is 409": true
+				}
+			]
+		},
+		{
+			"id": "b29ff5a6-cf85-4325-a898-07d83538e056",
+			"name": "Update Non-Existing Game",
+			"url": "http://localhost:5177/api/games/999",
+			"time": 6,
+			"responseCode": {
+				"code": 404,
+				"name": "Not Found"
+			},
+			"tests": {
+				"Status is 404": true
+			},
+			"testPassFailCounts": {
+				"Status is 404": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				6
+			],
+			"allTests": [
+				{
+					"Status is 404": true
+				}
+			]
+		},
+		{
+			"id": "2e3009c6-83d4-4e76-8efd-10ff0b8fc37b",
+			"name": "Install Game On Station",
+			"url": "http://localhost:5177/api/rooms/4/stations/5/games/1",
+			"time": 86,
+			"responseCode": {
+				"code": 204,
+				"name": "No Content"
+			},
+			"tests": {
+				"Status is 204": true
+			},
+			"testPassFailCounts": {
+				"Status is 204": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				86
+			],
+			"allTests": [
+				{
+					"Status is 204": true
+				}
+			]
+		},
+		{
+			"id": "b3ed571c-89fe-4cf7-92db-93e3c778e44f",
+			"name": "Install Same Game Again",
+			"url": "http://localhost:5177/api/rooms/4/stations/5/games/1",
+			"time": 13,
+			"responseCode": {
+				"code": 204,
+				"name": "No Content"
+			},
+			"tests": {
+				"Status is 204": true
+			},
+			"testPassFailCounts": {
+				"Status is 204": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				13
+			],
+			"allTests": [
+				{
+					"Status is 204": true
+				}
+			]
+		},
+		{
+			"id": "5c4f256f-8326-493e-b99e-69c3686e9c62",
+			"name": "Install Second Game On Station",
+			"url": "http://localhost:5177/api/rooms/4/stations/5/games/2",
+			"time": 15,
+			"responseCode": {
+				"code": 204,
+				"name": "No Content"
+			},
+			"tests": {
+				"Status is 204": true
+			},
+			"testPassFailCounts": {
+				"Status is 204": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				15
+			],
+			"allTests": [
+				{
+					"Status is 204": true
+				}
+			]
+		},
+		{
+			"id": "a53cdafd-461d-4181-914d-ffe986fdf758",
+			"name": "Get All Games From Station",
+			"url": "http://localhost:5177/api/rooms/4/stations/5/games",
+			"time": 29,
+			"responseCode": {
+				"code": 200,
+				"name": "OK"
+			},
+			"tests": {
+				"Status is 200": true
+			},
+			"testPassFailCounts": {
+				"Status is 200": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				29
+			],
+			"allTests": [
+				{
+					"Status is 200": true
+				}
+			]
+		},
+		{
+			"id": "7d05e352-21c1-4bb1-a775-68184cdae2a4",
+			"name": "Install Non-Existing Game",
+			"url": "http://localhost:5177/api/rooms/4/stations/5/games/999",
+			"time": 8,
+			"responseCode": {
+				"code": 404,
+				"name": "Not Found"
+			},
+			"tests": {
+				"Status is 404": true
+			},
+			"testPassFailCounts": {
+				"Status is 404": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				8
+			],
+			"allTests": [
+				{
+					"Status is 404": true
+				}
+			]
+		},
+		{
+			"id": "ed74b9e1-02f8-4d1d-94f1-c87ddf8801ea",
+			"name": "Install Game On Non-Existing Station",
+			"url": "http://localhost:5177/api/rooms/4/stations/999/games/1",
+			"time": 6,
+			"responseCode": {
+				"code": 404,
+				"name": "Not Found"
+			},
+			"tests": {
+				"Status is 404": true
+			},
+			"testPassFailCounts": {
+				"Status is 404": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				6
+			],
+			"allTests": [
+				{
+					"Status is 404": true
+				}
+			]
+		},
+		{
+			"id": "9369c930-f2e0-41f8-abd3-ac54fe74a150",
+			"name": "Get All Games From Non-Existing Station",
+			"url": "http://localhost:5177/api/rooms/4/stations/999/games",
+			"time": 7,
+			"responseCode": {
+				"code": 404,
+				"name": "Not Found"
+			},
+			"tests": {
+				"Status is 404": true
+			},
+			"testPassFailCounts": {
+				"Status is 404": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				7
+			],
+			"allTests": [
+				{
+					"Status is 404": true
+				}
+			]
+		},
+		{
+			"id": "5a07d49b-2730-4eb6-b7d1-0e42c6dbdece",
+			"name": "Uninstall Game From Station",
+			"url": "http://localhost:5177/api/rooms/4/stations/5/games/1",
+			"time": 20,
+			"responseCode": {
+				"code": 204,
+				"name": "No Content"
+			},
+			"tests": {
+				"Status is 204": true
+			},
+			"testPassFailCounts": {
+				"Status is 204": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				20
+			],
+			"allTests": [
+				{
+					"Status is 204": true
+				}
+			]
+		},
+		{
+			"id": "98d23849-fb30-4345-8b0c-0868cc4b2e7e",
+			"name": "Uninstall Same Game Again",
+			"url": "http://localhost:5177/api/rooms/4/stations/5/games/1",
+			"time": 6,
+			"responseCode": {
+				"code": 404,
+				"name": "Not Found"
+			},
+			"tests": {
+				"Status is 404": true
+			},
+			"testPassFailCounts": {
+				"Status is 404": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				6
+			],
+			"allTests": [
+				{
+					"Status is 404": true
+				}
+			]
+		},
+		{
+			"id": "54bbdd7c-bc1d-4c82-a194-e3dad3714364",
+			"name": "Add Reservation for Station Details",
+			"url": "http://localhost:5177/api/rooms/4/stations/5/reservations",
+			"time": 16,
+			"responseCode": {
+				"code": 201,
+				"name": "Created"
+			},
+			"tests": {
+				"Status 201": true
+			},
+			"testPassFailCounts": {
+				"Status 201": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				16
+			],
+			"allTests": [
+				{
+					"Status 201": true
+				}
+			]
+		},
+		{
+			"id": "67b8c70b-6bd9-4e35-aa2d-e04e870046a3",
+			"name": "Get Station Details",
+			"url": "http://localhost:5177/api/rooms/4/stations/5/details",
+			"time": 48,
+			"responseCode": {
+				"code": 200,
+				"name": "OK"
+			},
+			"tests": {
+				"Status 200": true
+			},
+			"testPassFailCounts": {
+				"Status 200": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				48
+			],
+			"allTests": [
+				{
+					"Status 200": true
+				}
+			]
+		},
+		{
+			"id": "987c26e6-dcb5-43d0-a698-fed972067e84",
+			"name": "Get Station Details Wrong Room Id",
+			"url": "http://localhost:5177/api/rooms/999/stations/5/details",
+			"time": 6,
+			"responseCode": {
+				"code": 404,
+				"name": "Not Found"
+			},
+			"tests": {
+				"Status 404": true
+			},
+			"testPassFailCounts": {
+				"Status 404": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				6
+			],
+			"allTests": [
+				{
+					"Status 404": true
+				}
+			]
+		},
+		{
+			"id": "e8fa8039-4b49-47b5-b9fa-c154e867209d",
+			"name": "Get Non-Existing Station Details",
+			"url": "http://localhost:5177/api/rooms/4/stations/999/details",
+			"time": 6,
+			"responseCode": {
+				"code": 404,
+				"name": "Not Found"
+			},
+			"tests": {
+				"Status 404": true
+			},
+			"testPassFailCounts": {
+				"Status 404": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				6
+			],
+			"allTests": [
+				{
+					"Status 404": true
+				}
+			]
+		},
+		{
+			"id": "81ef5734-ae1e-43b0-8edc-9df3b94c47e6",
+			"name": "Delete Reservation For Station Details",
+			"url": "http://localhost:5177/api/rooms/4/stations/5/reservations/4",
+			"time": 18,
+			"responseCode": {
+				"code": 204,
+				"name": "No Content"
+			},
+			"tests": {
+				"Status 204": true
+			},
+			"testPassFailCounts": {
+				"Status 204": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				18
+			],
+			"allTests": [
+				{
+					"Status 204": true
+				}
+			]
+		},
+		{
+			"id": "4e66a20c-7b41-49f7-9d75-489bc599b1bd",
+			"name": "Delete Game Installed On Station",
+			"url": "http://localhost:5177/api/games/2",
+			"time": 18,
+			"responseCode": {
+				"code": 204,
+				"name": "No Content"
+			},
+			"tests": {
+				"Status is 204": true
+			},
+			"testPassFailCounts": {
+				"Status is 204": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				18
+			],
+			"allTests": [
+				{
+					"Status is 204": true
+				}
+			]
+		},
+		{
+			"id": "cd23ffb4-b825-4460-9bc4-4f038db45b19",
+			"name": "Get All Games From Station (Deleted Game Gone)",
+			"url": "http://localhost:5177/api/rooms/4/stations/5/games",
+			"time": 9,
+			"responseCode": {
+				"code": 200,
+				"name": "OK"
+			},
+			"tests": {
+				"Status is 200": true
+			},
+			"testPassFailCounts": {
+				"Status is 200": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				9
+			],
+			"allTests": [
+				{
+					"Status is 200": true
+				}
+			]
+		},
+		{
+			"id": "2bc20856-d033-428b-a4bb-7da1a84d996e",
+			"name": "Delete Existing Game",
+			"url": "http://localhost:5177/api/games/1",
+			"time": 12,
+			"responseCode": {
+				"code": 204,
+				"name": "No Content"
+			},
+			"tests": {
+				"Status is 204": true
+			},
+			"testPassFailCounts": {
+				"Status is 204": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				12
+			],
+			"allTests": [
+				{
+					"Status is 204": true
+				}
+			]
+		},
+		{
+			"id": "993fb259-7874-431a-adac-dd0398ecf8d3",
+			"name": "Delete Non-Existing Game",
+			"url": "http://localhost:5177/api/games/1",
+			"time": 6,
+			"responseCode": {
+				"code": 404,
+				"name": "Not Found"
+			},
+			"tests": {
+				"Status is 404": true
+			},
+			"testPassFailCounts": {
+				"Status is 404": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				6
+			],
+			"allTests": [
+				{
+					"Status is 404": true
+				}
+			]
+		},
+		{
+			"id": "24764ae3-6964-4846-95e0-e8381b37d4a2",
+			"name": "Delete Station For Games",
+			"url": "http://localhost:5177/api/rooms/4/stations/5",
+			"time": 56,
+			"responseCode": {
+				"code": 204,
+				"name": "No Content"
+			},
+			"tests": {
+				"Status is 204": true
+			},
+			"testPassFailCounts": {
+				"Status is 204": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				56
+			],
+			"allTests": [
+				{
+					"Status is 204": true
+				}
+			]
+		},
+		{
+			"id": "c3755dbd-b306-402c-904e-7c4672b2bb66",
+			"name": "Delete Room For Games",
+			"url": "http://localhost:5177/api/rooms/4",
+			"time": 17,
+			"responseCode": {
+				"code": 204,
+				"name": "No Content"
+			},
+			"tests": {
+				"Status is 204": true
+			},
+			"testPassFailCounts": {
+				"Status is 204": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				17
+			],
+			"allTests": [
+				{
+					"Status is 204": true
+				}
+			]
+		},
+		{
+			"id": "2b9483cd-555f-48d4-99de-d596a72f97e0",
+			"name": "Create Room For Paging",
+			"url": "http://localhost:5177/api/rooms",
+			"time": 11,
+			"responseCode": {
+				"code": 201,
+				"name": "Created"
+			},
+			"tests": {
+				"Status is 201": true
+			},
+			"testPassFailCounts": {
+				"Status is 201": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				11
+			],
+			"allTests": [
+				{
+					"Status is 201": true
+				}
+			]
+		},
+		{
+			"id": "1e218452-41ec-471f-ba17-f0c4a36ca664",
+			"name": "Create Paging Station 1",
+			"url": "http://localhost:5177/api/rooms/5/stations",
+			"time": 16,
+			"responseCode": {
+				"code": 201,
+				"name": "Created"
+			},
+			"tests": {
+				"Status is 201": true
+			},
+			"testPassFailCounts": {
+				"Status is 201": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				16
+			],
+			"allTests": [
+				{
+					"Status is 201": true
+				}
+			]
+		},
+		{
+			"id": "1d3a36bb-cceb-4ad3-a7c3-4117d425c97c",
+			"name": "Create Paging Station 2",
+			"url": "http://localhost:5177/api/rooms/5/stations",
+			"time": 14,
+			"responseCode": {
+				"code": 201,
+				"name": "Created"
+			},
+			"tests": {
+				"Status is 201": true
+			},
+			"testPassFailCounts": {
+				"Status is 201": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				14
+			],
+			"allTests": [
+				{
+					"Status is 201": true
+				}
+			]
+		},
+		{
+			"id": "1ab53718-3a4c-40e4-bb9f-39190fd92f5d",
+			"name": "Create Paging Station 3",
+			"url": "http://localhost:5177/api/rooms/5/stations",
+			"time": 12,
+			"responseCode": {
+				"code": 201,
+				"name": "Created"
+			},
+			"tests": {
+				"Status is 201": true
+			},
+			"testPassFailCounts": {
+				"Status is 201": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				12
+			],
+			"allTests": [
+				{
+					"Status is 201": true
+				}
+			]
+		},
+		{
+			"id": "a15ea66f-6b7c-4142-9a67-a155b2adf0e2",
+			"name": "Create Paging Game A",
+			"url": "http://localhost:5177/api/games",
+			"time": 14,
+			"responseCode": {
+				"code": 201,
+				"name": "Created"
+			},
+			"tests": {
+				"Status is 201": true
+			},
+			"testPassFailCounts": {
+				"Status is 201": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				14
+			],
+			"allTests": [
+				{
+					"Status is 201": true
+				}
+			]
+		},
+		{
+			"id": "e6d91b13-6706-4a98-925e-1a2f31bc8ad8",
+			"name": "Create Paging Game B",
+			"url": "http://localhost:5177/api/games",
+			"time": 14,
+			"responseCode": {
+				"code": 201,
+				"name": "Created"
+			},
+			"tests": {
+				"Status is 201": true
+			},
+			"testPassFailCounts": {
+				"Status is 201": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				14
+			],
+			"allTests": [
+				{
+					"Status is 201": true
+				}
+			]
+		},
+		{
+			"id": "1916e34b-9c5d-4e37-8c26-9e030388a133",
+			"name": "Create Paging Game C",
+			"url": "http://localhost:5177/api/games",
+			"time": 13,
+			"responseCode": {
+				"code": 201,
+				"name": "Created"
+			},
+			"tests": {
+				"Status is 201": true
+			},
+			"testPassFailCounts": {
+				"Status is 201": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				13
+			],
+			"allTests": [
+				{
+					"Status is 201": true
+				}
+			]
+		},
+		{
+			"id": "a32de21d-b19d-4552-80e7-4bb099958153",
+			"name": "Create Paging Reservation 1",
+			"url": "http://localhost:5177/api/rooms/5/stations/6/reservations",
+			"time": 16,
+			"responseCode": {
+				"code": 201,
+				"name": "Created"
+			},
+			"tests": {
+				"Status is 201": true
+			},
+			"testPassFailCounts": {
+				"Status is 201": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				16
+			],
+			"allTests": [
+				{
+					"Status is 201": true
+				}
+			]
+		},
+		{
+			"id": "a9295af4-fcff-4d10-932b-fbb0f78ff724",
+			"name": "Create Paging Reservation 2",
+			"url": "http://localhost:5177/api/rooms/5/stations/6/reservations",
+			"time": 19,
+			"responseCode": {
+				"code": 201,
+				"name": "Created"
+			},
+			"tests": {
+				"Status is 201": true
+			},
+			"testPassFailCounts": {
+				"Status is 201": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				19
+			],
+			"allTests": [
+				{
+					"Status is 201": true
+				}
+			]
+		},
+		{
+			"id": "06efe5aa-4c71-4304-8589-f826fe7a190c",
+			"name": "Create Paging Reservation 3",
+			"url": "http://localhost:5177/api/rooms/5/stations/6/reservations",
+			"time": 16,
+			"responseCode": {
+				"code": 201,
+				"name": "Created"
+			},
+			"tests": {
+				"Status is 201": true
+			},
+			"testPassFailCounts": {
+				"Status is 201": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				16
+			],
+			"allTests": [
+				{
+					"Status is 201": true
+				}
+			]
+		},
+		{
+			"id": "ee8b1208-c590-4a18-bd2c-df50b99647ea",
+			"name": "Get Stations Page 1",
+			"url": "http://localhost:5177/api/rooms/5/stations?pageNumber=1&pageSize=2",
+			"time": 13,
+			"responseCode": {
+				"code": 200,
+				"name": "OK"
+			},
+			"tests": {
+				"Status is 200": true,
+				"Returns 2 items": true,
+				"totalCount is 3": true,
+				"totalPages is 2": true,
+				"currentPage is 1": true,
+				"previousPageLink is null": true,
+				"nextPageLink contains pageNumber=2": true,
+				"nextPageLink keeps room id in path": true
+			},
+			"testPassFailCounts": {
+				"Status is 200": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Returns 2 items": {
+					"pass": 1,
+					"fail": 0
+				},
+				"totalCount is 3": {
+					"pass": 1,
+					"fail": 0
+				},
+				"totalPages is 2": {
+					"pass": 1,
+					"fail": 0
+				},
+				"currentPage is 1": {
+					"pass": 1,
+					"fail": 0
+				},
+				"previousPageLink is null": {
+					"pass": 1,
+					"fail": 0
+				},
+				"nextPageLink contains pageNumber=2": {
+					"pass": 1,
+					"fail": 0
+				},
+				"nextPageLink keeps room id in path": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				13
+			],
+			"allTests": [
+				{
+					"Status is 200": true,
+					"Returns 2 items": true,
+					"totalCount is 3": true,
+					"totalPages is 2": true,
+					"currentPage is 1": true,
+					"previousPageLink is null": true,
+					"nextPageLink contains pageNumber=2": true,
+					"nextPageLink keeps room id in path": true
+				}
+			]
+		},
+		{
+			"id": "d1c21e73-57b5-48ba-ad43-cba4b19410b1",
+			"name": "Get Stations Page 2",
+			"url": "http://localhost:5177/api/rooms/5/stations?pageNumber=2&pageSize=2",
+			"time": 15,
+			"responseCode": {
+				"code": 200,
+				"name": "OK"
+			},
+			"tests": {
+				"Status is 200": true,
+				"Returns 1 items": true,
+				"currentPage is 2": true,
+				"previousPageLink contains pageNumber=1": true,
+				"nextPageLink is null": true
+			},
+			"testPassFailCounts": {
+				"Status is 200": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Returns 1 items": {
+					"pass": 1,
+					"fail": 0
+				},
+				"currentPage is 2": {
+					"pass": 1,
+					"fail": 0
+				},
+				"previousPageLink contains pageNumber=1": {
+					"pass": 1,
+					"fail": 0
+				},
+				"nextPageLink is null": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				15
+			],
+			"allTests": [
+				{
+					"Status is 200": true,
+					"Returns 1 items": true,
+					"currentPage is 2": true,
+					"previousPageLink contains pageNumber=1": true,
+					"nextPageLink is null": true
+				}
+			]
+		},
+		{
+			"id": "b80a6f99-d52d-4d95-bf20-805c5cb53b5b",
+			"name": "Get Stations Page Beyond Last",
+			"url": "http://localhost:5177/api/rooms/5/stations?pageNumber=5&pageSize=2",
+			"time": 9,
+			"responseCode": {
+				"code": 200,
+				"name": "OK"
+			},
+			"tests": {
+				"Status is 200": true,
+				"Returns 0 items": true,
+				"totalCount is 3": true
+			},
+			"testPassFailCounts": {
+				"Status is 200": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Returns 0 items": {
+					"pass": 1,
+					"fail": 0
+				},
+				"totalCount is 3": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				9
+			],
+			"allTests": [
+				{
+					"Status is 200": true,
+					"Returns 0 items": true,
+					"totalCount is 3": true
+				}
+			]
+		},
+		{
+			"id": "b96f1baa-37ce-479f-8fec-2e2471c67618",
+			"name": "Get Stations (Default Paging)",
+			"url": "http://localhost:5177/api/rooms/5/stations",
+			"time": 9,
+			"responseCode": {
+				"code": 200,
+				"name": "OK"
+			},
+			"tests": {
+				"Status is 200": true,
+				"Returns 3 items": true,
+				"currentPage is 1": true,
+				"pageSize is 10": true
+			},
+			"testPassFailCounts": {
+				"Status is 200": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Returns 3 items": {
+					"pass": 1,
+					"fail": 0
+				},
+				"currentPage is 1": {
+					"pass": 1,
+					"fail": 0
+				},
+				"pageSize is 10": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				9
+			],
+			"allTests": [
+				{
+					"Status is 200": true,
+					"Returns 3 items": true,
+					"currentPage is 1": true,
+					"pageSize is 10": true
+				}
+			]
+		},
+		{
+			"id": "eac0711c-99c6-4369-8af4-f32e243f9fe5",
+			"name": "Get Stations (Invalid Page Number)",
+			"url": "http://localhost:5177/api/rooms/5/stations?pageNumber=0&pageSize=2",
+			"time": 10,
+			"responseCode": {
+				"code": 200,
+				"name": "OK"
+			},
+			"tests": {
+				"Status is 200": true,
+				"currentPage is 1": true
+			},
+			"testPassFailCounts": {
+				"Status is 200": {
+					"pass": 1,
+					"fail": 0
+				},
+				"currentPage is 1": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				10
+			],
+			"allTests": [
+				{
+					"Status is 200": true,
+					"currentPage is 1": true
+				}
+			]
+		},
+		{
+			"id": "dad8dcb0-cec1-46ce-ab80-b3bd44dcc444",
+			"name": "Get Stations (Too Big Page Size)",
+			"url": "http://localhost:5177/api/rooms/5/stations?pageSize=500",
+			"time": 10,
+			"responseCode": {
+				"code": 200,
+				"name": "OK"
+			},
+			"tests": {
+				"Status is 200": true,
+				"pageSize is 50": true
+			},
+			"testPassFailCounts": {
+				"Status is 200": {
+					"pass": 1,
+					"fail": 0
+				},
+				"pageSize is 50": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				10
+			],
+			"allTests": [
+				{
+					"Status is 200": true,
+					"pageSize is 50": true
+				}
+			]
+		},
+		{
+			"id": "01e2e251-5e9b-4136-a211-5350344fb975",
+			"name": "Get Games By Genre Page 1",
+			"url": "http://localhost:5177/api/games?genre=Paging&pageNumber=1&pageSize=2",
+			"time": 8,
+			"responseCode": {
+				"code": 200,
+				"name": "OK"
+			},
+			"tests": {
+				"Status is 200": true,
+				"Returns 2 items": true,
+				"totalCount is 3": true,
+				"totalPages is 2": true,
+				"nextPageLink contains genre=Paging": true
+			},
+			"testPassFailCounts": {
+				"Status is 200": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Returns 2 items": {
+					"pass": 1,
+					"fail": 0
+				},
+				"totalCount is 3": {
+					"pass": 1,
+					"fail": 0
+				},
+				"totalPages is 2": {
+					"pass": 1,
+					"fail": 0
+				},
+				"nextPageLink contains genre=Paging": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				8
+			],
+			"allTests": [
+				{
+					"Status is 200": true,
+					"Returns 2 items": true,
+					"totalCount is 3": true,
+					"totalPages is 2": true,
+					"nextPageLink contains genre=Paging": true
+				}
+			]
+		},
+		{
+			"id": "4c70a68c-d9dc-4b40-9859-e9733955525b",
+			"name": "Follow Next Page Link",
+			"url": "http://localhost:5177/api/games?genre=Paging&pageNumber=2&pageSize=2",
+			"time": 10,
+			"responseCode": {
+				"code": 200,
+				"name": "OK"
+			},
+			"tests": {
+				"Status is 200": true,
+				"Returns 1 items": true,
+				"currentPage is 2": true,
+				"previousPageLink contains genre=Paging": true
+			},
+			"testPassFailCounts": {
+				"Status is 200": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Returns 1 items": {
+					"pass": 1,
+					"fail": 0
+				},
+				"currentPage is 2": {
+					"pass": 1,
+					"fail": 0
+				},
+				"previousPageLink contains genre=Paging": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				10
+			],
+			"allTests": [
+				{
+					"Status is 200": true,
+					"Returns 1 items": true,
+					"currentPage is 2": true,
+					"previousPageLink contains genre=Paging": true
+				}
+			]
+		},
+		{
+			"id": "8032cc03-2a33-47e3-8b0d-6b75a0f62d5d",
+			"name": "Get Reservations By Email Page 1",
+			"url": "http://localhost:5177/api/reservations?customerEmail=paging@example.com&pageNumber=1&pageSize=2",
+			"time": 9,
+			"responseCode": {
+				"code": 200,
+				"name": "OK"
+			},
+			"tests": {
+				"Status is 200": true,
+				"Returns 2 items": true,
+				"totalCount is 3": true,
+				"nextPageLink contains customerEmail=": true
+			},
+			"testPassFailCounts": {
+				"Status is 200": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Returns 2 items": {
+					"pass": 1,
+					"fail": 0
+				},
+				"totalCount is 3": {
+					"pass": 1,
+					"fail": 0
+				},
+				"nextPageLink contains customerEmail=": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				9
+			],
+			"allTests": [
+				{
+					"Status is 200": true,
+					"Returns 2 items": true,
+					"totalCount is 3": true,
+					"nextPageLink contains customerEmail=": true
+				}
+			]
+		},
+		{
+			"id": "207bf616-c21f-4613-9c8b-7dfa50b8fad7",
+			"name": "Get Station Reservations Page 2",
+			"url": "http://localhost:5177/api/rooms/5/stations/6/reservations?pageNumber=2&pageSize=2",
+			"time": 12,
+			"responseCode": {
+				"code": 200,
+				"name": "OK"
+			},
+			"tests": {
+				"Status is 200": true,
+				"Returns 1 items": true,
+				"currentPage is 2": true,
+				"previousPageLink contains /reservations": true
+			},
+			"testPassFailCounts": {
+				"Status is 200": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Returns 1 items": {
+					"pass": 1,
+					"fail": 0
+				},
+				"currentPage is 2": {
+					"pass": 1,
+					"fail": 0
+				},
+				"previousPageLink contains /reservations": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				12
+			],
+			"allTests": [
+				{
+					"Status is 200": true,
+					"Returns 1 items": true,
+					"currentPage is 2": true,
+					"previousPageLink contains /reservations": true
+				}
+			]
+		},
+		{
+			"id": "14dd5d07-0510-4414-9f8c-85920a993f81",
+			"name": "Get Station Games (Empty)",
+			"url": "http://localhost:5177/api/rooms/5/stations/6/games",
+			"time": 10,
+			"responseCode": {
+				"code": 200,
+				"name": "OK"
+			},
+			"tests": {
+				"Status is 200": true,
+				"Returns 0 items": true,
+				"totalCount is 0": true,
+				"nextPageLink is null": true
+			},
+			"testPassFailCounts": {
+				"Status is 200": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Returns 0 items": {
+					"pass": 1,
+					"fail": 0
+				},
+				"totalCount is 0": {
+					"pass": 1,
+					"fail": 0
+				},
+				"nextPageLink is null": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				10
+			],
+			"allTests": [
+				{
+					"Status is 200": true,
+					"Returns 0 items": true,
+					"totalCount is 0": true,
+					"nextPageLink is null": true
+				}
+			]
+		},
+		{
+			"id": "37af39c6-1f10-49b3-90e0-a8e8d4bd6e24",
+			"name": "Get Rooms Page 1",
+			"url": "http://localhost:5177/api/rooms?pageNumber=1&pageSize=1",
+			"time": 9,
+			"responseCode": {
+				"code": 200,
+				"name": "OK"
+			},
+			"tests": {
+				"Status is 200": true,
+				"Returns 1 items": true,
+				"pageSize is 1": true,
+				"Pagination header exists": true
+			},
+			"testPassFailCounts": {
+				"Status is 200": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Returns 1 items": {
+					"pass": 1,
+					"fail": 0
+				},
+				"pageSize is 1": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Pagination header exists": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				9
+			],
+			"allTests": [
+				{
+					"Status is 200": true,
+					"Returns 1 items": true,
+					"pageSize is 1": true,
+					"Pagination header exists": true
+				}
+			]
+		},
+		{
+			"id": "215326f1-544c-49b3-823c-95d68bfd0e17",
+			"name": "Delete Paging Reservation 1",
+			"url": "http://localhost:5177/api/rooms/5/stations/6/reservations/5",
+			"time": 15,
+			"responseCode": {
+				"code": 204,
+				"name": "No Content"
+			},
+			"tests": {
+				"Status is 204": true
+			},
+			"testPassFailCounts": {
+				"Status is 204": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				15
+			],
+			"allTests": [
+				{
+					"Status is 204": true
+				}
+			]
+		},
+		{
+			"id": "946c720e-94ba-42c6-b721-01778766b8fd",
+			"name": "Delete Paging Reservation 2",
+			"url": "http://localhost:5177/api/rooms/5/stations/6/reservations/6",
+			"time": 15,
+			"responseCode": {
+				"code": 204,
+				"name": "No Content"
+			},
+			"tests": {
+				"Status is 204": true
+			},
+			"testPassFailCounts": {
+				"Status is 204": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				15
+			],
+			"allTests": [
+				{
+					"Status is 204": true
+				}
+			]
+		},
+		{
+			"id": "eed85fe3-f26e-425f-a0d1-fb43fc99aaa0",
+			"name": "Delete Paging Reservation 3",
+			"url": "http://localhost:5177/api/rooms/5/stations/6/reservations/7",
+			"time": 13,
+			"responseCode": {
+				"code": 204,
+				"name": "No Content"
+			},
+			"tests": {
+				"Status is 204": true
+			},
+			"testPassFailCounts": {
+				"Status is 204": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				13
+			],
+			"allTests": [
+				{
+					"Status is 204": true
+				}
+			]
+		},
+		{
+			"id": "5d001a1d-5d27-4ac3-a97b-c4a68132effd",
+			"name": "Delete Paging Game A",
+			"url": "http://localhost:5177/api/games/3",
+			"time": 11,
+			"responseCode": {
+				"code": 204,
+				"name": "No Content"
+			},
+			"tests": {
+				"Status is 204": true
+			},
+			"testPassFailCounts": {
+				"Status is 204": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				11
+			],
+			"allTests": [
+				{
+					"Status is 204": true
+				}
+			]
+		},
+		{
+			"id": "7cad9ea3-1219-48a8-a5ad-73d96756b2e9",
+			"name": "Delete Paging Game B",
+			"url": "http://localhost:5177/api/games/4",
+			"time": 12,
+			"responseCode": {
+				"code": 204,
+				"name": "No Content"
+			},
+			"tests": {
+				"Status is 204": true
+			},
+			"testPassFailCounts": {
+				"Status is 204": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				12
+			],
+			"allTests": [
+				{
+					"Status is 204": true
+				}
+			]
+		},
+		{
+			"id": "e7f36b56-5793-4d66-8911-723dbd6749b1",
+			"name": "Delete Paging Game C",
+			"url": "http://localhost:5177/api/games/5",
+			"time": 12,
+			"responseCode": {
+				"code": 204,
+				"name": "No Content"
+			},
+			"tests": {
+				"Status is 204": true
+			},
+			"testPassFailCounts": {
+				"Status is 204": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				12
+			],
+			"allTests": [
+				{
+					"Status is 204": true
+				}
+			]
+		},
+		{
+			"id": "db071720-5074-4d1f-9dbf-80329a74f6da",
+			"name": "Delete Paging Station 1",
+			"url": "http://localhost:5177/api/rooms/5/stations/6",
+			"time": 14,
+			"responseCode": {
+				"code": 204,
+				"name": "No Content"
+			},
+			"tests": {
+				"Status is 204": true
+			},
+			"testPassFailCounts": {
+				"Status is 204": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				14
+			],
+			"allTests": [
+				{
+					"Status is 204": true
+				}
+			]
+		},
+		{
+			"id": "9c96bcc1-35f7-40a2-b893-44972811dcf3",
+			"name": "Delete Paging Station 2",
+			"url": "http://localhost:5177/api/rooms/5/stations/7",
+			"time": 13,
+			"responseCode": {
+				"code": 204,
+				"name": "No Content"
+			},
+			"tests": {
+				"Status is 204": true
+			},
+			"testPassFailCounts": {
+				"Status is 204": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				13
+			],
+			"allTests": [
+				{
+					"Status is 204": true
+				}
+			]
+		},
+		{
+			"id": "dd4ab0e7-dc87-4945-a64d-c9457d4f1d56",
+			"name": "Delete Paging Station 3",
+			"url": "http://localhost:5177/api/rooms/5/stations/8",
+			"time": 14,
+			"responseCode": {
+				"code": 204,
+				"name": "No Content"
+			},
+			"tests": {
+				"Status is 204": true
+			},
+			"testPassFailCounts": {
+				"Status is 204": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				14
+			],
+			"allTests": [
+				{
+					"Status is 204": true
+				}
+			]
+		},
+		{
+			"id": "d6020fb1-383f-4006-838f-576d21c6dd80",
+			"name": "Delete Room For Paging",
+			"url": "http://localhost:5177/api/rooms/5",
+			"time": 13,
+			"responseCode": {
+				"code": 204,
+				"name": "No Content"
+			},
+			"tests": {
+				"Status is 204": true
+			},
+			"testPassFailCounts": {
+				"Status is 204": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				13
+			],
+			"allTests": [
+				{
+					"Status is 204": true
+				}
+			]
+		},
+		{
+			"id": "9402557a-0959-4516-a6a9-f22da256b34e",
+			"name": "New Request",
+			"url": "http://localhost:5177/api/rooms",
+			"time": 12,
+			"responseCode": {
+				"code": 201,
+				"name": "Created"
+			},
+			"tests": {},
+			"testPassFailCounts": {},
+			"times": [
+				12
+			],
+			"allTests": [
+				{}
+			]
+		}
+	],
+	"count": 1,
+	"totalTime": 3233,
+	"collection": {
+		"requests": [
+			{
+				"id": "fd91047f-5de2-4346-8c48-c616b7d5b297",
+				"method": "POST"
+			},
+			{
+				"id": "f02e3a4d-1c3a-4073-8ea4-fc926ae88990",
+				"method": "POST"
+			},
+			{
+				"id": "b0557a74-45e8-49b9-b5ae-c4a02d488d38",
+				"method": "GET"
+			},
+			{
+				"id": "5d06b033-d89d-4fff-a5bc-5d638c97b213",
+				"method": "GET"
+			},
+			{
+				"id": "e55615a5-fd4f-4c56-9ee4-d1119cab3ea5",
+				"method": "GET"
+			},
+			{
+				"id": "292ccb97-42d7-4176-a256-33179881c387",
+				"method": "PUT"
+			},
+			{
+				"id": "a842f061-471b-47a1-a687-801eb63a1c8f",
+				"method": "PUT"
+			},
+			{
+				"id": "a5a4b6c2-19a0-4e88-ade9-0e8260d0dc82",
+				"method": "POST"
+			},
+			{
+				"id": "aa773f13-ae02-4714-9585-136f86c1ce01",
+				"method": "POST"
+			},
+			{
+				"id": "3b76cf85-295f-41a5-a0d0-5c4b383f346d",
+				"method": "POST"
+			},
+			{
+				"id": "bdbb8fc6-2276-444b-9f0e-133e08e7a8c1",
+				"method": "POST"
+			},
+			{
+				"id": "a04a1ed2-1585-40c3-8e14-08189d558425",
+				"method": "POST"
+			},
+			{
+				"id": "91b9353f-9e47-4262-804b-2d3145552cfc",
+				"method": "POST"
+			},
+			{
+				"id": "9e02c617-49cf-4aa0-9d07-e406225d70ce",
+				"method": "GET"
+			},
+			{
+				"id": "e9f30538-73e3-4878-afef-0a6583a9505b",
+				"method": "GET"
+			},
+			{
+				"id": "79e22dd7-0b9d-4826-b572-b139e5032c9d",
+				"method": "GET"
+			},
+			{
+				"id": "39b7070b-586b-47e3-8e12-dde24700c2b6",
+				"method": "GET"
+			},
+			{
+				"id": "253df2e4-4fa6-48c7-8d1f-1922827b839e",
+				"method": "POST"
+			},
+			{
+				"id": "1068491b-3c17-4d6e-ad0d-d212d2ce5b1d",
+				"method": "POST"
+			},
+			{
+				"id": "16c21fa5-feec-4f1d-992e-630167eb5ce4",
+				"method": "POST"
+			},
+			{
+				"id": "6ac27073-b1af-427d-8b56-3accfe719072",
+				"method": "POST"
+			},
+			{
+				"id": "6d1dbbf7-7c61-42a2-837b-3f91a520a19d",
+				"method": "POST"
+			},
+			{
+				"id": "a5c1d932-8947-49c2-8ae2-b67b18e95ee9",
+				"method": "PUT"
+			},
+			{
+				"id": "de64c24b-faa4-45dc-bb8b-2570e198d4c4",
+				"method": "GET"
+			},
+			{
+				"id": "78f61dff-e71b-4bbf-922d-96605875bf53",
+				"method": "DELETE"
+			},
+			{
+				"id": "5bfa898b-ae2b-44d2-9eab-5b94bf72d5fb",
+				"method": "PUT"
+			},
+			{
+				"id": "8e10e84a-4d30-4a21-9700-4527a95716b8",
+				"method": "DELETE"
+			},
+			{
+				"id": "54546c29-14fc-4bbc-b1db-222b9c70d5ef",
+				"method": "DELETE"
+			},
+			{
+				"id": "bcd9ed51-99ac-4732-a22c-9dae638c26ce",
+				"method": "DELETE"
+			},
+			{
+				"id": "b79039cf-a6ad-4bfb-aff1-393ad534764b",
+				"method": "GET"
+			},
+			{
+				"id": "e2e7488a-3177-408d-a21f-a74d8e651dba",
+				"method": "POST"
+			},
+			{
+				"id": "506050c4-7ad3-4d1f-8c83-9f0991ecef71",
+				"method": "POST"
+			},
+			{
+				"id": "96d87821-c448-495f-862a-15b4770e9274",
+				"method": "POST"
+			},
+			{
+				"id": "6d08e23c-25ff-4f3e-a75c-5f0ff8e14e5b",
+				"method": "POST"
+			},
+			{
+				"id": "abc73c16-efdc-4fa2-9014-23f5d510b958",
+				"method": "POST"
+			},
+			{
+				"id": "51cb4d10-024f-46f0-bbc1-0cb14c615215",
+				"method": "POST"
+			},
+			{
+				"id": "577be3d6-7cdc-4a7e-8f86-ab33b7361c6e",
+				"method": "POST"
+			},
+			{
+				"id": "18689573-c1f9-4198-8184-863757df75f5",
+				"method": "POST"
+			},
+			{
+				"id": "a61c6c2d-f6b0-4ad6-b710-f7cf748befdd",
+				"method": "POST"
+			},
+			{
+				"id": "f3305fbb-33ef-4249-95ec-19e1eabc0ede",
+				"method": "POST"
+			},
+			{
+				"id": "512a5efb-b71d-4e8c-a978-e24af029ab64",
+				"method": "POST"
+			},
+			{
+				"id": "02f18d9a-2cde-427e-9cf9-da7ce28b2768",
+				"method": "POST"
+			},
+			{
+				"id": "bf133351-2c4b-4a51-a9ac-1124399d5436",
+				"method": "POST"
+			},
+			{
+				"id": "b8fcdcaa-afb3-48ac-aab0-28f6c4f44979",
+				"method": "GET"
+			},
+			{
+				"id": "1ffb56d1-4418-4ffe-9159-a128a553f0d7",
+				"method": "GET"
+			},
+			{
+				"id": "2ac326b8-c3d2-4382-a9e1-31faa478c76b",
+				"method": "GET"
+			},
+			{
+				"id": "a6aa37af-2b95-4b82-b5f3-a763c3c4b4da",
+				"method": "GET"
+			},
+			{
+				"id": "d601a89d-4997-4c83-92c5-05719854c67a",
+				"method": "PUT"
+			},
+			{
+				"id": "0c21a893-bbfe-4e8c-a71b-cf4ad6a9002f",
+				"method": "PUT"
+			},
+			{
+				"id": "0a5a2907-a86d-465a-9f02-76b414ad71ff",
+				"method": "PUT"
+			},
+			{
+				"id": "05d4f8a1-50d1-4f03-8a0d-75805f0056a2",
+				"method": "PATCH"
+			},
+			{
+				"id": "027e2de1-af3d-4c8b-a89b-28415dd24b1f",
+				"method": "PATCH"
+			},
+			{
+				"id": "43685eaa-98ba-4143-8ea3-4ad4c60b2788",
+				"method": "PUT"
+			},
+			{
+				"id": "2a8ef4d1-97f4-4e12-8c01-d015af29966b",
+				"method": "PATCH"
+			},
+			{
+				"id": "8d9d6f3b-1f4a-4dc5-99a2-9529c5d5a6c4",
+				"method": "PATCH"
+			},
+			{
+				"id": "238a0f9f-d6c3-4dfa-a73f-62807f2472ab",
+				"method": "POST"
+			},
+			{
+				"id": "4c497b5f-a29e-4f45-8b6a-98be1f2324a6",
+				"method": "GET"
+			},
+			{
+				"id": "45b151b3-d3f7-4073-b388-f47e6425e9f8",
+				"method": "GET"
+			},
+			{
+				"id": "e13f6d95-38e9-45b7-a0bb-e6d1402731fa",
+				"method": "GET"
+			},
+			{
+				"id": "88fce436-3de2-4e80-8edf-fec7b5f32441",
+				"method": "GET"
+			},
+			{
+				"id": "6eea2370-628b-4de4-bb09-77b98eae1265",
+				"method": "DELETE"
+			},
+			{
+				"id": "dc275ee7-0266-474c-bb56-be202b3099c8",
+				"method": "DELETE"
+			},
+			{
+				"id": "50091c2d-8085-419f-9c6b-e7358e65b846",
+				"method": "DELETE"
+			},
+			{
+				"id": "372d3f97-70b9-4561-9a3b-36436a298b15",
+				"method": "PATCH"
+			},
+			{
+				"id": "ef0b6375-3e09-40e7-948a-a23c76121386",
+				"method": "DELETE"
+			},
+			{
+				"id": "cf0910c7-ce42-4598-b1af-73dcc0b8bd90",
+				"method": "DELETE"
+			},
+			{
+				"id": "42347318-d732-4cf9-ab2f-0e51df90cfa2",
+				"method": "DELETE"
+			},
+			{
+				"id": "8b5a1a34-ca77-4aae-8072-4a7a7f765ac6",
+				"method": "POST"
+			},
+			{
+				"id": "b1f71fd1-0ce6-459c-ad82-c906c541f9f7",
+				"method": "POST"
+			},
+			{
+				"id": "2634f4c1-2835-4033-abbd-826d1a7cea3d",
+				"method": "POST"
+			},
+			{
+				"id": "8b5b3bb1-5d67-4f00-933a-33b4878d5991",
+				"method": "POST"
+			},
+			{
+				"id": "14f655cd-a1df-45c4-83db-f95c80f4931f",
+				"method": "POST"
+			},
+			{
+				"id": "3b161af5-2198-47e8-b93b-58b88fba4265",
+				"method": "POST"
+			},
+			{
+				"id": "020a7142-f092-41c7-97b8-a4a21586d4fd",
+				"method": "POST"
+			},
+			{
+				"id": "e1ca3443-362a-41c2-80e5-9499343d025f",
+				"method": "POST"
+			},
+			{
+				"id": "970c70ae-25c1-49ff-99d9-38a755931372",
+				"method": "GET"
+			},
+			{
+				"id": "41cb83fb-62ab-4340-874e-8905b084ff6e",
+				"method": "GET"
+			},
+			{
+				"id": "79c0e692-9472-4ac5-8291-9bfc13a6125c",
+				"method": "GET"
+			},
+			{
+				"id": "ec99b0db-01b3-42a9-967c-6253bb08277b",
+				"method": "GET"
+			},
+			{
+				"id": "5dd3e02f-ba76-4e98-bde8-5f66109f605d",
+				"method": "GET"
+			},
+			{
+				"id": "8f2bfd6b-af27-4c47-ae47-94f395d7e962",
+				"method": "PUT"
+			},
+			{
+				"id": "15028c52-4da0-4c7f-a250-7ee09f23f727",
+				"method": "PUT"
+			},
+			{
+				"id": "b29ff5a6-cf85-4325-a898-07d83538e056",
+				"method": "PUT"
+			},
+			{
+				"id": "2e3009c6-83d4-4e76-8efd-10ff0b8fc37b",
+				"method": "PUT"
+			},
+			{
+				"id": "b3ed571c-89fe-4cf7-92db-93e3c778e44f",
+				"method": "PUT"
+			},
+			{
+				"id": "5c4f256f-8326-493e-b99e-69c3686e9c62",
+				"method": "PUT"
+			},
+			{
+				"id": "a53cdafd-461d-4181-914d-ffe986fdf758",
+				"method": "GET"
+			},
+			{
+				"id": "7d05e352-21c1-4bb1-a775-68184cdae2a4",
+				"method": "PUT"
+			},
+			{
+				"id": "ed74b9e1-02f8-4d1d-94f1-c87ddf8801ea",
+				"method": "PUT"
+			},
+			{
+				"id": "9369c930-f2e0-41f8-abd3-ac54fe74a150",
+				"method": "GET"
+			},
+			{
+				"id": "5a07d49b-2730-4eb6-b7d1-0e42c6dbdece",
+				"method": "DELETE"
+			},
+			{
+				"id": "98d23849-fb30-4345-8b0c-0868cc4b2e7e",
+				"method": "DELETE"
+			},
+			{
+				"id": "54bbdd7c-bc1d-4c82-a194-e3dad3714364",
+				"method": "POST"
+			},
+			{
+				"id": "67b8c70b-6bd9-4e35-aa2d-e04e870046a3",
+				"method": "GET"
+			},
+			{
+				"id": "987c26e6-dcb5-43d0-a698-fed972067e84",
+				"method": "GET"
+			},
+			{
+				"id": "e8fa8039-4b49-47b5-b9fa-c154e867209d",
+				"method": "GET"
+			},
+			{
+				"id": "81ef5734-ae1e-43b0-8edc-9df3b94c47e6",
+				"method": "DELETE"
+			},
+			{
+				"id": "4e66a20c-7b41-49f7-9d75-489bc599b1bd",
+				"method": "DELETE"
+			},
+			{
+				"id": "cd23ffb4-b825-4460-9bc4-4f038db45b19",
+				"method": "GET"
+			},
+			{
+				"id": "2bc20856-d033-428b-a4bb-7da1a84d996e",
+				"method": "DELETE"
+			},
+			{
+				"id": "993fb259-7874-431a-adac-dd0398ecf8d3",
+				"method": "DELETE"
+			},
+			{
+				"id": "24764ae3-6964-4846-95e0-e8381b37d4a2",
+				"method": "DELETE"
+			},
+			{
+				"id": "c3755dbd-b306-402c-904e-7c4672b2bb66",
+				"method": "DELETE"
+			},
+			{
+				"id": "2b9483cd-555f-48d4-99de-d596a72f97e0",
+				"method": "POST"
+			},
+			{
+				"id": "1e218452-41ec-471f-ba17-f0c4a36ca664",
+				"method": "POST"
+			},
+			{
+				"id": "1d3a36bb-cceb-4ad3-a7c3-4117d425c97c",
+				"method": "POST"
+			},
+			{
+				"id": "1ab53718-3a4c-40e4-bb9f-39190fd92f5d",
+				"method": "POST"
+			},
+			{
+				"id": "a15ea66f-6b7c-4142-9a67-a155b2adf0e2",
+				"method": "POST"
+			},
+			{
+				"id": "e6d91b13-6706-4a98-925e-1a2f31bc8ad8",
+				"method": "POST"
+			},
+			{
+				"id": "1916e34b-9c5d-4e37-8c26-9e030388a133",
+				"method": "POST"
+			},
+			{
+				"id": "a32de21d-b19d-4552-80e7-4bb099958153",
+				"method": "POST"
+			},
+			{
+				"id": "a9295af4-fcff-4d10-932b-fbb0f78ff724",
+				"method": "POST"
+			},
+			{
+				"id": "06efe5aa-4c71-4304-8589-f826fe7a190c",
+				"method": "POST"
+			},
+			{
+				"id": "ee8b1208-c590-4a18-bd2c-df50b99647ea",
+				"method": "GET"
+			},
+			{
+				"id": "d1c21e73-57b5-48ba-ad43-cba4b19410b1",
+				"method": "GET"
+			},
+			{
+				"id": "b80a6f99-d52d-4d95-bf20-805c5cb53b5b",
+				"method": "GET"
+			},
+			{
+				"id": "b96f1baa-37ce-479f-8fec-2e2471c67618",
+				"method": "GET"
+			},
+			{
+				"id": "eac0711c-99c6-4369-8af4-f32e243f9fe5",
+				"method": "GET"
+			},
+			{
+				"id": "dad8dcb0-cec1-46ce-ab80-b3bd44dcc444",
+				"method": "GET"
+			},
+			{
+				"id": "01e2e251-5e9b-4136-a211-5350344fb975",
+				"method": "GET"
+			},
+			{
+				"id": "4c70a68c-d9dc-4b40-9859-e9733955525b",
+				"method": "GET"
+			},
+			{
+				"id": "8032cc03-2a33-47e3-8b0d-6b75a0f62d5d",
+				"method": "GET"
+			},
+			{
+				"id": "207bf616-c21f-4613-9c8b-7dfa50b8fad7",
+				"method": "GET"
+			},
+			{
+				"id": "14dd5d07-0510-4414-9f8c-85920a993f81",
+				"method": "GET"
+			},
+			{
+				"id": "37af39c6-1f10-49b3-90e0-a8e8d4bd6e24",
+				"method": "GET"
+			},
+			{
+				"id": "215326f1-544c-49b3-823c-95d68bfd0e17",
+				"method": "DELETE"
+			},
+			{
+				"id": "946c720e-94ba-42c6-b721-01778766b8fd",
+				"method": "DELETE"
+			},
+			{
+				"id": "eed85fe3-f26e-425f-a0d1-fb43fc99aaa0",
+				"method": "DELETE"
+			},
+			{
+				"id": "5d001a1d-5d27-4ac3-a97b-c4a68132effd",
+				"method": "DELETE"
+			},
+			{
+				"id": "7cad9ea3-1219-48a8-a5ad-73d96756b2e9",
+				"method": "DELETE"
+			},
+			{
+				"id": "e7f36b56-5793-4d66-8911-723dbd6749b1",
+				"method": "DELETE"
+			},
+			{
+				"id": "db071720-5074-4d1f-9dbf-80329a74f6da",
+				"method": "DELETE"
+			},
+			{
+				"id": "9c96bcc1-35f7-40a2-b893-44972811dcf3",
+				"method": "DELETE"
+			},
+			{
+				"id": "dd4ab0e7-dc87-4945-a64d-c9457d4f1d56",
+				"method": "DELETE"
+			},
+			{
+				"id": "d6020fb1-383f-4006-838f-576d21c6dd80",
+				"method": "DELETE"
+			},
+			{
+				"id": "9402557a-0959-4516-a6a9-f22da256b34e",
+				"method": "POST"
+			}
+		]
+	}
+}
