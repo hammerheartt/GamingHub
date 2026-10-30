@@ -1,5 +1,8 @@
+using GamingHub.Api.Auth;
 using GamingHub.Api.Data;
+using GamingHub.Api.Data.Entities;
 using GamingHub.Api.Repositories;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using System.Text.Json.Serialization;
 
@@ -22,11 +25,16 @@ builder.Services.AddScoped<IStationsRepository, StationsRepository>();
 builder.Services.AddScoped<IReservationsRepository, ReservationsRepository>();
 builder.Services.AddScoped<IGamesRepository, GamesRepository>();
 
+builder.Services.AddIdentity<GamingHubUser, IdentityRole>().AddEntityFrameworkStores<GamingHubDbContext>().AddDefaultTokenProviders();
+
+builder.Services.AddTransient<AuthSeeder>();
+
 var app = builder.Build();
 
 using (var scope = app.Services.CreateScope())
 {
     scope.ServiceProvider.GetRequiredService<GamingHubDbContext>().Database.Migrate();
+    await scope.ServiceProvider.GetRequiredService<AuthSeeder>().SeedAsync();
 }
 
 app.MapControllers();

@@ -1,9 +1,10 @@
 ﻿using GamingHub.Api.Data.Entities;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
 namespace GamingHub.Api.Data
 {
-    public class GamingHubDbContext : DbContext
+    public class GamingHubDbContext : IdentityDbContext<GamingHubUser>
     {
         public GamingHubDbContext(DbContextOptions<GamingHubDbContext> options) : base(options) { }
 
@@ -14,6 +15,8 @@ namespace GamingHub.Api.Data
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            base.OnModelCreating(modelBuilder);
+
             modelBuilder.Entity<Room>().Property(o => o.Type).HasConversion<string>();
             modelBuilder.Entity<Room>().Property(o => o.HourlyRate).HasPrecision(10, 2);
 
