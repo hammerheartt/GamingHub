@@ -9,8 +9,6 @@ using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
 using System.Text.Json.Serialization;
 
-JwtSecurityTokenHandler.DefaultInboundClaimTypeMap.Clear();
-
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddControllers(o => o.SuppressImplicitRequiredAttributeForNonNullableReferenceTypes = true)
@@ -32,6 +30,7 @@ builder.Services.AddScoped<IGamesRepository, GamesRepository>();
 builder.Services.AddIdentity<GamingHubUser, IdentityRole>().AddEntityFrameworkStores<GamingHubDbContext>().AddDefaultTokenProviders();
 
 builder.Services.AddTransient<AuthSeeder>();
+builder.Services.AddTransient<JwtTokenService>();
 
 builder.Services.AddAuthentication(options =>
 {
@@ -40,8 +39,15 @@ builder.Services.AddAuthentication(options =>
     options.DefaultScheme = JwtBearerDefaults.AuthenticationScheme; 
 }).AddJwtBearer(options =>
 {
+    options.MapInboundClaims = false;
+
+    options.TokenValidationParameters.ValidateIssuer = true;
     options.TokenValidationParameters.ValidIssuer = builder.Configuration["Jwt:ValidIssuer"];
+
+    options.TokenValidationParameters.ValidateAudience = true;
     options.TokenValidationParameters.ValidAudience = builder.Configuration["Jwt:ValidAudience"];
+
+    options.TokenValidationParameters.ValidateLifetime = true;
     options.TokenValidationParameters.IssuerSigningKey = new SymmetricSecurityKey(System.Text.Encoding.UTF8.GetBytes(builder.Configuration["Jwt:Secret"]!));
 });
 builder.Services.AddAuthorization();
