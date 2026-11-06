@@ -13,11 +13,13 @@ namespace GamingHub.Api.Auth
     {
         private readonly UserManager<GamingHubUser> _userManager;
         private readonly JwtTokenService _jwtTokenService;
+        private readonly SessionService _sessionService;
 
-        public AuthController(UserManager<GamingHubUser> userManager, JwtTokenService jwtTokenService)
+        public AuthController(UserManager<GamingHubUser> userManager, JwtTokenService jwtTokenService, SessionService sessionService)
         {
             _userManager = userManager;
             _jwtTokenService = jwtTokenService;
+            _sessionService = sessionService;
         }
 
         [HttpPost("register")]
@@ -46,7 +48,7 @@ namespace GamingHub.Api.Auth
         }
 
         [HttpPost("login")]
-        public async Task<ActionResult<TokenResponseDto>> Login(LoginRequestDto dto)
+        public async Task<ActionResult<AccessTokenResponseDto>> Login(LoginRequestDto dto)
         {
             var user = await _userManager.FindByNameAsync(dto.UserName);
             if (user == null || !await _userManager.CheckPasswordAsync(user, dto.Password))
@@ -55,21 +57,53 @@ namespace GamingHub.Api.Auth
             }
 
             var roles = await _userManager.GetRolesAsync(user);
+            
+            var sessionId = Guid.NewGuid();
+            var now = DateTimeOffset.UtcNow;
+            var expiresAt = now.Add(_jwtTokenService.RefreshTokenLifeTime());
+
             var accessToken = _jwtTokenService.CreateAccessToken(user.Id, user.UserName!, roles);
-            var refreshToken = _jwtTokenService.CreateRefreshToken(user.Id);
-            return Ok(new TokenResponseDto(accessToken, refreshToken));
+            var refreshToken = _jwtTokenService.CreateRefreshToken(sessionId, user.Id, expiresAt);
+
+            var device = Request.Headers.UserAgent.ToString();
+            if (device.Length > 256)
+            {
+                device = device[..256];
+            }
+
+            await _sessionService.CreateSessionAsync(sessionId, user.Id, refreshToken, now, expiresAt, device);
+
+            if (user.ForceRelogin)
+            {
+                user.ForceRelogin = false;
+                await _userManager.UpdateAsync(user);
+            }
+
+            SetRefreshTokenCookie(refreshToken, expiresAt);
+
+            return Ok(new AccessTokenResponseDto(accessToken));
         }
 
         [HttpPost("refresh")]
-        public async Task<ActionResult<TokenResponseDto>> Refresh(RefreshRequestDto dto)
+        public async Task<ActionResult<AccessTokenResponseDto>> Refresh()
         {
-            if (!_jwtTokenService.TryParseRefreshToken(dto.RefreshToken, out var claims))
+            if (!Request.Cookies.TryGetValue("RefreshToken", out var refreshToken))
+            {
+                return InvalidToken();
+            }
+
+            if (!_jwtTokenService.TryParseRefreshToken(refreshToken, out var claims))
             {
                 return InvalidToken();
             }
 
             var userId = claims!.FindFirstValue(JwtRegisteredClaimNames.Sub);
-            if (userId == null)
+            if (userId == null || !Guid.TryParse(claims!.FindFirstValue("SessionId"), out var sessionId))
+            {
+                return InvalidToken();
+            }
+
+            if (!await _sessionService.IsSessionValidAsync(sessionId, refreshToken))
             {
                 return InvalidToken();
             }
@@ -80,10 +114,54 @@ namespace GamingHub.Api.Auth
                 return InvalidToken();
             }
 
+            if (user.ForceRelogin)
+            {
+                await _sessionService.InvalidateSessionAsync(sessionId);
+                return InvalidToken();
+            }
+
             var roles = await _userManager.GetRolesAsync(user);
+            var expiresAt = DateTimeOffset.UtcNow.Add(_jwtTokenService.RefreshTokenLifeTime());
+
             var accessToken = _jwtTokenService.CreateAccessToken(user.Id, user.UserName!, roles);
-            var refreshToken = _jwtTokenService.CreateRefreshToken(user.Id);
-            return Ok(new TokenResponseDto(accessToken, refreshToken));
+            refreshToken = _jwtTokenService.CreateRefreshToken(sessionId, user.Id, expiresAt);
+
+            await _sessionService.ExtendSessionAsync(sessionId, refreshToken, expiresAt);
+
+            SetRefreshTokenCookie(refreshToken, expiresAt);
+
+            return Ok(new AccessTokenResponseDto(accessToken));
+        }
+
+        [HttpPost("logout")]
+        public async Task<IActionResult> Logout()
+        {
+            if (!Request.Cookies.TryGetValue("RefreshToken", out var refreshToken))
+            {
+                return InvalidToken();
+            }
+
+            if (!_jwtTokenService.TryParseRefreshToken(refreshToken, out var claims) || 
+                !Guid.TryParse(claims!.FindFirstValue("SessionId"), out var sessionId))
+            {
+                return InvalidToken();
+            }
+
+            await _sessionService.InvalidateSessionAsync(sessionId);
+            Response.Cookies.Delete("RefreshToken", new CookieOptions { Path = "/api/auth" });
+            return NoContent();
+        }
+
+        void SetRefreshTokenCookie(string refreshToken, DateTimeOffset expiresAt)
+        {
+            Response.Cookies.Append("RefreshToken", refreshToken, new CookieOptions
+            {
+                HttpOnly = true,
+                SameSite = SameSiteMode.Lax,
+                Expires = expiresAt,
+                Path = "/api/auth"
+                // Secure = true
+            });
         }
 
         ActionResult InvalidToken() { return Problem(detail: "Invalid refresh token.", statusCode: 401); }

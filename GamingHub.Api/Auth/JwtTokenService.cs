@@ -1,5 +1,4 @@
 ﻿using Microsoft.IdentityModel.Tokens;
-using System.Data;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 
@@ -23,6 +22,11 @@ namespace GamingHub.Api.Auth
             _refreshTokenLifeHours = int.Parse(configuration["Jwt:RefreshTokenLifeHours"]!);
         }
 
+        public TimeSpan RefreshTokenLifeTime()
+        {
+            return TimeSpan.FromHours(_refreshTokenLifeHours);
+        }
+            
         public string CreateAccessToken(string userId, string username, IEnumerable<string> roles)
         {
             var authClaims = new List<Claim>()
@@ -45,19 +49,20 @@ namespace GamingHub.Api.Auth
             return new JwtSecurityTokenHandler().WriteToken(token);
         }
 
-        public string CreateRefreshToken(string userId)
+        public string CreateRefreshToken(Guid sessionId, string userId, DateTimeOffset expiresAt)
         {
             var authClaims = new List<Claim>()
             {
                 new (JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
-                new Claim(JwtRegisteredClaimNames.Sub, userId)
+                new Claim(JwtRegisteredClaimNames.Sub, userId),
+                new ("SessionId", sessionId.ToString())
             };
 
             var token = new JwtSecurityToken(
                 issuer: _issuer,
                 audience: _refreshAudience,
                 claims: authClaims,
-                expires: DateTime.UtcNow.AddHours(_refreshTokenLifeHours),
+                expires: expiresAt.UtcDateTime,
                 signingCredentials: new SigningCredentials(_authSigningKey, SecurityAlgorithms.HmacSha256)
                 );
 

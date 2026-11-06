@@ -12,10 +12,22 @@ namespace GamingHub.Api.Data
         public DbSet<Station> Stations { get; set; }
         public DbSet<Reservation> Reservations { get; set; }
         public DbSet<Game> Games {  get; set; }
+        public DbSet<Session> Sessions { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
+
+            modelBuilder.Entity<Session>(o =>
+            {
+                o.Property(e => e.LastRefreshTokenHash).HasMaxLength(64);
+                o.Property(e => e.Device).HasMaxLength(256);
+
+                o.HasOne(e => e.User)
+                    .WithMany()
+                    .HasForeignKey(e => e.UserId)
+                    .OnDelete(DeleteBehavior.Cascade);
+            });
 
             modelBuilder.Entity<Room>().Property(o => o.Type).HasConversion<string>();
             modelBuilder.Entity<Room>().Property(o => o.HourlyRate).HasPrecision(10, 2);

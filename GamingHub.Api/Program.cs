@@ -31,6 +31,7 @@ builder.Services.AddIdentity<GamingHubUser, IdentityRole>().AddEntityFrameworkSt
 
 builder.Services.AddTransient<AuthSeeder>();
 builder.Services.AddTransient<JwtTokenService>();
+builder.Services.AddScoped<SessionService>();
 
 builder.Services.AddAuthentication(options =>
 {
