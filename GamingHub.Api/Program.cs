@@ -2,10 +2,14 @@ using GamingHub.Api.Auth;
 using GamingHub.Api.Data;
 using GamingHub.Api.Data.Entities;
 using GamingHub.Api.Repositories;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.IdentityModel.Tokens;
+using System.IdentityModel.Tokens.Jwt;
 using System.Text.Json.Serialization;
 
+JwtSecurityTokenHandler.DefaultInboundClaimTypeMap.Clear();
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -29,6 +33,19 @@ builder.Services.AddIdentity<GamingHubUser, IdentityRole>().AddEntityFrameworkSt
 
 builder.Services.AddTransient<AuthSeeder>();
 
+builder.Services.AddAuthentication(options =>
+{
+    options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+    options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+    options.DefaultScheme = JwtBearerDefaults.AuthenticationScheme; 
+}).AddJwtBearer(options =>
+{
+    options.TokenValidationParameters.ValidIssuer = builder.Configuration["Jwt:ValidIssuer"];
+    options.TokenValidationParameters.ValidAudience = builder.Configuration["Jwt:ValidAudience"];
+    options.TokenValidationParameters.IssuerSigningKey = new SymmetricSecurityKey(System.Text.Encoding.UTF8.GetBytes(builder.Configuration["Jwt:Secret"]!));
+});
+builder.Services.AddAuthorization();
+
 var app = builder.Build();
 
 using (var scope = app.Services.CreateScope())
@@ -36,6 +53,9 @@ using (var scope = app.Services.CreateScope())
     scope.ServiceProvider.GetRequiredService<GamingHubDbContext>().Database.Migrate();
     await scope.ServiceProvider.GetRequiredService<AuthSeeder>().SeedAsync();
 }
+
+app.UseAuthentication();
+app.UseAuthorization();
 
 app.MapControllers();
 

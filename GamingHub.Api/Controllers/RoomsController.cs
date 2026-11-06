@@ -4,6 +4,7 @@ using GamingHub.Api.Data.Entities;
 using GamingHub.Api.Repositories;
 using GamingHub.Api.Data.Paging;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Authorization;
 
 namespace GamingHub.Api.Controllers
 {
