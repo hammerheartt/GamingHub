@@ -27,7 +27,8 @@ namespace GamingHub.Api.Repositories
             var query = _db.Reservations.Where(o => o.StationId == stationId);
             if (userId != null) { query = query.Where(o => o.UserId == userId); }
 
-            return await PagedList<Reservation>.CreateAsync(query, searchParameters.PageNumber!.Value, searchParameters.PageSize!.Value);
+            return await PagedList<Reservation>.CreateAsync(query.OrderBy(o => o.StartTime), 
+                                                            searchParameters.PageNumber!.Value, searchParameters.PageSize!.Value);
         }
 
         public async Task<PagedList<Reservation>> GetFiltered(DateOnly? date, ReservationStatus? status, int? roomId, 
