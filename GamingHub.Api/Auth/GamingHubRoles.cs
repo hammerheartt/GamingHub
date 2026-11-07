@@ -1,6 +1,6 @@
 ﻿namespace GamingHub.Api.Auth
 {
-    public class GamingHubRoles
+    public static class GamingHubRoles
     {
         public const string Admin = "Admin";
         public const string Member = "Member";

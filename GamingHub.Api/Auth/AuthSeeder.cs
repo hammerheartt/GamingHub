@@ -45,9 +45,9 @@ namespace GamingHub.Api.Auth
             var result = await _userManager.CreateAsync(admin, password);
             if (!result.Succeeded)
             {
-                throw new InvalidOperationException("Admin seed failed:" + string.Join("; ", result.Errors.Select(e => e.Description)));
+                throw new InvalidOperationException("Admin seed failed: " + string.Join("; ", result.Errors.Select(e => e.Description)));
             }
             await _userManager.AddToRolesAsync(admin, GamingHubRoles.All);
-        }
+        }   
     }
 }
