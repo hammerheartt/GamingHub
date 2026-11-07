@@ -1,23 +1,26 @@
 ﻿using AutoMapper;
+using GamingHub.Api.Auth;
 using GamingHub.Api.Data.Dtos.Games;
 using GamingHub.Api.Data.Dtos.Rooms;
 using GamingHub.Api.Data.Dtos.Stations;
 using GamingHub.Api.Data.Entities;
 using GamingHub.Api.Data.Paging;
 using GamingHub.Api.Repositories;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace GamingHub.Api.Controllers
 {
-    ///api/rooms/{roomId}/ stations GET ALL 200
-    ///api/rooms/{roomId}/ stations /{stationId} GET 200
-    ///api/rooms/{roomId}/ stations POST 201
-    ///api/rooms/{roomId}/ stations /{stationId} PUT 200
-    ///api/rooms/{roomId}/ stations /{stationId} DELETE 204
+    ///api/rooms/{roomId}/stations GET ALL 200
+    ///api/rooms/{roomId}/stations/{stationId} GET 200
+    ///api/rooms/{roomId}/stations POST 201
+    ///api/rooms/{roomId}/stations/{stationId} PUT 200
+    ///api/rooms/{roomId}/stations/{stationId} DELETE 204
     ///api/rooms/{roomId}/stations/{stationId}/details GET 200
 
     [Route("api/rooms/{roomId}/stations")]
     [ApiController]
+    [Authorize(Roles = GamingHubRoles.Admin)]
     public class StationsController : ControllerBase
     {
         private readonly IRoomsRepository _roomsRepository;
@@ -34,6 +37,7 @@ namespace GamingHub.Api.Controllers
         }
 
         [HttpGet(Name = "GetStations")]
+        [AllowAnonymous]
         public async Task<ActionResult<IEnumerable<StationDto>>> GetAll(int roomId, [FromQuery] SearchParameters searchParameters)
         {
             var room = await _roomsRepository.Get(roomId);
@@ -46,6 +50,7 @@ namespace GamingHub.Api.Controllers
         }
 
         [HttpGet("{stationId}")]
+        [AllowAnonymous]
         public async Task<ActionResult<StationDto>> Get(int roomId, int stationId)
         {
             var station = await _stationsRepository.Get(roomId, stationId);
@@ -55,6 +60,7 @@ namespace GamingHub.Api.Controllers
         }
 
         [HttpGet("{stationId}/details")]
+        [AllowAnonymous]
         public async Task<ActionResult<StationDetailsDto>> GetDetails(int roomId, int stationId)
         {
             var station = await _stationsRepository.GetDetails(roomId, stationId);

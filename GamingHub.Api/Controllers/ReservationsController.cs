@@ -1,8 +1,10 @@
 ﻿using AutoMapper;
+using GamingHub.Api.Auth;
 using GamingHub.Api.Data.Dtos.Reservations;
 using GamingHub.Api.Data.Entities;
 using GamingHub.Api.Data.Paging;
 using GamingHub.Api.Repositories;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
@@ -19,6 +21,7 @@ namespace GamingHub.Api.Controllers
 
     [Route("api/rooms/{roomId}/stations/{stationId}/reservations")]
     [ApiController]
+    [Authorize]
     public class ReservationsController : ControllerBase
     {
         private readonly IRoomsRepository _roomsRepository;
@@ -148,6 +151,7 @@ namespace GamingHub.Api.Controllers
         }
 
         [HttpPatch("{reservationId}")]
+        [Authorize(Roles = GamingHubRoles.Admin)]
         public async Task<ActionResult<ReservationDto>> Patch(int roomId, int stationId, int reservationId, UpdateReservationStatusDto dto)
         {
             var station = await _stationsRepository.Get(roomId, stationId);
@@ -167,6 +171,7 @@ namespace GamingHub.Api.Controllers
         }
 
         [HttpDelete("{reservationId}")]
+        [Authorize(Roles = GamingHubRoles.Admin)]
         public async Task<IActionResult> Delete(int roomId, int stationId, int reservationId)
         {
             var station = await _stationsRepository.Get(roomId, stationId);
