@@ -11,8 +11,6 @@
     public class Reservation
     {
         public int Id { get; set; }
-        public required string CustomerName { get; set; }
-        public required string CustomerEmail { get; set; }
         public DateTimeOffset StartTime { get; set; }
         public DateTimeOffset EndTime { get; set; }
         public decimal TotalPrice { get; set; }
@@ -20,5 +18,8 @@
         public DateTimeOffset CreatedAt { get; set; }
         public int StationId { get; set; }
         public Station Station { get; set; } = null!;
+
+        public required string UserId { get; set; }
+        public GamingHubUser User { get; set; } = null!;
     }
 }

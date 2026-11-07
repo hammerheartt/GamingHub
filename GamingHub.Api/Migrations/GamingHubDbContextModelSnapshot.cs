@@ -142,14 +142,6 @@ namespace GamingHub.Api.Migrations
                     b.Property<DateTimeOffset>("CreatedAt")
                         .HasColumnType("datetime(6)");
 
-                    b.Property<string>("CustomerEmail")
-                        .IsRequired()
-                        .HasColumnType("longtext");
-
-                    b.Property<string>("CustomerName")
-                        .IsRequired()
-                        .HasColumnType("longtext");
-
                     b.Property<DateTimeOffset>("EndTime")
                         .HasColumnType("datetime(6)");
 
@@ -167,9 +159,15 @@ namespace GamingHub.Api.Migrations
                         .HasPrecision(10, 2)
                         .HasColumnType("decimal(10,2)");
 
+                    b.Property<string>("UserId")
+                        .IsRequired()
+                        .HasColumnType("varchar(255)");
+
                     b.HasKey("Id");
 
                     b.HasIndex("StationId");
+
+                    b.HasIndex("UserId");
 
                     b.ToTable("Reservations");
                 });
@@ -435,7 +433,15 @@ namespace GamingHub.Api.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.HasOne("GamingHub.Api.Data.Entities.GamingHubUser", "User")
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.Navigation("Station");
+
+                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("GamingHub.Api.Data.Entities.Session", b =>

@@ -136,18 +136,13 @@ namespace GamingHub.Api.Auth
         [HttpPost("logout")]
         public async Task<IActionResult> Logout()
         {
-            if (!Request.Cookies.TryGetValue("RefreshToken", out var refreshToken))
+            if (Request.Cookies.TryGetValue("RefreshToken", out var refreshToken) &&
+                _jwtTokenService.TryParseRefreshToken(refreshToken, out var claims) &&
+                Guid.TryParse(claims!.FindFirstValue("SessionId"), out var sessionId))
             {
-                return InvalidToken();
+                await _sessionService.InvalidateSessionAsync(sessionId);
             }
 
-            if (!_jwtTokenService.TryParseRefreshToken(refreshToken, out var claims) || 
-                !Guid.TryParse(claims!.FindFirstValue("SessionId"), out var sessionId))
-            {
-                return InvalidToken();
-            }
-
-            await _sessionService.InvalidateSessionAsync(sessionId);
             Response.Cookies.Delete("RefreshToken", new CookieOptions { Path = "/api/auth" });
             return NoContent();
         }

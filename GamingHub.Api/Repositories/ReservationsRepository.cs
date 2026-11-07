@@ -9,7 +9,7 @@ namespace GamingHub.Api.Repositories
     {
         Task<PagedList<Reservation>> GetAll(int stationId, SearchParameters searchParameters);
         Task<PagedList<Reservation>> GetFiltered(DateOnly? date, ReservationStatus? status, int? roomId, 
-                                                 string? customerEmail, SearchParameters searchParameters);
+                                                 string? userId, SearchParameters searchParameters);
         Task<Reservation?> Get(int stationId, int reservationId);
         Task<bool> HasOverlap(int stationId, DateTimeOffset start, DateTimeOffset end, int? excludeReservationId = null);
         Task<Reservation> Create(Reservation reservation);
@@ -32,7 +32,7 @@ namespace GamingHub.Api.Repositories
         }
 
         public async Task<PagedList<Reservation>> GetFiltered(DateOnly? date, ReservationStatus? status, int? roomId, 
-                                                              string? customerEmail, SearchParameters searchParameters)
+                                                              string? userId, SearchParameters searchParameters)
         {
             var query = _db.Reservations.AsQueryable();
 
@@ -46,7 +46,7 @@ namespace GamingHub.Api.Repositories
             }
             if (status != null) { query = query.Where(o => o.Status == status); }
             if (roomId != null) { query = query.Where(o => o.Station.RoomId == roomId); }
-            if (!string.IsNullOrEmpty(customerEmail)) { query = query.Where(o => o.CustomerEmail == customerEmail); }
+            if (!string.IsNullOrEmpty(userId)) { query = query.Where(o => o.UserId == userId); }
             query = query.OrderBy(o => o.StartTime);
             return await PagedList<Reservation>.CreateAsync(query, searchParameters.PageNumber!.Value, searchParameters.PageSize!.Value);
         }

@@ -46,6 +46,12 @@ namespace GamingHub.Api.Data
                 .WithMany(o => o.Reservations)
                 .HasForeignKey(o => o.StationId)
                 .OnDelete(DeleteBehavior.Cascade);
+            modelBuilder.Entity<Reservation>()
+                .HasOne(o => o.User)
+                .WithMany()
+                .HasForeignKey(o => o.UserId)
+                .OnDelete(DeleteBehavior.Cascade);
+             
 
             modelBuilder.Entity<Station>()
                 .HasMany(o => o.Games)

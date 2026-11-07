@@ -4,10 +4,12 @@ using GamingHub.Api.Data.Entities;
 using GamingHub.Api.Data.Paging;
 using GamingHub.Api.Repositories;
 using Microsoft.AspNetCore.Mvc;
+using System.IdentityModel.Tokens.Jwt;
+using System.Security.Claims;
 
 namespace GamingHub.Api.Controllers
 {
-    ///api/reservations GET ALL 200 (filters: date, status, roomId, customerEmail)
+    ///api/reservations GET ALL 200 (filters: date, status, roomId, userId)
     ///api/rooms/{roomId}/stations/{stationId}/reservations GET ALL 200
     ///api/rooms/{roomId}/stations/{stationId}/reservations/{reservationId} GET 200
     ///api/rooms/{roomId}/stations/{stationId}/reservations POST 201
@@ -39,12 +41,12 @@ namespace GamingHub.Api.Controllers
         [HttpGet("/api/reservations", Name = "GetAllReservations")]
         public async Task<ActionResult<IEnumerable<ReservationDto>>> GetFiltered(
                          [FromQuery] DateOnly? date, [FromQuery] ReservationStatus? status,
-                         [FromQuery] int? roomId, [FromQuery] string? customerEmail, 
+                         [FromQuery] int? roomId, [FromQuery] string? userId, 
                          [FromQuery] SearchParameters searchParameters)
         {
-            var reservations = await _reservationsRepository.GetFiltered(date, status, roomId, customerEmail, searchParameters);
+            var reservations = await _reservationsRepository.GetFiltered(date, status, roomId, userId, searchParameters);
             Response.AddPaginationHeader(reservations.CreatePaginationMetadata(_linkGenerator, HttpContext, "GetAllReservations",
-                new { date = date?.ToString("yyyy-MM-dd"), status, roomId, customerEmail }));
+                new { date = date?.ToString("yyyy-MM-dd"), status, roomId, userId }));
 
             return Ok(reservations.Select(o => _mapper.Map<ReservationDto>(o)));
         }
@@ -100,8 +102,7 @@ namespace GamingHub.Api.Controllers
             var reservation = new Reservation
             {
                 StationId = stationId,
-                CustomerName = dto.CustomerName,
-                CustomerEmail = dto.CustomerEmail,
+                UserId = User.FindFirstValue(JwtRegisteredClaimNames.Sub)!,
                 StartTime = start,
                 EndTime = end,
                 TotalPrice = CalculatePrice(room.HourlyRate, start, end),
@@ -138,8 +139,6 @@ namespace GamingHub.Api.Controllers
             if (await _reservationsRepository.HasOverlap(stationId, start, end, excludeReservationId: reservationId))
                 return Problem(detail: "The station is already reserved for this time.", statusCode: 409);
 
-            reservation.CustomerName = dto.CustomerName;
-            reservation.CustomerEmail = dto.CustomerEmail;
             reservation.StartTime = start;
             reservation.EndTime = end;
             reservation.TotalPrice = CalculatePrice(room.HourlyRate, start, end);
