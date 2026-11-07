@@ -1,52 +1,193 @@
 # GamingHub
 
-Computer gaming club reservation system.
+GamingHub is a reservation system for a computer gaming club.  
+The club has PC and console rooms, every room has stations, and people can book a station for a time slot.
+Admins manage rooms, stations and games, members book stations, guests can just look around.
 
 | Part | Technology | Folder |
 |---|---|---|
-| API | ASP.NET Core 8 · Entity Framework Core · MySQL 8.4 | `GamingHub.Api/` |
+| API | ASP.NET Core 8, Entity Framework Core, MySQL 8.4 | `GamingHub.Api/` |
 | WEB | React *(coming soon)* | `GamingHub.Web/` |
+
 ---
 
-## API
+# Features
 
-### API endpoints
+### Rooms and stations
 
-Base URL (local): `http://localhost:5177`. All request and response bodies are JSON.
+- Two room types: PC and Console, each with its own hourly rate
+- PC stations have specs (CPU, GPU, RAM, screen), console stations have platform and seats
+- Stations can be turned off for maintenance and can't be booked then
 
-**Pagination** — every list endpoint accepts `?pageNumber=1&pageSize=10` (defaults: page 1, size 10, max 50).
-Paging info is returned in the `Pagination` response header:
+### Games
+
+- Game catalog with genre and search filter
+- Games can be installed on stations
+- Station details page shows the room, installed games and booked time slots in one response
+
+### Reservations
+
+- Book a station for 30 minutes to 12 hours, start must be in the future
+- Two reservations on the same station can't overlap
+- Price is calculated by the server (room hourly rate × hours)
+- Status flow: `Upcoming` → `Started` → `Finished`, or `Upcoming` → `Cancelled` / `NoShow`
+
+### Accounts and security
+
+- Register and log in with username and password (ASP.NET Core Identity, passwords are hashed)
+- JWT access tokens, refresh token in an HttpOnly cookie
+- Refresh tokens rotate on every use, reusing an old one kills the session
+- Logout per device, and a user can be forced to log in again on all devices (`ForceRelogin` flag)
+
+### Other
+
+- Pagination on every list, info in the `Pagination` response header
+- Errors returned as Problem Details
+- Runs with one Docker command
+
+---
+
+# Roles
+
+| Who | Can do |
+|---|---|
+| Guest (not logged in) | Browse rooms, stations, station details, games. Register and log in |
+| Member | Everything a guest can, plus book stations, see and change own reservations, cancel own reservations |
+| Admin | Everything. Manage rooms, stations, games, install games, see all reservations, change any status, delete reservations |
+
+Every new account is a Member. An admin account is created on first start (see Configuration).
+
+---
+
+# How login works
+
+1. `POST /api/auth/login` with username and password
+2. You get an `accessToken` in the response body and a `RefreshToken` cookie (HttpOnly, only sent to `/api/auth`)
+3. Send the access token with every request: `Authorization: Bearer <accessToken>`
+4. Access token lives 10 minutes. When it expires, call `POST /api/auth/refresh` and you get a new one (the cookie is sent automatically)
+5. `POST /api/auth/logout` ends the session on that device
+
+Without a token you get `401`. Logged in but not allowed (for example a member creating a room) gives `403`.
+
+---
+
+# Installation for development
+
+1. Download and install  
+[Docker Desktop](https://www.docker.com/products/docker-desktop)  
+[.NET 8 SDK](https://dotnet.microsoft.com/download/dotnet/8.0) (only needed if you run the API from Visual Studio)  
+[Visual Studio 2022](https://visualstudio.microsoft.com) (optional)  
+[Postman](https://www.postman.com/downloads) (for testing)
+
+2. Clone
+```bash
+git clone https://github.com/hammerheartt/GamingHub.git
+cd GamingHub
+```
+
+3. Run, pick one
+
+Everything in Docker:
+```bash
+docker compose up --build
+```
+
+Or only the database in Docker and the API from Visual Studio:
+```bash
+docker compose up -d mysql
+```
+then open `GamingHub.sln` and press **F5**.
+
+Both ways the API runs at `http://localhost:5177`. Don't run both at the same time, they use the same port.  
+Tables, roles and the admin account are created automatically on start.
+
+4. Check  
+Open `http://localhost:5177/api/rooms`, should return `[]`.
+
+---
+
+# Testing with Postman
+
+1. Import `postman/GamingHub.postman_collection.json` and `postman/GamingHub.postman_environment.json`
+2. Select the environment and set `baseUrl` to `http://localhost:5177`
+3. Run the whole collection, in order
+
+The collection logs in by itself (first folder registers test users and saves the tokens).
+Most requests run as admin, the Authorization folder tests guests, members and ownership, the Sessions folder tests refresh and logout.
+
+---
+
+# Configuration
+
+Local settings are in `GamingHub.Api/appsettings.Development.json`:
+- `ConnectionStrings:GamingHub` — database connection
+- `Jwt` — issuer, audiences, signing secret, token lifetimes
+- `Admin` — the admin account created on first start (dev login: `admin` / `Admin123!`)
+
+These are dev-only values. On a real server set them as environment variables instead, with strong values:
+- `ConnectionStrings__GamingHub`
+- `Jwt__Secret`
+- `Admin__UserName`, `Admin__Email`, `Admin__Password`
+
+In Docker the connection string is already overridden in `docker-compose.yml` (`Server=mysql`).
+
+---
+
+# API
+
+Base URL: `http://localhost:5177`. Request and response bodies are JSON.
+
+**Pagination** — lists take `?pageNumber=1&pageSize=10` (default 10, max 50). Paging info comes back in the `Pagination` header:
 ```json
 {"totalCount":23,"pageSize":10,"currentPage":2,"totalPages":3,"previousPageLink":"…","nextPageLink":"…"}
 ```
 
-**Errors** are returned as [Problem Details](https://www.rfc-editor.org/rfc/rfc9457) (`application/problem+json`):
-`400` invalid input · `404` resource not found · `409` conflicts with current state.
+**Errors** — `400` bad input, `401` not logged in, `403` not allowed, `404` not found, `409` conflicts with current data (overlap, room still has stations, etc.).
 
-#### Rooms
+### Auth
 
-| Method | URI | Description | Success | Errors |
-|---|---|---|---|---|
-| GET | `/api/rooms` | List rooms (paginated) | 200 | – |
-| GET | `/api/rooms/{roomId}` | Get one room | 200 | 404 |
-| POST | `/api/rooms` | Create a room | 201 | 400 |
-| PUT | `/api/rooms/{roomId}` | Update a room | 200 | 400, 404, 409 (type change while room has stations) |
-| DELETE | `/api/rooms/{roomId}` | Delete a room | 204 | 404, 409 (room has stations) |
+| Method | URL | Who | What |
+|---|---|---|---|
+| POST | `/api/auth/register` | Anyone | Create a member account → `201`, `400`, `409` (username taken) |
+| POST | `/api/auth/login` | Anyone | Log in → `200` + access token + cookie, `401` |
+| POST | `/api/auth/refresh` | Anyone with the cookie | New access token → `200`, `401` |
+| POST | `/api/auth/logout` | Anyone | Ends the session, deletes cookie → `204` |
+
+```json
+// register
+{ "userName": "jonas", "email": "jonas@example.com", "password": "Jonas123!" }
+// login
+{ "userName": "jonas", "password": "Jonas123!" }
+// login / refresh response
+{ "accessToken": "eyJhbGciOi..." }
+```
+Password needs at least 6 characters, an uppercase letter, a lowercase letter, a digit and a symbol.
+
+### Rooms
+
+| Method | URL | Who | What |
+|---|---|---|---|
+| GET | `/api/rooms` | Anyone | List rooms |
+| GET | `/api/rooms/{roomId}` | Anyone | One room |
+| POST | `/api/rooms` | Admin | Create room |
+| PUT | `/api/rooms/{roomId}` | Admin | Update room (`409` if you change type while it has stations) |
+| DELETE | `/api/rooms/{roomId}` | Admin | Delete room (`409` if it still has stations) |
 
 ```json
 { "name": "PC hall", "type": "PC", "description": "Main hall", "hourlyRate": 3.5 }
 ```
-`type`: `PC` · `Console`
+`type` is `PC` or `Console`.
 
-#### Stations
+### Stations
 
-| Method | URI | Description | Success | Errors |
-|---|---|---|---|---|
-| GET | `/api/rooms/{roomId}/stations` | List stations of a room (paginated) | 200 | 404 |
-| GET | `/api/rooms/{roomId}/stations/{stationId}` | Get one station | 200 | 404 |
-| POST | `/api/rooms/{roomId}/stations` | Create a station | 201 | 400, 404 |
-| PUT | `/api/rooms/{roomId}/stations/{stationId}` | Update a station | 200 | 400, 404 |
-| DELETE | `/api/rooms/{roomId}/stations/{stationId}` | Delete a station | 204 | 404, 409 (has upcoming/started reservations) |
+| Method | URL | Who | What |
+|---|---|---|---|
+| GET | `/api/rooms/{roomId}/stations` | Anyone | List stations of a room |
+| GET | `/api/rooms/{roomId}/stations/{stationId}` | Anyone | One station |
+| GET | `/api/rooms/{roomId}/stations/{stationId}/details` | Anyone | Station + room + installed games + booked time slots |
+| POST | `/api/rooms/{roomId}/stations` | Admin | Create station |
+| PUT | `/api/rooms/{roomId}/stations/{stationId}` | Admin | Update station |
+| DELETE | `/api/rooms/{roomId}/stations/{stationId}` | Admin | Delete station (`409` if it has upcoming or started reservations) |
 
 ```json
 // PC room
@@ -54,118 +195,55 @@ Paging info is returned in the `Pagination` response header:
 // Console room
 { "name": "PS5-01", "platform": "PlayStation", "seats": 3, "screen": "65\" TV", "isActive": true }
 ```
-PC rooms require `cpu`, `gpu`, `ramGb`; console rooms require `platform` (`PlayStation` · `Xbox`) and `seats`.
+PC rooms need `cpu`, `gpu`, `ramGb`. Console rooms need `platform` (`PlayStation` or `Xbox`) and `seats`.
 
-#### Reservations
+### Reservations
 
-| Method | URI | Description | Success | Errors |
-|---|---|---|---|---|
-| GET | `/api/reservations` | List reservations across all stations (paginated). Filters: `date`, `status`, `roomId`, `customerEmail` | 200 | 400 |
-| GET | `/api/rooms/{roomId}/stations/{stationId}/reservations` | List reservations of a station (paginated) | 200 | 404 |
-| GET | `/api/rooms/{roomId}/stations/{stationId}/reservations/{reservationId}` | Get one reservation | 200 | 404 |
-| POST | `/api/rooms/{roomId}/stations/{stationId}/reservations` | Create a reservation | 201 | 400, 404, 409 (overlap / inactive station) |
-| PUT | `/api/rooms/{roomId}/stations/{stationId}/reservations/{reservationId}` | Change time or customer | 200 | 400, 404, 409 (overlap / not upcoming) |
-| PATCH | `/api/rooms/{roomId}/stations/{stationId}/reservations/{reservationId}` | Change status | 200 | 400, 404, 409 (invalid transition) |
-| DELETE | `/api/rooms/{roomId}/stations/{stationId}/reservations/{reservationId}` | Delete a reservation | 204 | 404 |
+All reservation endpoints need login. Members only see and touch their own reservations, someone else's gives `404`.
+
+| Method | URL | Who | What |
+|---|---|---|---|
+| GET | `/api/reservations` | Member, Admin | List reservations. Filters: `date`, `status`, `roomId`, `userId` (members always get only their own) |
+| GET | `/api/rooms/{roomId}/stations/{stationId}/reservations` | Member, Admin | Reservations of a station |
+| GET | `/api/rooms/{roomId}/stations/{stationId}/reservations/{reservationId}` | Member, Admin | One reservation |
+| POST | `/api/rooms/{roomId}/stations/{stationId}/reservations` | Member, Admin | Book (`409` on overlap or inactive station) |
+| PUT | `/api/rooms/{roomId}/stations/{stationId}/reservations/{reservationId}` | Member, Admin | Change time (only `Upcoming` ones) |
+| PATCH | `/api/rooms/{roomId}/stations/{stationId}/reservations/{reservationId}` | Member, Admin | Change status. Members can only cancel (`403` otherwise) |
+| DELETE | `/api/rooms/{roomId}/stations/{stationId}/reservations/{reservationId}` | Admin | Delete |
 
 ```json
 // POST / PUT
-{ "customerName": "Jonas Jonaitis", "customerEmail": "jonas@example.com",
-  "startTime": "2026-11-20T14:00:00+02:00", "endTime": "2026-11-20T16:00:00+02:00" }
+{ "startTime": "2026-11-20T14:00:00+02:00", "endTime": "2026-11-20T16:00:00+02:00" }
 // PATCH
-{ "status": "Started" }
+{ "status": "Cancelled" }
 ```
+Who booked it comes from the token, not from the body. `?date=YYYY-MM-DD` uses the club's local day (Europe/Vilnius).
 
-Rules:
-- `totalPrice` = room hourly rate × hours, calculated by the server.
-- Reservations on the same station cannot overlap (cancelled / no-show ones are ignored).
-- Start must be in the future; duration 30 min – 12 h.
-- Status transitions: `Upcoming` → `Started` / `Cancelled` / `NoShow`; `Started` → `Finished`.
-- `?date=YYYY-MM-DD` uses the club's local day (Europe/Vilnius).
+### Games
 
-#### Games
-
-| Method | URI | Description | Success | Errors |
-|---|---|---|---|---|
-| GET | `/api/games` | List games (paginated). Filters: `genre`, `search` (title) | 200 | – |
-| GET | `/api/games/{gameId}` | Get one game | 200 | 404 |
-| POST | `/api/games` | Create a game | 201 | 400, 409 (title exists) |
-| PUT | `/api/games/{gameId}` | Update a game | 200 | 400, 404, 409 (title exists) |
-| DELETE | `/api/games/{gameId}` | Delete a game (also removes it from stations) | 204 | 404 |
+| Method | URL | Who | What |
+|---|---|---|---|
+| GET | `/api/games` | Anyone | List games. Filters: `genre`, `search` (title) |
+| GET | `/api/games/{gameId}` | Anyone | One game |
+| POST | `/api/games` | Admin | Create game (`409` if title exists) |
+| PUT | `/api/games/{gameId}` | Admin | Update game (`409` if title exists) |
+| DELETE | `/api/games/{gameId}` | Admin | Delete game (also removes it from stations) |
+| GET | `/api/rooms/{roomId}/stations/{stationId}/games` | Anyone | Games installed on a station |
+| PUT | `/api/rooms/{roomId}/stations/{stationId}/games/{gameId}` | Admin | Install game (doing it twice is fine) → `204` |
+| DELETE | `/api/rooms/{roomId}/stations/{stationId}/games/{gameId}` | Admin | Uninstall game → `204` |
 
 ```json
 { "title": "Counter-Strike 2", "genre": "FPS", "publisher": "Valve", "releaseDate": "2023-09-27" }
 ```
 
-#### Games on stations
+---
 
-| Method | URI | Description | Success | Errors |
-|---|---|---|---|---|
-| GET | `/api/rooms/{roomId}/stations/{stationId}/games` | List games installed on a station (paginated) | 200 | 404 |
-| PUT | `/api/rooms/{roomId}/stations/{stationId}/games/{gameId}` | Install a game on a station (idempotent) | 204 | 404 |
-| DELETE | `/api/rooms/{roomId}/stations/{stationId}/games/{gameId}` | Uninstall a game from a station | 204 | 404 |
+# Useful commands
 
-
-## Prerequisites
-
-| Tool | Version | Download |
-|---|---|---|
-| .NET SDK | 8.0 | https://dotnet.microsoft.com/download/dotnet/8.0 |
-| Docker Desktop | latest | https://www.docker.com/products/docker-desktop |
-| .NET SDK *(only for running without Docker)* | 8.0 | https://dotnet.microsoft.com/download/dotnet/8.0 |
-| Visual Studio 2022 *(optional)* | 17.8+ | https://visualstudio.microsoft.com |
-| Postman *(for testing)* | any | https://www.postman.com/downloads |
-
-### Setup
-
-#### 1. Clone the repository
+```bash
+docker compose up --build    # start everything
+docker compose up -d mysql   # start only the database
+docker compose down          # stop
+docker compose down -v       # stop and delete all data
+docker logs gaminghub-api    # API logs
 ```
-git clone https://github.com/hammerheartt/GamingHub.git
-cd GamingHub
-```
-
-#### 2a. Quick start — everything in Docker
-```
-docker compose up --build
-```
-Starts MySQL and the API in containers. Database tables are created automatically.
-API runs at `http://localhost:5177` → open `http://localhost:5177/api/rooms` → `[]`.
-
-#### 2b. Development — database in Docker, API from Visual Studio
-Start only the database:
-```
-docker compose up -d mysql
-```
-Then open `GamingHub.sln` in Visual Studio and press **F5** (or run `dotnet run` in `GamingHub.Api/`).
-API runs at `http://localhost:5177`.
-
-> Use either 2a or 2b — both use port 5177, so they can't run at the same time.
-
-#### 3. Test with Postman
-Import `postman/GamingHub.postman_collection.json` and `postman/GamingHub.postman_environment.json`,
-select the **GamingHub Local** environment, set `baseUrl` to `http://localhost:5177` and run the collection.
-
-### Configuration
-
-The local connection string is in `GamingHub.Api/appsettings.Development.json` (`Server=localhost`).
-When running in Docker it is overridden by the environment variable `ConnectionStrings__GamingHub` in `docker-compose.yml` (`Server=mysql`).
-In production it is provided the same way, via `ConnectionStrings__GamingHub`.
-
-### Useful commands
-
-| Action | Command |
-|---|---|
-| Start everything (MySQL + API) | `docker compose up --build` |
-| Start only the database | `docker compose up -d mysql` |
-| Stop everything | `docker compose down` |
-| Reset database (delete all data) | `docker compose down -v` |
-| Show API logs (Docker) | `docker logs gaminghub-api` |
-
-### Troubleshooting
-
-- **`Unable to connect to any of the specified MySQL hosts`**: the database isn't running. Start Docker Desktop and run `docker compose up -d mysql`.
-- **Port 5177 already in use**: the API is already running — either in Docker (`docker compose down`) or in Visual Studio.
-- **Port 3306 already in use**: a local MySQL is running. Stop it (Windows Services → MySQL80 → Stop), or change the port in `docker-compose.yml` to `"3307:3306"` and in the connection string to `Port=3307`.
-- **`docker` not recognized**: restart the terminal or Visual Studio after installing Docker.
-
-- **`docker` not recognized**: restart the terminal or Visual Studio after installing Docker.
