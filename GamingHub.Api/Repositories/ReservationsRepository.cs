@@ -7,7 +7,7 @@ namespace GamingHub.Api.Repositories
 {
     public interface IReservationsRepository
     {
-        Task<PagedList<Reservation>> GetAll(int stationId, SearchParameters searchParameters);
+        Task<PagedList<Reservation>> GetAll(int stationId, string? userId, SearchParameters searchParameters);
         Task<PagedList<Reservation>> GetFiltered(DateOnly? date, ReservationStatus? status, int? roomId, 
                                                  string? userId, SearchParameters searchParameters);
         Task<Reservation?> Get(int stationId, int reservationId);
@@ -22,11 +22,10 @@ namespace GamingHub.Api.Repositories
         private readonly GamingHubDbContext _db;
         public ReservationsRepository(GamingHubDbContext db) => _db = db;
 
-        public async Task<PagedList<Reservation>> GetAll(int stationId, SearchParameters searchParameters)
+        public async Task<PagedList<Reservation>> GetAll(int stationId, string? userId, SearchParameters searchParameters)
         {
-            var query = _db.Reservations
-                            .Where(o => o.StationId == stationId)
-                            .OrderBy(o => o.StartTime);
+            var query = _db.Reservations.Where(o => o.StationId == stationId);
+            if (userId != null) { query = query.Where(o => o.UserId == userId); }
 
             return await PagedList<Reservation>.CreateAsync(query, searchParameters.PageNumber!.Value, searchParameters.PageSize!.Value);
         }

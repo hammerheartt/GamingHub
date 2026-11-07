@@ -47,6 +47,11 @@ namespace GamingHub.Api.Controllers
                          [FromQuery] int? roomId, [FromQuery] string? userId, 
                          [FromQuery] SearchParameters searchParameters)
         {
+            if (!IsUserAdmin())
+            {
+                userId = CurrentUserId();
+            }
+
             var reservations = await _reservationsRepository.GetFiltered(date, status, roomId, userId, searchParameters);
             Response.AddPaginationHeader(reservations.CreatePaginationMetadata(_linkGenerator, HttpContext, "GetAllReservations",
                 new { date = date?.ToString("yyyy-MM-dd"), status, roomId, userId }));
@@ -61,7 +66,8 @@ namespace GamingHub.Api.Controllers
             var station = await _stationsRepository.Get(roomId, stationId);
             if (station == null) { return NotFound(); }
 
-            var reservations = await _reservationsRepository.GetAll(stationId, searchParameters);
+            var userId = IsUserAdmin() ? null : CurrentUserId();
+            var reservations = await _reservationsRepository.GetAll(stationId, userId, searchParameters);
 
             Response.AddPaginationHeader(
                     reservations.CreatePaginationMetadata(_linkGenerator, HttpContext, "GetReservations", new { roomId, stationId }));
@@ -73,10 +79,10 @@ namespace GamingHub.Api.Controllers
         public async Task<ActionResult<ReservationDto>> Get(int roomId, int stationId, int reservationId)
         {
             var station = await _stationsRepository.Get(roomId, stationId);
-            if (station == null) { return NotFound(); }
+            if (station == null) return NotFound();
 
             var reservation = await _reservationsRepository.Get(stationId, reservationId);
-            if (reservation == null) { return NotFound(); }
+            if (reservation == null || !CanAccess(reservation)) return NotFound();
 
             return Ok(_mapper.Map<ReservationDto>(reservation));
         }
@@ -105,7 +111,7 @@ namespace GamingHub.Api.Controllers
             var reservation = new Reservation
             {
                 StationId = stationId,
-                UserId = User.FindFirstValue(JwtRegisteredClaimNames.Sub)!,
+                UserId = CurrentUserId(),
                 StartTime = start,
                 EndTime = end,
                 TotalPrice = CalculatePrice(room.HourlyRate, start, end),
@@ -128,7 +134,7 @@ namespace GamingHub.Api.Controllers
             if (station == null) return NotFound();
 
             var reservation = await _reservationsRepository.Get(stationId, reservationId);
-            if (reservation == null) return NotFound();
+            if (reservation == null || !CanAccess(reservation)) return NotFound();
 
             if (reservation.Status != ReservationStatus.Upcoming)
                 return Problem(detail: "Only upcoming reservations can be changed.", statusCode: 409);
@@ -151,16 +157,18 @@ namespace GamingHub.Api.Controllers
         }
 
         [HttpPatch("{reservationId}")]
-        [Authorize(Roles = GamingHubRoles.Admin)]
         public async Task<ActionResult<ReservationDto>> Patch(int roomId, int stationId, int reservationId, UpdateReservationStatusDto dto)
         {
             var station = await _stationsRepository.Get(roomId, stationId);
             if (station == null) return NotFound();
 
             var reservation = await _reservationsRepository.Get(stationId, reservationId);
-            if (reservation == null) return NotFound();
+            if (reservation == null || !CanAccess(reservation)) return NotFound();
 
             var newStatus = dto.Status!.Value;
+            if (!IsUserAdmin() && newStatus != ReservationStatus.Cancelled)
+                return Problem(detail: "Members can only cancel their reservations.", statusCode: 403);
+
             if (!AllowedTransitions[reservation.Status].Contains(newStatus))
                 return Problem(detail: $"Cannot change status from {reservation.Status} to {newStatus}.", statusCode: 409);
 
@@ -209,6 +217,21 @@ namespace GamingHub.Api.Controllers
         private static decimal CalculatePrice(decimal hourlyRate, DateTimeOffset start, DateTimeOffset end) 
         { 
             return Math.Round(hourlyRate * (decimal)(end - start).TotalHours, 2); 
+        }
+
+        private string CurrentUserId()
+        {
+            return User.FindFirstValue(JwtRegisteredClaimNames.Sub)!;
+        }
+
+        private bool IsUserAdmin()
+        {
+            return User.IsInRole(GamingHubRoles.Admin);
+        }
+
+        private bool CanAccess(Reservation reservation)
+        {
+            return IsUserAdmin() || CurrentUserId() == reservation.UserId;
         }
     }
 }
