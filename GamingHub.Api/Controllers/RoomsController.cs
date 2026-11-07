@@ -4,6 +4,8 @@ using GamingHub.Api.Data.Entities;
 using GamingHub.Api.Repositories;
 using GamingHub.Api.Data.Paging;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Authorization;
+using GamingHub.Api.Auth;
 
 namespace GamingHub.Api.Controllers
 {
@@ -15,6 +17,7 @@ namespace GamingHub.Api.Controllers
 
     [ApiController]
     [Route("api/rooms")]
+    [Authorize(Roles = GamingHubRoles.Admin)]
     public class RoomsController : ControllerBase
     {
         private readonly IRoomsRepository _roomsRepository;
@@ -29,6 +32,7 @@ namespace GamingHub.Api.Controllers
         }
 
         [HttpGet(Name = "GetRooms")]
+        [AllowAnonymous]
         public async Task<ActionResult<IEnumerable<RoomDto>>> GetAll([FromQuery] SearchParameters searchParameters)
         {
             var rooms = await _roomsRepository.GetAll(searchParameters);
@@ -38,6 +42,7 @@ namespace GamingHub.Api.Controllers
         }
 
         [HttpGet("{roomId}")]
+        [AllowAnonymous]
         public async Task<ActionResult<RoomDto>> Get(int roomId)
         {
             var room = await _roomsRepository.Get(roomId);
